@@ -6,7 +6,7 @@ Copied from the T-Square team wiki for ease of access.
 
 
 = Details =
-
+Team Contact Info
 
 || *Name* || *Email Address* || *Skype Account* ||
 || Fraser || fnewton3@gatech.edu || FigMan13 ||
