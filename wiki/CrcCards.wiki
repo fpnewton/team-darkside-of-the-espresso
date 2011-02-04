@@ -1,0 +1,15 @@
+#summary CRC Cards
+
+= Introduction =
+
+This is the new list.
+
+
+= Details =
+
+|| Class Name || Person Responsible ||
+|| Authentication || Fraser ||
+|| Database || Fraser ||
+|| DB_Transaction || Fraser ||
+|| Encryption || Fraser ||
+
