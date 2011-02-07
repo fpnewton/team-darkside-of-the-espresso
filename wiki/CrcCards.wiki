@@ -17,6 +17,7 @@ This is the new list.
 || Doctor || Patrick ||
 || SysAdmin || Patrick ||
 || ErrLog || Patrick ||
+|| SessionData || Patrick ||
 || PatientInfo || David ||
 || Appointment || David ||
 || HealthHistory || David ||
