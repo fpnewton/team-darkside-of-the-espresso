@@ -22,3 +22,11 @@ This is the new list.
 || HealthHistory || David ||
 || Income || David ||
 || Invoice || David||
+|| Bill || Jonathan ||
+|| Vaccine || Jonathan ||
+|| Lab || Jonathan ||
+|| Treatments || Jonathan ||
+|| Prescription || Jonathan ||
+|| Treatment Record || Jonathan ||
+|| Lab Data || Jonathan ||
+|| Doc Orders || Jonathan ||
