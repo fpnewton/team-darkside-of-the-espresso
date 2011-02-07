@@ -30,3 +30,10 @@ This is the new list.
 || Prescription || Jonathan ||
 || Treatment Record || Jonathan ||
 || Doc Orders || Jonathan ||
+
+|| *Edited Classes* ||
+|| History ||
+|| LabData ||
+|| Reports ||
+|| Symptoms ||
+|| Allergies ||
