@@ -23,7 +23,6 @@ This is the new list.
 || MedHistory || David ||
 || Income || David ||
 || Invoice || David||
-|| Bill || Jonathan ||
 || Vaccine || Jonathan ||
 || Lab || Jonathan ||
 || Treatments || Jonathan ||
