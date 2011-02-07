@@ -29,5 +29,4 @@ This is the new list.
 || Treatments || Jonathan ||
 || Prescription || Jonathan ||
 || Treatment Record || Jonathan ||
-|| Lab Data || Jonathan ||
 || Doc Orders || Jonathan ||
