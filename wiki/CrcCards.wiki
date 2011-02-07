@@ -31,7 +31,7 @@ This is the new list.
 || Treatment Record || Jonathan ||
 || Doc Orders || Jonathan ||
 
-|| *Edited Classes* ||
+|| *Removed Classes* ||
 || History ||
 || LabData ||
 || Reports ||
