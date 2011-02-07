@@ -20,6 +20,7 @@ This is the new list.
 || PatientInfo || David ||
 || Appointment || David ||
 || HealthHistory || David ||
+|| MedHistory || David ||
 || Income || David ||
 || Invoice || David||
 || Bill || Jonathan ||
