@@ -12,4 +12,8 @@ This is the new list.
 || Database || Fraser ||
 || DB_Transaction || Fraser ||
 || Encryption || Fraser ||
-|| - || - ||
+|| Patient || Patrick ||
+|| Nurse  || Patrick ||
+|| Doctor || Patrick ||
+|| SysAdmin || Patrick ||
+|| ErrLog || Patrick ||
