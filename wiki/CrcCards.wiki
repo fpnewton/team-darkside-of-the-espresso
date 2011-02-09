@@ -33,9 +33,6 @@ This is the new list.
 || Income || David ||
 || Invoice || David||
 ||  ||  ||
-|| Bill || Jonathan ||
-|| Vaccine || Jonathan ||
-|| Lab || Jonathan ||
 || Treatments || Jonathan ||
 || Prescription || Jonathan ||
 || Treatment Record || Jonathan ||
@@ -47,3 +44,6 @@ This is the new list.
 || Reports ||
 || Symptoms ||
 || Allergies ||
+|| Bill ||
+|| Vaccine ||
+|| Lab ||
