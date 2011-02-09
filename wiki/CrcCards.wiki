@@ -10,7 +10,6 @@ This is the new list.
 || *New Classes* ||
 || ClientHospital ||
 || ServerHospital ||
-|| User ||
 
 || *Class Name* || *Person Responsible* ||
 || Authentication || Fraser ||
