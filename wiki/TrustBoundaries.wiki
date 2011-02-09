@@ -1,0 +1,11 @@
+#summary Trust Boundaries for all classes.
+
+= Introduction =
+
+Class Trust Boundaries
+
+
+= Details =
+
+
+http://team-darkside-of-the-espresso.googlecode.com/files/Trust%20Boundaries.png
