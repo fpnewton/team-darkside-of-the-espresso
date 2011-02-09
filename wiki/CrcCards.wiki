@@ -37,6 +37,9 @@ This is the new list.
 || Treatments || Jonathan ||
 || Treatment Record || Jonathan ||
 || Doc Orders || Jonathan ||
+|| Vaccine || Jonathan ||
+|| Prescription || Jonathan ||
+|| Lab || Jonathan ||
 
 || *Removed Classes* ||
 || History ||
@@ -44,6 +47,3 @@ This is the new list.
 || Reports ||
 || Symptoms ||
 || Allergies ||
-|| Vaccine ||
-|| Prescription ||
-|| Lab ||
