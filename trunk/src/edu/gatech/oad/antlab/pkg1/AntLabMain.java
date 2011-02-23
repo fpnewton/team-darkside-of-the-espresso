@@ -55,23 +55,24 @@ public class AntLabMain
 	public void printOutMessage()
 	{
 
-		String toPrint = ant11.getMessage() + ant12.getMessage() + ant21.getMessage() + ant22.getMessage() + ant31.getMessage();
-		
+		String toPrint = ant11.getMessage() + ant12.getMessage()
+				+ ant21.getMessage() + ant22.getMessage() + ant31.getMessage();
+
 		// Person1 replace P1 with your name
 		// and ggg000x with your gt num
 		Person1 p1 = new Person1("Fraser Newton");
 		toPrint += p1.toString("fnewton3");
-		
+
 		// Person2 replace P2 with your name
 		// and ggg000x with your gt num
 		Person2 p2 = new Person2("Patrick Tynan");
 		toPrint += p2.toString("ptynan3");
-		
+
 		// Person3 replace P3 with your name
 		// and ggg000x with your gt num
 		Person3 p3 = new Person3("P3");
 		toPrint += p3.toString("ggg003x");
-		
+
 		// Person4 replace P4 with your name
 		// and ggg000x with your gt num
 		Person4 p4 = new Person4("P4");
