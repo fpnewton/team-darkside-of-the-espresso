@@ -30,8 +30,18 @@ public class Person2 {
 	 * @return the modified string
 	 */
 	private String calc(String input) {
-	  //Person 2 put your implementation here
-	  return null;
+		if (input.length()<=1)
+		    return input;
+
+		int split=input.length()/2;
+
+		String temp1=shuffle(input.substring(0,split));
+		String temp2=shuffle(input.substring(split));
+
+		if (Math.random() > 0.5) 
+		    return temp1 + temp2;
+		else 
+		    return temp2 + temp1;
 	}
 	/**
 	 * Return a string rep of this object
