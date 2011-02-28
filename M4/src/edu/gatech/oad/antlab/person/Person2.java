@@ -39,8 +39,8 @@ public class Person2 {
 		int split=input.length()/2;
 		
 		//recursive statements
-		String temp1=shuffle(input.substring(0,split));
-		String temp2=shuffle(input.substring(split));
+		String temp1=calc(input.substring(0,split));
+		String temp2=calc(input.substring(split));
 
 		//randomize!
 		if (Math.random() > 0.5) 
