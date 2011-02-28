@@ -1,4 +1,3 @@
-package edu.gatech.oad.antlab.person;
 
 /**
  *  A simple class for person 1
@@ -30,8 +29,10 @@ public class Person4 {
      * @return the modified string
      */
     private String calc(String input) {
+    	String temp = input.substring(0, 2);
+    	String ret = input.substring(2) + temp;
       //Person 1 put your implementation here
-      return null;
+      return ret;
     }
     
     /**
