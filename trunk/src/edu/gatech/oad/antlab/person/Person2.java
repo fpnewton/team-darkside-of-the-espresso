@@ -30,14 +30,19 @@ public class Person2 {
 	 * @return the modified string
 	 */
 	private String calc(String input) {
+		
+		//termination statement
 		if (input.length()<=1)
 		    return input;
-
+		
+		//create middle string index
 		int split=input.length()/2;
-
+		
+		//recursive statements
 		String temp1=shuffle(input.substring(0,split));
 		String temp2=shuffle(input.substring(split));
 
+		//randomize!
 		if (Math.random() > 0.5) 
 		    return temp1 + temp2;
 		else 
