@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="M4" default="all" basedir=".">
+
+	<!--Create properties-->
+	<target name="init">
+		<property name="src" location="src"/>
+		<property name="lib" location="lib"/>
+		<property name="build" location="build"/>
+		<property name="apidocs" location="apidocs"/>
+	</target>
+	
+	<target name="prepare" depends="init">
+		<mkdir dir="build"/>
+		<mkdir dir="apidocs"/>
+	</target>
+	
+	<target name="compile" depends="prepare">
+		<javac srcdir="${src}" destdir="${build}" classpath="${lib}/resources.jar"/>
+	</target>
+	
+	<target name="javadoc" depends="compile">    
+		<javadoc sourcepath="${src}" access="public" destdir="${apidocs}" packagenames="edu.gatech.oad.antlab" classpath = "${lib}/resources.jar">
+		    <fileset dir="${src}">
+	    	    <include name="**/*.java"/>
+	    	</fileset>
+		</javadoc>
+    </target>
+    
+    <target name="jar" depends="javadoc">
+        <jar destfile="RunAntLab.jar" basedir="${build}">
+            <include name="edu/gatech/oad/antlab/**/*.class"/>
+	    	<manifest>
+	        	<attribute name="Main-Class" value="edu.gatech.oad.antlab.pkg1.AntLabMain"/>
+				<attribute name="Class-Path" value="lib/resources.jar"/>
+	    	</manifest>
+        </jar>
+    </target>
+    
+    <target name="run" depends="jar">
+    	<java jar="RunAntLab.jar" fork="true">
+	    	<classpath>
+				<pathelement location = "java.class.path"/>
+	     	</classpath>
+		</java>
+    </target>
+
+    <target name="all" depends="run">
+    </target>
+
+    <target name="clean" depends="init">
+        <delete dir="${build}"/>
+        <delete dir="${apidocs}"/>
+		<delete file="RunAntLab.jar"/>
+    </target>
+	
+</project>
