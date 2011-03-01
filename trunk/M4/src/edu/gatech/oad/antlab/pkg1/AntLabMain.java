@@ -70,8 +70,8 @@ public class AntLabMain
 
 		// Person3 replace P3 with your name
 		// and ggg000x with your gt num
-		Person3 p3 = new Person3("P3");
-		toPrint += p3.toString("ggg003x");
+		Person3 p3 = new Person3("David Garner");
+		toPrint += p3.toString("dgarner6");
 
 		// Person4 replace P4 with your name
 		// and ggg000x with your gt num
