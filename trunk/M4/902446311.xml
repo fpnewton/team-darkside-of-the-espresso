@@ -1,0 +1,65 @@
+<project name="Test" default="all">
+	<target name="init" description="set up all properties">
+		<property name="src" location="./src"/>
+		<property name="build" location="./build"/>
+		<property name="apidoc" location="./apidoc"/>
+		<property name="library" location="./lib"/>
+		<property name="AntLabRun" location="./AntLabRun.jar"/>
+	</target>
+	
+	<target name="prepare" description="Make all required directories" depends="init">
+		<mkdir dir="${build}"/>
+		<mkdir dir="${apidoc}"/>
+	</target>
+	
+	<target name="compile" description="compile all java classes in src to build directory" depends="init">
+		<javac destdir="${build}">
+			<src path="${src}"/>
+			<classpath>
+				<pathelement path="${build}"/>
+				<pathelement path="${library}/resources.jar"/>
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="javadoc" description="generate javadoc info for src files and store in apidoc dir" depends="init">
+		<javadoc sourcepath="${src}" access="public" destdir="${apidoc}/javadoc" packagenames="edu.gatech.oad.antlab">
+			<excludepackage name="edu.gt.cs2335.lab2.test.*"/>
+			<fileset dir="${src}">
+				<include name="**/*.java"/>
+			</fileset>
+			<bottom>
+				<![CDATA[<i>Copyright &#169; 2011 Team 21 Dark Side of the Espresso CS2340. Dark Side of the Espresso :P is a trademark of team 21, a non-profit orginization.  All Rights Reserved.</i>]]>
+			</bottom>
+		</javadoc>
+	</target>
+	
+	<target name="jar" description="package compiled classes into AntLabRun.Jar" depends="init">
+		<jar destfile="${AntLabRun}" basedir="${build}">
+			<manifest>
+				<attribute name="Main-Class" value="${build}"/>
+				<attribute name="Other" value="$(library}/resources.jar"/>
+			</manifest>
+		</jar>
+		<!--jar destfile="${AntLabRun}" basedir="${build}"/-->
+	</target>
+	
+	<target name="run" description="start program execution and run the jar file" depends="init">
+		<java classname="edu.gatech.oad.antlab.pkg1.AntLabMain">
+			<classpath>
+				<pathelement location="${build}"/>
+				<pathelement location="${AntLabRun}"/>
+			</classpath>
+		</java>
+	</target>
+	
+	<target name="all" description="do all the above" depends="init,prepare,compile,javadoc,jar,run">
+	
+	</target>
+	
+	<target name="clean" description="remove compiled classes, the jar file, and javadocs" depends="init">
+		<delete dir="${build}"/>
+		<delete dir="${apidoc}"/>
+		<delete file="${AntLabRun}"/>
+	</target>
+</project>
