@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<project name="Team Darkside of the Espresso" default="all" basedir=".">
+	<target name="init">
+		<property name="src" location="src" />
+		<property name="lib" location="lib" />
+		<property name="bin" location="bin" />
+		<property name="doc" location="doc" />
+	</target>
+
+	<target name="prepare" depends="init">
+		<mkdir dir="bin" />
+		<mkdir dir="doc" />
+	</target>
+
+	<target name="compile" depends="prepare">
+		<javac srcdir="${src}" destdir="${bin}" classpath="" />
+	</target>
+
+	<target name="jar" depends="javadoc">
+		<jar destfile="Hospital Client.jar" basedir="${bin}">
+			<include name="edu/gatech/TeamDarksideOfTheEspresso/HospitalClient/**/*.class" />
+			<include name="edu/gatech/TeamDarksideOfTheEspresso/HospitalClient/**/*.class" />
+			<manifest>
+				<attribute name="Main-Class" value="edu.gatech.TeamDarksideOfTheEspresso.HospitalClient" />
+				<attribute name="Class-Path" value="" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean" depends="init">
+		<delete dir="${bin}" />
+		<delete dir="${doc}" />
+		<delete file="RunAntLab.jar" />
+	</target>
+
+	<target name="all" depends="run">
+	</target>
+
+	<target name="run" depends="jar">
+		<java jar="RunAntLab.jar" fork="true">
+			<classpath>
+				<pathelement location="java.class.path" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="javadoc" depends="compile">
+		<javadoc sourcepath="${src}" access="public" destdir="${doc}" packagenames="edu.gatech.oad.antlab" classpath="${lib}/resources.jar">
+			<fileset dir="${src}">
+				<include name="**/*.java" />
+			</fileset>
+		</javadoc>
+	</target>
+</project>
