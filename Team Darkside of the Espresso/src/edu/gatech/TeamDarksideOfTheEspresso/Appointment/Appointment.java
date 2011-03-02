@@ -4,6 +4,8 @@ package edu.gatech.TeamDarksideOfTheEspresso.Appointment;
 import java.util.Date;
 import java.sql.Time;
 
+import edu.gatech.TeamDarksideOfTheEspresso.Users.Doctor;
+
 
 public class Appointment
 {
