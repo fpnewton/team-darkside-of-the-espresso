@@ -1,4 +1,4 @@
-package edu.gatech.TeamDarksideOfTheEspresso.HospitalClient;
+package edu.gatech.TeamDarksideOfTheEspresso.HospitalServer;
 
 
 public class Main
@@ -11,7 +11,7 @@ public class Main
 	public static void main(String[] args)
 	{
 		// TODO Implement Method
-		System.out.println("Hello World from Client!");
+		System.out.println("Hello World from Server!");
 	}
 
 }

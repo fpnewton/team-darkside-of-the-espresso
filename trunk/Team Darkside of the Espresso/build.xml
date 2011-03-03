@@ -1,54 +1,119 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
+<?xml version  =  "1.0" encoding  =  "UTF-8"?>
 
-<project name="Team Darkside of the Espresso" default="all" basedir=".">
-	<target name="init">
-		<property name="src" location="src" />
-		<property name="lib" location="lib" />
-		<property name="bin" location="bin" />
-		<property name="doc" location="doc" />
+<project name = "Team Darkside of the Espresso"  default = "all"  basedir = ".">
+	<target name = "init">
+		<property name = "src.dir"					location = "src" />
+		<property name = "lib.dir"					location = "lib" />
+		<property name = "bin.dir"					location = "bin" />
+		<property name = "doc.dir"					location = "doc" />
+		
+
+		<property name = "global.pkg"				value = "edu.gatech.TeamDarksideOfTheEspresso"										/>
+		<property name = "global.pkg.dir"			value = "edu${file.separator}gatech${file.separator}TeamDarksideOfTheEspresso"		/>
+		
+		
+		<property name = "hospital-client.pkg"		value = "${global.pkg}.HospitalClient"	/>
+		<property name = "hospital-server.pkg"		value = "${global.pkg}.HospitalServer"	/>
+
+		
+		<property name = "client.name"				value = "Hospital Client"	/>
+		<property name = "server.name"				value = "Hospital Server"	/>
 	</target>
-
-	<target name="prepare" depends="init">
-		<mkdir dir="bin" />
-		<mkdir dir="doc" />
+	
+	
+	<target name = "prepare"  depends = "init">
+		<mkdir dir = "${bin.dir}"	/>
+		<mkdir dir = "${doc.dir}"	/>
 	</target>
-
-	<target name="compile" depends="prepare">
-		<javac srcdir="${src}" destdir="${bin}" classpath="" />
+	
+	
+	<target name = "compile"  depends = "prepare">
+		<javac srcdir = "${src.dir}" destdir = "${bin.dir}" classpath = "${lib.dir}${file.separator}*.jar" includeantruntime="false"	/>
 	</target>
-
-	<target name="jar" depends="javadoc">
-		<jar destfile="Hospital Client.jar" basedir="${bin}">
-			<include name="edu/gatech/TeamDarksideOfTheEspresso/HospitalClient/**/*.class" />
-			<include name="edu/gatech/TeamDarksideOfTheEspresso/HospitalClient/**/*.class" />
+	
+	
+	<target name = "jar"  depends = "jar-client,jar-server">
+	</target>
+	
+	
+	<target name = "jar-client"  depends = "javadoc">
+		<jar destfile = "${client.name}.jar" basedir = "${bin.dir}"  whenmanifestonly = "fail">
+			<include name = "${global.pkg.dir}${file.separator}Appointment${file.separator}*.class"		/>
+			<include name = "${global.pkg.dir}${file.separator}HospitalClient${file.separator}*.class"	/>
+			<include name = "${global.pkg.dir}${file.separator}Network${file.separator}*.class"			/>
+			<include name = "${global.pkg.dir}${file.separator}Record${file.separator}*.class"			/>
+			<include name = "${global.pkg.dir}${file.separator}SystemLog${file.separator}*.class"		/>
+			<include name = "${global.pkg.dir}${file.separator}Users${file.separator}*.class"			/>
+			
 			<manifest>
-				<attribute name="Main-Class" value="edu.gatech.TeamDarksideOfTheEspresso.HospitalClient" />
-				<attribute name="Class-Path" value="" />
+				<attribute name = "Main-Class"  value = "${hospital-client.pkg}.Main"		/>
+				<attribute name = "Class-Path"  value = "${lib.dir}${file.separator}*.jar"	/>
 			</manifest>
 		</jar>
 	</target>
-
-	<target name="clean" depends="init">
-		<delete dir="${bin}" />
-		<delete dir="${doc}" />
-		<delete file="RunAntLab.jar" />
+	
+	
+	<target name = "jar-server"  depends = "javadoc">
+		<jar destfile = "${server.name}.jar" basedir = "${bin.dir}"  whenmanifestonly = "fail">
+			<include name = "${global.pkg.dir}${file.separator}Appointment${file.separator}*.class"		/>
+			<include name = "${global.pkg.dir}${file.separator}HospitalServer${file.separator}*.class"	/>
+			<include name = "${global.pkg.dir}${file.separator}Network${file.separator}*.class"			/>
+			<include name = "${global.pkg.dir}${file.separator}Record${file.separator}*.class"			/>
+			<include name = "${global.pkg.dir}${file.separator}SystemLog${file.separator}*.class"		/>
+			<include name = "${global.pkg.dir}${file.separator}Users${file.separator}*.class"			/>
+			
+			<manifest>
+				<attribute name = "Main-Class"  value = "${hospital-server.pkg}.Main"		/>
+				<attribute name = "Class-Path"  value = "${lib.dir}${file.separator}*.jar"	/>
+			</manifest>
+		</jar>
 	</target>
-
-	<target name="all" depends="run">
+	
+	
+	<target name = "clean"  depends = "init">
+		<delete file = "${client.name}.jar"	/>
+		<delete file = "${server.name}.jar"	/>
+		
+		<delete dir = "${bin.dir}"			/>
+		<delete dir = "${doc.dir}"			/>
 	</target>
-
-	<target name="run" depends="jar">
-		<java jar="RunAntLab.jar" fork="true">
+	
+	
+	<target name = "test"  depends = "compile">
+	</target>
+	
+	
+	<target name = "all"  depends = "run">
+	</target>
+	
+	
+	<target name = "run"  depends = "run-server,run-client">
+		<echo message = "Done!"	/>
+	</target>
+	
+	
+	<target name = "run-client"  depends = "jar-client">
+			<java jar = "${client.name}.jar"  fork = "true">
+				<classpath>
+					<pathelement location = "java.class.path"	/>
+				</classpath>
+			</java>
+		</target>
+	
+	
+	<target name = "run-server"  depends = "jar-server">
+		<java jar = "${server.name}.jar"  fork = "true">
 			<classpath>
-				<pathelement location="java.class.path" />
+				<pathelement location = "java.class.path"	/>
 			</classpath>
 		</java>
 	</target>
-
-	<target name="javadoc" depends="compile">
-		<javadoc sourcepath="${src}" access="public" destdir="${doc}" packagenames="edu.gatech.oad.antlab" classpath="${lib}/resources.jar">
-			<fileset dir="${src}">
-				<include name="**/*.java" />
+	
+	
+	<target name = "javadoc" depends = "compile">
+		<javadoc sourcepath = "${src.dir}"  access = "public"  destdir = "${doc.dir}"  packagenames = "${global.pkg}"  classpath = "${lib.dir}${file.separator}.resources.jar">
+			<fileset dir = "${src.dir}">
+				<include name = "**${file.separator}*.java"	/>
 			</fileset>
 		</javadoc>
 	</target>
