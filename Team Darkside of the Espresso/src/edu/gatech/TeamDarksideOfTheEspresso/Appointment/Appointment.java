@@ -17,6 +17,21 @@ public class Appointment
 	
 	private Time		Time;
 	
+
+	/**
+	 * Appointment constructor
+	 * 
+	 * @param Date The desired date of the appointment
+	 * @param Time The desired time of the appointment
+	 * @param DesiredDoctor The desired doctor
+	 * @param Symptoms Any symptoms the patient is experiencing.
+	 */
+	public Appointment(Date Date, Time Time, Doctor DesiredDoctor, String Symptoms){
+		this.Date=Date;
+		this.Time=Time;
+		this.DesiredDoctor=DesiredDoctor;
+		this.Symptoms=Symptoms;
+	}
 	
 	public Date getDate()
 	{
