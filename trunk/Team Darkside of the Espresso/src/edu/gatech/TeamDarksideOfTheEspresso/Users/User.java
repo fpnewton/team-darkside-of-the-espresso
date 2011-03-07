@@ -1,5 +1,14 @@
 package edu.gatech.TeamDarksideOfTheEspresso.Users;
 
+/**
+ * 
+ * 
+ * 
+ * @author Patrick Tynan
+ * @version 1.0
+ * 
+ */
+
 
 public abstract class User
 {
@@ -77,4 +86,13 @@ public abstract class User
 	{
 		isActive = false;
 	}
+	
+	private boolean Login(String Uname, String Pword){
+		if(Uname.equals(this.Username) && Pword.equals(this.PasswordHash)){
+			this.ActivateUser();
+			return true;
+		}
+		return false;
+	}
+
 }
