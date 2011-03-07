@@ -31,7 +31,7 @@ public class Invoice
 	}
 	
 	
-	public void setPrintInvoice()
+	public void PrintInvoice()
 	{
 		// TODO Implement Method
 	}
