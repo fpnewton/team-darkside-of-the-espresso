@@ -6,7 +6,15 @@ public class Vaccine
 	private String	Info;
 	private String	Price;
 	
+	public Vaccine(String Info, String Price){
+		this.Info = Info;
+		this.Price = Price;
+	}
 	
+	public Vaccine(){
+		this("","");
+	}
+		
 	public String getInfo()
 	{
 		return Info;
