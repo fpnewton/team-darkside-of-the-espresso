@@ -46,6 +46,30 @@ public class DoctorsOrders
 		return this.Instructions;
 	}
 	
-	// TODO Implement Methods
+	public void AddLabWork(String info, String price){
+		LabWork temp = new LabWork(info, price);
+		this.LabWorkL.add(temp);
+	}
+	
+	public void ClearLabWork(String info, String price){
+		this.LabWorkL = new ArrayList<LabWork>();
+	}
+	
+	public List<LabWork> getLabWork(){
+		return this.LabWorkL;
+	}
+	
+	public void AddPrescription(String info, String price){
+		Prescription temp = new Prescription(info, price);
+		this.PrescriptionsL.add(temp);
+	}
+	
+	public void ClearPrescription(String info, String price){
+		this.PrescriptionsL = new ArrayList<Prescription>();
+	}
+	
+	public List<Prescription> getPrescription(){
+		return this.PrescriptionsL;
+	}
 	
 }
