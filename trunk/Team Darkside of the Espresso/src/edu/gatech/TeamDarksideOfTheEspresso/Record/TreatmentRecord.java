@@ -4,7 +4,6 @@ import edu.gatech.TeamDarksideOfTheEspresso.Users.*;
 
 public class TreatmentRecord
 {
-<<<<<<< .mine
 	private Doctor			treatingDoctor;
 	private Nurse			treatingNurse;
 	private DoctorsOrders	docOrders;
@@ -30,6 +29,4 @@ public class TreatmentRecord
 	public Nurse getNurse(){
 		return this.treatingNurse;
 	}
-=======
->>>>>>> .r85
 }
