@@ -1,35 +1,65 @@
 package edu.gatech.TeamDarksideOfTheEspresso.Users;
 
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.sql.Time;
 
 import edu.gatech.TeamDarksideOfTheEspresso.Appointment.Appointment;
+import edu.gatech.TeamDarksideOfTheEspresso.Record.HealthHistory;
+import edu.gatech.TeamDarksideOfTheEspresso.Record.MedicalHistory;
+import edu.gatech.TeamDarksideOfTheEspresso.SystemLog.SystemLog;
 
+/**
+ * 
+ * 
+ * 
+ * @author Patrick Tynan
+ * @version 1.0
+ * 
+ */
 
 public class Patient extends User
 {
-	private PatientInfo			PatientInfo;
-	private List<Appointment>	AppointmentHistory;
+	private PatientInfo			myPatientInfo;
+	private ArrayList<Appointment>	AppointmentHistory;
+	private MedicalHistory			myMedHistory;
+	private HealthHistory		myHealthHistory;
+
 	
+	
+	public Patient(PatientInfo PatInfo){
+		this.myPatientInfo = PatInfo;
+		
+	}
 	
 	public PatientInfo getPatientInfo()
 	{
-		return PatientInfo;
+		return myPatientInfo;
 	}
 	
 	
 	// TODO Add Get Methods/Set Methods
 	
 	
-	public void ScheduleAppointment(Appointment Appointment)
+	public void ScheduleAppointment(Date date, Time time, String symptoms, Doctor PreferredDoctor)
 	{
-		// TODO Implement Method
+		try{
+			Appointment Appt = new Appointment(date, time, PreferredDoctor, symptoms);
+			if(Appt.checkAvailability(PreferredDoctor, time)){
+				Appt.scheduleAvailability(PreferredDoctor, time);
+			}
+		}
+		catch(Exception e){
+			SystemLog.LogMessage("Didn't Work!", Level.ALL);
+		}
 	}
 	
 	
 	public void ViewMedicalHistory()
 	{
-		// TODO Implement Method
+		myMedHistory.toString();
 	}
 	
 	
