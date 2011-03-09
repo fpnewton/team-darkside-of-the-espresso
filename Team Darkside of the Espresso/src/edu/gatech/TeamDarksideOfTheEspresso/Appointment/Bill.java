@@ -26,7 +26,7 @@ public class Bill
 		this.LabWorkL.add(temp);
 	}
 	
-	public void ClearLabWork(String info, String price){
+	public void ClearLabWork(){
 		this.LabWorkL = new ArrayList<LabWork>();
 	}
 	
@@ -39,7 +39,7 @@ public class Bill
 		this.PrescriptionsL.add(temp);
 	}
 	
-	public void ClearPrescription(String info, String price){
+	public void ClearPrescription(){
 		this.PrescriptionsL = new ArrayList<Prescription>();
 	}
 	
@@ -52,7 +52,7 @@ public class Bill
 		this.TreatmentsL.add(temp);
 	}
 	
-	public void ClearTreatment(String info, String price){
+	public void ClearTreatment(){
 		this.TreatmentsL = new ArrayList<Treatment>();
 	}
 	
@@ -65,7 +65,7 @@ public class Bill
 		this.VaccinesL.add(temp);
 	}
 	
-	public void ClearVaccine(String info, String price){
+	public void ClearVaccine(){
 		this.VaccinesL = new ArrayList<Vaccine>();
 	}
 	
