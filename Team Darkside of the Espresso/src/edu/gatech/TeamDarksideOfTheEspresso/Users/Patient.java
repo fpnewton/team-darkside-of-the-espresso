@@ -48,7 +48,7 @@ public class Patient extends User
 		try{
 			Appointment Appt = new Appointment(date, time, PreferredDoctor, symptoms);
 			if(Appt.checkAvailability(PreferredDoctor, time)){
-				Appt.scheduleAvailability(PreferredDoctor, time);
+				Appt.scheduleDoctor(PreferredDoctor, time);
 			}
 		}
 		catch(Exception e){

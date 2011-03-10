@@ -14,12 +14,11 @@ public class PatientInfo
 	private String					Pharmacy;
 	
 	private List<String>			Allergies;
-	//Removed List<Double> WeightHistory, as this is what the HealthHistory class is for
 	private	List<TreatmentRecord>	MedicalHistory;
 	
 	public PatientInfo(int Age, String InsuranceCarrier, String Pharmacy, 
 						List<String> Allergies, List<TreatmentRecord> MedicalHistory){
-		this.Age=age;
+		this.Age=Age;
 		this.InsuranceCarrier=InsuranceCarrier;
 		this.Pharmacy=Pharmacy;
 		this.Allergies=Allergies;
@@ -30,7 +29,7 @@ public class PatientInfo
 		return Age;
 	}
 	
-	publie void setAge(int newAge){
+	public void setAge(int newAge){
 		Age=newAge;
 	}
 	
