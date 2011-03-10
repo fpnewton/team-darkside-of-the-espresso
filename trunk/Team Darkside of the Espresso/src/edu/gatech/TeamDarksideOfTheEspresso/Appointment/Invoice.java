@@ -7,6 +7,11 @@ public class Invoice
 	Bill		Bill;
 	
 	
+	public Invoice(Appointment Appointment, Bill Bill){
+		this.Appointment=Appointment;
+		this.Bill=Bill;
+	}
+	
 	public Appointment getAppointment()
 	{
 		return Appointment;
