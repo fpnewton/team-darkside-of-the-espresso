@@ -33,6 +33,10 @@ public class Appointment
 		this.Symptoms=Symptoms;
 	}
 	
+	public Appointment(){
+		this(null, null, null, null);
+	}
+	
 	/**
 	 * Schedules a doctor at a specific date if he/she is available
 	 * 
@@ -40,7 +44,7 @@ public class Appointment
 	 * @param date The desired date
 	 * @param time The desired time
 	 */
-	public void scheduleDoctor(Doctor doc, Date date, Time time){
+	public void scheduleDoctor(Doctor doc, Date date){
 		//TODO This method depends heavily on doctor attributes
 		//		that determine availability as well as an attribute
 		//		that stores dates during which the doctor has
@@ -69,7 +73,7 @@ public class Appointment
 	 * @return True if the doctor is available at that time,
 	 * 			false otherwise
 	 */
-	public boolean checkAvailability(Date date, Time time){
+	public boolean checkAvailability(Doctor doc, Date time){
 		//TODO I believe this should be in the Doctor class. Therefore,
 		//		the method has been commented out for now.
 		
