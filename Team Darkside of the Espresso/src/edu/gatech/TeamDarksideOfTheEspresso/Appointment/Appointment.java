@@ -33,8 +33,8 @@ public class Appointment
 		this.Symptoms=Symptoms;
 	}
 	
-	public Appointment(){
-		this(null, null, null, null);
+	public Appointment(Date Date, Time Time, Doctor DesiredDoctor){
+		this(Date, Time, DesiredDoctor, null);
 	}
 	
 	/**
