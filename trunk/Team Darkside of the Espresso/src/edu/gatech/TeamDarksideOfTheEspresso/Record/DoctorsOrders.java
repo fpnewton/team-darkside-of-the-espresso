@@ -3,9 +3,11 @@ package edu.gatech.TeamDarksideOfTheEspresso.Record;
 
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.Date;
+import java.sql.Time;
 
 import edu.gatech.TeamDarksideOfTheEspresso.Appointment.*;
+import edu.gatech.TeamDarksideOfTheEspresso.Users.Doctor;
 
 
 public class DoctorsOrders
@@ -20,8 +22,8 @@ public class DoctorsOrders
 	 * Consturctor for DoctorsOrders
 	 * Sets all lists to empty lists of the correct datatype
 	 */
-	public DoctorsOrders(){
-		this.FollowUpAppointment = new Appointment();
+	public DoctorsOrders(Date Date, Time Time, Doctor Doc){
+		this.FollowUpAppointment = new Appointment(Date, Time, Doc);
 		this.LabWorkL = new ArrayList<LabWork>();
 		this.PrescriptionsL = new ArrayList<Prescription>();
 		this.Instructions = new ArrayList<String>();
