@@ -6,6 +6,10 @@ public class LabWork
 	private String	Info;
 	private String	Price;
 	
+	public LabWork(){
+		
+	}
+	
 	public LabWork(String Info, String Price){
 		this.Info = Info;
 		this.Price = Price;

@@ -18,6 +18,10 @@ public class DoctorsOrders
 	private List<Prescription>	PrescriptionsL;
 	private List<String>		Instructions;
 	
+	public DoctorsOrders(){
+
+	}
+	
 	/**
 	 * Consturctor for DoctorsOrders
 	 * Sets all lists to empty lists of the correct datatype

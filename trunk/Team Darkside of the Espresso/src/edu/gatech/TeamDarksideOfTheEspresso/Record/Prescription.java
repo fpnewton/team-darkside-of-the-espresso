@@ -6,6 +6,10 @@ public class Prescription
 	private String	Info;
 	private String	Price;
 	
+	public Prescription(){
+		
+	}
+	
 	public Prescription(String Info, String Price){
 		this.Info = Info;
 		this.Price = Price;
