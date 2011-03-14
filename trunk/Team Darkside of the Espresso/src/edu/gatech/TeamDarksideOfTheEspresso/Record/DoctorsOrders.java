@@ -22,11 +22,11 @@ public class DoctorsOrders
 	 * Consturctor for DoctorsOrders
 	 * Sets all lists to empty lists of the correct datatype
 	 */
-	public DoctorsOrders(Date Date, Time Time, Doctor Doc){
+	public DoctorsOrders(Date Date, Time Time, Doctor Doc, ArrayList<LabWork>() lWork, ArrayList<Prescription> Prescip, ArrayList<String>() instr){
 		this.FollowUpAppointment = new Appointment(Date, Time, Doc);
-		this.LabWorkL = new ArrayList<LabWork>();
-		this.PrescriptionsL = new ArrayList<Prescription>();
-		this.Instructions = new ArrayList<String>();
+		this.LabWorkL = lWork;
+		this.PrescriptionsL = Prescip;
+		this.Instructions = instr;
 	}
 	
 	/**
