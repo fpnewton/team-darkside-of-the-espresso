@@ -8,10 +8,10 @@ public class TreatmentRecord
 	private Nurse			treatingNurse;
 	private DoctorsOrders	docOrders;
 	
-	public TreatmentRecord(){
-		this.treatingDoctor = new Doctor();
-		this.treatingNurse = new Nurse();
-		this.docOrders = new DoctorsOrders();
+	public TreatmentRecord(Doctor treatingDoctor, Nurse treatingNurse, DoctorsOrders docOrders){
+		this.treatingDoctor = treatingDoctor;
+		this.treatingNurse = treatingNurse;
+		this.docOrders = docOrders;
 	}
 	
 	public Doctor setDoctor(Doctor Dr){
