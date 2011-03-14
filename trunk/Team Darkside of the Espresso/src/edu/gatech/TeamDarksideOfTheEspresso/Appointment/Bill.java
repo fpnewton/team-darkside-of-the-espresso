@@ -14,11 +14,11 @@ public class Bill
 	private List<Treatment>		TreatmentsL;
 	private	List<Vaccine>		VaccinesL;
 	
-	public Bill(){
-		this.LabWorkL = new ArrayList<LabWork>();
-		this.PrescriptionsL = new ArrayList<Prescription>();
-		this.TreatmentsL = new ArrayList<Treatment>();
-		this.VaccinesL = new ArrayList<Vaccine>();
+	public Bill(ArrayList<LabWork> lWork, ArrayList<Prescription> prescriptions, ArrayList<Treatment> treat, ArrayList<Vaccine> vaccine){
+		this.LabWorkL = lWork;
+		this.PrescriptionsL = prescriptions;
+		this.TreatmentsL = treat;
+		this.VaccinesL = vaccine;
 	}
 	
 	public void AddLabWork(String info, String price){
