@@ -18,11 +18,11 @@ public class Bill
 		
 	}
 	
-	public Bill(ArrayList<LabWork> lWork, ArrayList<Prescription> prescriptions, ArrayList<Treatment> treat, ArrayList<Vaccine> vaccine){
-		this.LabWorkL = lWork;
-		this.PrescriptionsL = prescriptions;
-		this.TreatmentsL = treat;
-		this.VaccinesL = vaccine;
+	public Bill(LabWork lWork, Prescription prescriptions, Treatment treat, Vaccine vaccine){
+		this.LabWorkL.add(lWork);
+		this.PrescriptionsL.add(prescriptions);
+		this.TreatmentsL.add(treat);
+		this.VaccinesL.add(vaccine);
 	}
 	
 	public void AddLabWork(String info, String price){
