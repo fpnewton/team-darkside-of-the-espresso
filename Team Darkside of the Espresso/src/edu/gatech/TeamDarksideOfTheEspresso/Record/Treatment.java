@@ -6,6 +6,10 @@ public class Treatment
 	private String	Info;
 	private String	Price;
 	
+	public Treatment(){
+		
+	}
+	
 	public Treatment(String Info, String Price){
 		this.Info = Info;
 		this.Price = Price;

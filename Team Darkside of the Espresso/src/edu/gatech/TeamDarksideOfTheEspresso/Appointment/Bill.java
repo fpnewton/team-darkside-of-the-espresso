@@ -14,6 +14,10 @@ public class Bill
 	private List<Treatment>		TreatmentsL;
 	private	List<Vaccine>		VaccinesL;
 	
+	public Bill(){
+		
+	}
+	
 	public Bill(ArrayList<LabWork> lWork, ArrayList<Prescription> prescriptions, ArrayList<Treatment> treat, ArrayList<Vaccine> vaccine){
 		this.LabWorkL = lWork;
 		this.PrescriptionsL = prescriptions;

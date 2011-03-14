@@ -8,6 +8,10 @@ public class TreatmentRecord
 	private Nurse			treatingNurse;
 	private DoctorsOrders	docOrders;
 	
+	public TreatmentRecord(){
+		
+	}
+	
 	public TreatmentRecord(Doctor treatingDoctor, Nurse treatingNurse, DoctorsOrders docOrders){
 		this.treatingDoctor = treatingDoctor;
 		this.treatingNurse = treatingNurse;
