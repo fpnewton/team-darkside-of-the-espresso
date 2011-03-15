@@ -1,7 +1,3 @@
-package edu.gatech.TeamDarksideOfTheEspresso.Users;
-
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class Nurse.
  *
@@ -9,28 +5,37 @@ package edu.gatech.TeamDarksideOfTheEspresso.Users;
  * @version 1.0
  */
 
+package edu.gatech.TeamDarksideOfTheEspresso.Users;
+
+
 public class Nurse extends User
 {
-	
+
 	/**
 	 * Instantiates a new nurse.
 	 */
-	public Nurse(){
-		super();
-	}
-	
+	// public Nurse(){
+	// //super();
+	// }
+
 	/**
 	 * Instantiates a new nurse.
-	 *
-	 * @param Uname the uname
-	 * @param Pword the pword
-	 * @param Gend the gend
-	 * @param Info the info
+	 * 
+	 * @param Uname
+	 *            the uname
+	 * @param Pword
+	 *            the pword
+	 * @param Gend
+	 *            the gend
+	 * @param Info
+	 *            the info
 	 */
-	public Nurse(String Uname, String Pword, GenderType Gend, UserInfo Info){
-		super(Uname,Pword,Gend,Info);
+	public Nurse(String Uname, String Pword, GenderType Gend, UserInfo Info)
+	{
+		super(Uname, Pword, Gend, Info);
 	}
-	
+
+
 	/**
 	 * Creates the patient.
 	 */
@@ -38,8 +43,8 @@ public class Nurse extends User
 	{
 		// TODO Implement Method
 	}
-	
-	
+
+
 	/**
 	 * Delete patient.
 	 */
@@ -47,8 +52,8 @@ public class Nurse extends User
 	{
 		// TODO Implement Method
 	}
-	
-	
+
+
 	/**
 	 * View patients.
 	 */
@@ -56,19 +61,20 @@ public class Nurse extends User
 	{
 		// TODO Implement Method
 	}
-	
-	
+
+
 	/**
 	 * Edits the user.
-	 *
-	 * @param Patient the patient
+	 * 
+	 * @param Patient
+	 *            the patient
 	 */
 	public void EditUser(Patient Patient)
 	{
 		// TODO Implement Method
 	}
-	
-	
+
+
 	/**
 	 * Creates the treatment record.
 	 */
@@ -76,8 +82,8 @@ public class Nurse extends User
 	{
 		// TODO Implement Method
 	}
-	
-	
+
+
 	/**
 	 * View appointments.
 	 */

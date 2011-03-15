@@ -1,28 +1,52 @@
+/**
+ * The Class DoctorsOrders.
+ */
 
 package edu.gatech.TeamDarksideOfTheEspresso.Record;
 
 
-import java.util.List;
+import java.io.Serializable;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
-import java.sql.Time;
+import java.util.List;
 
-import edu.gatech.TeamDarksideOfTheEspresso.Appointment.*;
+import edu.gatech.TeamDarksideOfTheEspresso.Appointment.Appointment;
 import edu.gatech.TeamDarksideOfTheEspresso.Users.Doctor;
 
 
-public class DoctorsOrders
+public class DoctorsOrders implements Serializable
 {
+
+	/** The Follow up appointment. */
 	private Appointment			FollowUpAppointment;
 
+	/** The Lab work l. */
 	private List<LabWork>		LabWorkL;
+
+	/** The Prescriptions l. */
 	private List<Prescription>	PrescriptionsL;
+
+	/** The Instructions. */
 	private List<String>		Instructions;
 
 
 	/**
 	 * Constructor for DoctorsOrders Sets all lists to empty lists of the
-	 * correct datatype
+	 * correct datatype.
+	 * 
+	 * @param Date
+	 *            the date
+	 * @param Time
+	 *            the time
+	 * @param Doc
+	 *            the doc
+	 * @param lWork
+	 *            the l work
+	 * @param Prescip
+	 *            the prescip
+	 * @param instr
+	 *            the instr
 	 */
 	public DoctorsOrders(Date Date, Time Time, Doctor Doc, LabWork lWork, Prescription Prescip, String instr)
 	{
@@ -34,7 +58,7 @@ public class DoctorsOrders
 
 
 	/**
-	 * Returns the follow up appointment
+	 * Returns the follow up appointment.
 	 * 
 	 * @return the Appointment
 	 */
@@ -45,7 +69,7 @@ public class DoctorsOrders
 
 
 	/**
-	 * Set the follow up appointment
+	 * Set the follow up appointment.
 	 * 
 	 * @param FollowUpAppointment
 	 *            the next appointment, as a follow up
@@ -57,7 +81,7 @@ public class DoctorsOrders
 
 
 	/**
-	 * Adds a new instruction to the list of instructions
+	 * Adds a new instruction to the list of instructions.
 	 * 
 	 * @param inst
 	 *            the new istruction to be added to the list
@@ -78,7 +102,7 @@ public class DoctorsOrders
 
 
 	/**
-	 * Return the list of instructions
+	 * Return the list of instructions.
 	 * 
 	 * @return a list of instructions
 	 */
@@ -90,7 +114,7 @@ public class DoctorsOrders
 
 	/**
 	 * Creates a new instance of lab work, using the given parameters then
-	 * append to the lab work list
+	 * append to the lab work list.
 	 * 
 	 * @param info
 	 *            the information/the string for the lab work done
@@ -105,7 +129,7 @@ public class DoctorsOrders
 
 
 	/**
-	 * Clears all data from the lab work list
+	 * Clears all data from the lab work list.
 	 */
 	public void ClearLabWork()
 	{
@@ -114,7 +138,9 @@ public class DoctorsOrders
 
 
 	/**
+	 * Gets the lab work.
 	 * 
+	 * @return the lab work
 	 */
 	public List<LabWork> getLabWork()
 	{
@@ -122,6 +148,14 @@ public class DoctorsOrders
 	}
 
 
+	/**
+	 * Adds the prescription.
+	 * 
+	 * @param info
+	 *            the info
+	 * @param price
+	 *            the price
+	 */
 	public void AddPrescription(String info, String price)
 	{
 		Prescription temp = new Prescription(info, price);
@@ -129,12 +163,20 @@ public class DoctorsOrders
 	}
 
 
+	/**
+	 * Clear prescription.
+	 */
 	public void ClearPrescription()
 	{
 		this.PrescriptionsL = new ArrayList<Prescription>();
 	}
 
 
+	/**
+	 * Gets the prescription.
+	 * 
+	 * @return the prescription
+	 */
 	public List<Prescription> getPrescription()
 	{
 		return this.PrescriptionsL;

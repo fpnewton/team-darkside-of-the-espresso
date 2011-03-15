@@ -1,3 +1,9 @@
+/**
+ * The Class Doctor.
+ * 
+ * @author Patrick Tynan
+ * @version 1.0
+ */
 
 package edu.gatech.TeamDarksideOfTheEspresso.Users;
 
@@ -6,19 +12,12 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
+import edu.gatech.TeamDarksideOfTheEspresso.Appointment.Appointment;
 import edu.gatech.TeamDarksideOfTheEspresso.Record.DoctorsOrders;
 import edu.gatech.TeamDarksideOfTheEspresso.Record.LabWork;
 import edu.gatech.TeamDarksideOfTheEspresso.Record.Prescription;
 import edu.gatech.TeamDarksideOfTheEspresso.Record.TreatmentRecord;
-import edu.gatech.TeamDarksideOfTheEspresso.Appointment.*;
 
-
-/**
- * The Class Doctor.
- * 
- * @author Patrick Tynan
- * @version 1.0
- */
 
 public class Doctor extends Nurse
 {
@@ -103,11 +102,10 @@ public class Doctor extends Nurse
 	/**
 	 * Instantiates a new doctor.
 	 */
-	public Doctor()
-	{
-
-	}
-
+	// public Doctor()
+	// {
+	//
+	// }
 
 	/**
 	 * Instantiates a new doctor.
