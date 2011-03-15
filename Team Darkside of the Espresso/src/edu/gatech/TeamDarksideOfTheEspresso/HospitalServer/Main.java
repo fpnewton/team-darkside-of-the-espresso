@@ -8,10 +8,6 @@
 package edu.gatech.TeamDarksideOfTheEspresso.HospitalServer;
 
 
-import java.io.IOException;
-import java.net.ServerSocket;
-
-
 public class Main
 {
 	/**
@@ -19,26 +15,11 @@ public class Main
 	 * 
 	 * @param args Application arguments
 	 */
-	public static void main(String[] args) throws IOException
+	public static void main(String[] args)
 	{
-        ServerSocket serverSocket = null;
-        boolean listening = true;
-
-        try
-        {
-        	serverSocket = new ServerSocket(4444);
-        }
-        catch (IOException e)
-        {
-            System.err.println("Could not listen on port: 4444.");
-            System.exit(-1);
-        }
-
-        while (listening)
-        {
-        	new ServerThread(serverSocket.accept()).start();
-        }
-
-        serverSocket.close();
+        Database db = new Database();
+        db.InitializeDB();
+        db.CreateNewDatabase();
+        db.CloseDbConnection();
 	}
 }

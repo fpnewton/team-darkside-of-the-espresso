@@ -6,6 +6,9 @@ import java.util.Date;
 
 public class UserInfo
 {
+	/** Database primary key */
+	private int		ID;
+	
 	private String	Name;
 	private String	Address;
 	private String	PhoneNumber;
@@ -13,6 +16,18 @@ public class UserInfo
 	private String	EmailAddress;
 	
 	private	Date	BirthDate;
+	
+	
+	public int getID()
+	{
+		return ID;
+	}
+	
+	
+	public void setID(int id)
+	{
+		ID = id;
+	}
 	
 	
 	public String getName()

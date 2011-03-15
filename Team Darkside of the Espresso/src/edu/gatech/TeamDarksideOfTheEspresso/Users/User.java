@@ -1,6 +1,5 @@
 package edu.gatech.TeamDarksideOfTheEspresso.Users;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class User.
  *
@@ -8,9 +7,10 @@ package edu.gatech.TeamDarksideOfTheEspresso.Users;
  * @version 1.0
  */
 
-
 public abstract class User
 {
+	/** Database primary key */
+	private int			ID;
 	
 	/** The Username. */
 	private String		Username;

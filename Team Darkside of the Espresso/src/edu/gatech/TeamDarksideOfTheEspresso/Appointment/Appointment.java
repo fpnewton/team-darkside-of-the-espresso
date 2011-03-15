@@ -9,28 +9,28 @@ import edu.gatech.TeamDarksideOfTheEspresso.Users.Doctor;
 
 public class Appointment
 {
-	private Date		Date;
+	private Date		DesiredDate;
 	
 	private Doctor		DesiredDoctor;
 	
 	private String		Symptoms;
 	
-	private Time		Time;
+	private Time		DesiredTime;
 	
 
 	/**
 	 * Appointment constructor
 	 * 
 	 * @param Date The desired date of the appointment
-	 * @param Time The desired time of the appointment
+	 * @param DesiredTime The desired time of the appointment
 	 * @param DesiredDoctor The desired doctor
 	 * @param Symptoms Any symptoms the patient is experiencing.
 	 */
-	public Appointment(Date Date, Time Time, Doctor DesiredDoctor, String Symptoms){
-		this.Date=Date;
-		this.Time=Time;
-		this.DesiredDoctor=DesiredDoctor;
-		this.Symptoms=Symptoms;
+	public Appointment(Date date, Time time, Doctor desiredDoctor, String symptoms){
+		this.DesiredDate=date;
+		this.DesiredTime=time;
+		this.DesiredDoctor=desiredDoctor;
+		this.Symptoms=symptoms;
 	}
 	
 	public Appointment(Date Date, Time Time, Doctor DesiredDoctor){
@@ -44,7 +44,7 @@ public class Appointment
 	 * @param date The desired date
 	 * @param time The desired time
 	 */
-	public void scheduleDoctor(Doctor doc, Date date){
+	public void scheduleDoctor(Doctor doc, Date preferredDate){
 		//TODO This method depends heavily on doctor attributes
 		//		that determine availability as well as an attribute
 		//		that stores dates during which the doctor has
@@ -52,7 +52,7 @@ public class Appointment
 		//		therefore, is commented out and in high-level
 		//		pseudocode until this is fixed
 		
-		/**
+		/*
 		 *  if(!doc.checkAvailability(date, time))
 		 *  	return;
 		 *  
@@ -73,7 +73,7 @@ public class Appointment
 	 * @return True if the doctor is available at that time,
 	 * 			false otherwise
 	 */
-	public boolean checkAvailability(Doctor doc, Date time){
+	public boolean checkAvailability(Doctor doc, Date date){
 		//TODO I believe this should be in the Doctor class. Therefore,
 		//		the method has been commented out for now.
 		
@@ -94,7 +94,7 @@ public class Appointment
 	
 	public Date getDate()
 	{
-		return Date;
+		return DesiredDate;
 	}
 	
 	
@@ -112,13 +112,13 @@ public class Appointment
 	
 	public Time getTime()
 	{
-		return Time;
+		return DesiredTime;
 	}
 	
 	
 	public void setDate(Date Date)
 	{
-		this.Date = Date;
+		this.DesiredDate = Date;
 	}
 	
 	
@@ -136,6 +136,6 @@ public class Appointment
 	
 	public void setTime(Time Time)
 	{
-		this.Time = Time;
+		this.DesiredTime = Time;
 	}
 }
