@@ -1,19 +1,40 @@
+/**
+ * The Class Prescription.
+ */
 
 package edu.gatech.TeamDarksideOfTheEspresso.Record;
 
 
-public class Prescription
+import java.io.Serializable;
+
+
+public class Prescription implements Serializable
 {
+
+	/** The Info. */
 	private String	Info;
+
+	/** The Price. */
 	private String	Price;
 
 
+	/**
+	 * Instantiates a new prescription.
+	 */
 	public Prescription()
 	{
 		this("", "");
 	}
 
 
+	/**
+	 * Instantiates a new prescription.
+	 * 
+	 * @param Info
+	 *            the info
+	 * @param Price
+	 *            the price
+	 */
 	public Prescription(String Info, String Price)
 	{
 		this.Info = Info;
@@ -21,24 +42,46 @@ public class Prescription
 	}
 
 
+	/**
+	 * Gets the info.
+	 * 
+	 * @return the info
+	 */
 	public String getInfo()
 	{
 		return Info;
 	}
 
 
+	/**
+	 * Gets the price.
+	 * 
+	 * @return the price
+	 */
 	public String getPrice()
 	{
 		return Price;
 	}
 
 
+	/**
+	 * Sets the info.
+	 * 
+	 * @param Info
+	 *            the new info
+	 */
 	public void setInfo(String Info)
 	{
 		this.Info = Info;
 	}
 
 
+	/**
+	 * Sets the price.
+	 * 
+	 * @param Price
+	 *            the new price
+	 */
 	public void setPrice(String Price)
 	{
 		this.Price = Price;
