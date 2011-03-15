@@ -4,6 +4,9 @@
 	<target name="init">
 		<property name="version" value="1.0.0" />
 
+		<property name="client.build.num" value="build1" />
+		<property name="server.build.num" value="build1" />
+
 		<property name="pkg.name" value="Release" />
 
 
@@ -56,7 +59,7 @@
 
 
 	<target name="compile" depends="prepare">
-		<javac srcdir="${src.dir}" destdir="${bin.dir}" classpath="${lib.dir}${file.separator}*.jar" includeantruntime="false" />
+		<javac srcdir="${src.dir}" destdir="${bin.dir}" includeantruntime="false" />
 	</target>
 
 
@@ -82,14 +85,14 @@
 				<attribute name="Main-Class" value="${hospital-client.pkg}.Main" />
 				<attribute name="Class-Path" value=". ${server.manifest.classpath}" />
 				<attribute name="Built-By" value="Team Darkside of the Espresso" />
+				<attribute name="Implementation-Title" value="Hospital Client" />
+				<attribute name="Implementation-Version" value="${client.build.num}" />
+				<attribute name="Implementation-Vendor" value="Team Darkside of the Espresso" />
 
 				<section name="common">
 					<attribute name="Specification-Title" value="Hospital Client" />
 					<attribute name="Specification-Version" value="${version}" />
 					<attribute name="Specification-Vendor" value="Team Darkside of the Espresso" />
-					<attribute name="Implementation-Title" value="Hospital Client" />
-					<attribute name="Implementation-Version" value="${version}" />
-					<attribute name="Implementation-Vendor" value="Team Darkside of the Espresso" />
 				</section>
 			</manifest>
 		</jar>
@@ -115,14 +118,15 @@
 				<attribute name="Main-Class" value="${hospital-server.pkg}.Main" />
 				<attribute name="Class-Path" value=". ${server.manifest.classpath}" />
 				<attribute name="Built-By" value="Team Darkside of the Espresso" />
+				<attribute name="Implementation-Title" value="Hospital Server" />
+				<attribute name="Implementation-Version" value="${server.build.num}" />
+				<attribute name="Implementation-Vendor" value="Team Darkside of the Espresso" />
+
 
 				<section name="common">
 					<attribute name="Specification-Title" value="Hospital Server" />
 					<attribute name="Specification-Version" value="${version}" />
 					<attribute name="Specification-Vendor" value="Team Darkside of the Espresso" />
-					<attribute name="Implementation-Title" value="Hospital Server" />
-					<attribute name="Implementation-Version" value="${version}" />
-					<attribute name="Implementation-Vendor" value="Team Darkside of the Espresso" />
 				</section>
 			</manifest>
 		</jar>
@@ -190,7 +194,7 @@
 
 
 	<target name="javadoc" depends="compile">
-		<javadoc sourcepath="${src.dir}" access="public" destdir="${doc.dir}" packagenames="${global.pkg}" classpath="${lib.dir}${file.separator}.resources.jar">
+		<javadoc sourcepath="${src.dir}" access="public" destdir="${doc.dir}" packagenames="${global.pkg}">
 			<fileset dir="${src.dir}">
 				<include name="**${file.separator}*.java" />
 			</fileset>
