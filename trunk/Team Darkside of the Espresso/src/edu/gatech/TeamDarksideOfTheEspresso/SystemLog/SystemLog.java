@@ -17,11 +17,17 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Level;
 
 
 public class SystemLog
 {
+	private static final ReentrantReadWriteLock		RwLock		= new ReentrantReadWriteLock();
+	private static final Lock						WriteLock	= RwLock.writeLock();
+	
 	/**
 	 * Sends log messages to a file with the current date as the file name.
 	 * 
@@ -39,48 +45,70 @@ public class SystemLog
 		String			filePath			= "Logs/" + dateFormat.format(date) + ".xml";
 		
 		
-		// Checks if the file exists
-		file = new File(filePath);
-		
-		if (!file.exists())
-		{
-			doesFileExist = true;
-		}
-		
-		// Attempt to create the buffered writer objects
 		try
 		{
-			writer = new BufferedWriter(new FileWriter(filePath, true));
+			// Attempt to get mutex lock
+			WriteLock.tryLock(60, TimeUnit.SECONDS);
 			
 			
-			if (doesFileExist)
+			// Checks if the file exists
+			file = new File(filePath);
+			
+			if (!file.exists())
 			{
-				writer.append(XmlFormatter.getXmlIDTag());
+				doesFileExist = true;
 			}
 			
-			writer.append(XmlFormatter.getHead("log"));
-			
-			dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
-			
-			writer.append(XmlFormatter.FormatData("date", dateFormat.format(date)));
-			
-			dateFormat = new SimpleDateFormat("hh:mm:ss a z");
-			
-			writer.append(XmlFormatter.FormatData("time", dateFormat.format(date)));
-			writer.append(XmlFormatter.FormatData("level", LogLevel.getName()));
-			writer.append(XmlFormatter.FormatData("message", Message));
-			
-			writer.append(XmlFormatter.getTail("log"));
-			
-			
-			writer.flush();
+			// Attempt to create the buffered writer objects
+			try
+			{
+				writer = new BufferedWriter(new FileWriter(filePath, true));
+				
+				
+				if (doesFileExist)
+				{
+					writer.append(XmlFormatter.getXmlIDTag());
+				}
+				
+				writer.append(XmlFormatter.getHead("log"));
+				
+				dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+				
+				writer.append(XmlFormatter.FormatData("date", dateFormat.format(date)));
+				
+				dateFormat = new SimpleDateFormat("hh:mm:ss a z");
+				
+				writer.append(XmlFormatter.FormatData("time", dateFormat.format(date)));
+				writer.append(XmlFormatter.FormatData("level", LogLevel.getName()));
+				writer.append(XmlFormatter.FormatData("message", Message));
+				
+				writer.append(XmlFormatter.getTail("log"));
+				
+				
+				writer.flush();
+				writer.close();
+			}
+			catch (IOException e)
+			{
+				// TODO Output error message
+				e.printStackTrace();
+			}
 		}
-		catch (IOException e)
+		catch (InterruptedException e1)
 		{
-			// TODO Output error message
-			e.printStackTrace();
+			e1.printStackTrace();
+		}
+		finally
+		{
+			WriteLock.unlock();
 		}
 		
 		return true;
+	}
+	
+	
+	public String toString()
+	{
+		return "";
 	}
 }

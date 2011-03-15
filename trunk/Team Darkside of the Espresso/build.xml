@@ -2,12 +2,19 @@
 
 <project name="Team Darkside of the Espresso" default="all" basedir=".">
 	<target name="init">
-		<property name="src.dir" location="src" />
-		<property name="lib.dir" location="lib" />
-		<property name="bin.dir" location="bin" />
-		<property name="doc.dir" location="doc" />
-		<property name="resources.dir" location="resources" />
 		<property name="version" value="1.0.0" />
+
+		<property name="pkg.name" value="Release" />
+
+
+		<property name="bin.dir" location="bin" />
+		<property name="build.dir" location="build" />
+		<property name="doc.dir" location="doc" />
+		<property name="lib.dir" location="lib" />
+		<property name="resources.dir" location="resources" />
+		<property name="src.dir" location="src" />
+		<property name="test.db.dir" location="DB" />
+		<property name="test.log.dir" location="Logs" />
 
 
 		<property name="global.pkg" value="edu.gatech.TeamDarksideOfTheEspresso" />
@@ -20,12 +27,31 @@
 
 		<property name="client.name" value="Hospital Client" />
 		<property name="server.name" value="Hospital Server" />
+
+
+		<path id="server.classpath">
+			<fileset dir="${lib.dir}">
+				<include name="*.jar" />
+			</fileset>
+		</path>
+
+		<manifestclasspath property="server.manifest.classpath" jarfile="${server.name}.jar">
+			<classpath refid="server.classpath" />
+		</manifestclasspath>
+
 	</target>
 
 
 	<target name="prepare" depends="init">
 		<mkdir dir="${bin.dir}" />
 		<mkdir dir="${doc.dir}" />
+		<mkdir dir="${test.db.dir}" />
+		<mkdir dir="${test.log.dir}" />
+		<mkdir dir="${bin.dir}${file.separator}resources" />
+
+		<copy todir="${bin.dir}${file.separator}resources">
+			<fileset dir="${resources.dir}" />
+		</copy>
 	</target>
 
 
@@ -49,13 +75,13 @@
 				<include name="${global.pkg.dir}${file.separator}UI${file.separator}*.class" />
 				<include name="${global.pkg.dir}${file.separator}Users${file.separator}*.class" />
 
-				<include name="resources${file.separator}**${file.separator}*.png" />
+				<include name="${resources.dir}${file.separator}**${file.separator}*.png" />
 			</fileset>
 
 			<manifest>
 				<attribute name="Main-Class" value="${hospital-client.pkg}.Main" />
-				<!-- <attribute name="Class-Path" value="${lib.dir}${file.separator}*.jar" /> -->
-				<attribute name="Built-By" value="Fraser P. Newton" />
+				<attribute name="Class-Path" value=". ${server.manifest.classpath}" />
+				<attribute name="Built-By" value="Team Darkside of the Espresso" />
 
 				<section name="common">
 					<attribute name="Specification-Title" value="Hospital Client" />
@@ -82,30 +108,13 @@
 				<include name="${global.pkg.dir}${file.separator}SystemLog${file.separator}*.class" />
 				<include name="${global.pkg.dir}${file.separator}Users${file.separator}*.class" />
 
-				<include name="resources${file.separator}**${file.separator}*.png" />
+				<include name="${resources.dir}${file.separator}**${file.separator}*.png" />
 			</fileset>
-
-			<classpath>
-				<pathelement path="${lib.dir}" />
-
-				<fileset dir=".">
-					<include name="**${file.separator}*.jar" />
-				</fileset>
-
-				<pathelement location="classes" />
-
-				<dirset dir="${build.dir}">
-					<include name="apps/**/classes" />
-					<exclude name="apps/**/*Test*" />
-				</dirset>
-
-				<filelist refid="third-party_jars" />
-			</classpath>
 
 			<manifest>
 				<attribute name="Main-Class" value="${hospital-server.pkg}.Main" />
-				<!-- <attribute name="Class-Path" value="${lib.dir}${file.separator}*.jar" /> -->
-				<attribute name="Built-By" value="Fraser P. Newton" />
+				<attribute name="Class-Path" value=". ${server.manifest.classpath}" />
+				<attribute name="Built-By" value="Team Darkside of the Espresso" />
 
 				<section name="common">
 					<attribute name="Specification-Title" value="Hospital Server" />
@@ -118,24 +127,42 @@
 			</manifest>
 		</jar>
 
-		<chmod file="${client.name}.jar" perm="777" />
+		<chmod file="${server.name}.jar" perm="777" />
 	</target>
 
 
 	<target name="clean" depends="init">
-		<delete file="${client.name}.jar" />
-		<delete file="${server.name}.jar" />
-
 		<delete dir="${bin.dir}" />
 		<delete dir="${doc.dir}" />
 	</target>
 
 
-	<target name="test" depends="compile">
+	<target name="clean-all" depends="clean">
+		<delete file="${pkg.name}.zip" />
+		<delete file="${client.name}.jar" />
+		<delete file="${server.name}.jar" />
+
+		<delete dir="${build.dir}" />
+		<delete dir="${test.db.dir}" />
+		<delete dir="${test.log.dir}" />
 	</target>
 
 
-	<target name="all" depends="run">
+	<target name="test" depends="test-server,test-client">
+	</target>
+
+
+	<target name="test-client" depends="compile">
+		<!-- TODO Implement Target -->
+	</target>
+
+
+	<target name="test-server" depends="compile">
+		<!-- TODO Implement Target -->
+	</target>
+
+
+	<target name="all" depends="package">
 	</target>
 
 
@@ -168,5 +195,22 @@
 				<include name="**${file.separator}*.java" />
 			</fileset>
 		</javadoc>
+	</target>
+
+
+	<target name="package" depends="clean-all,jar">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}${file.separator}lib" />
+		<mkdir dir="${build.dir}${file.separator}DB" />
+		<mkdir dir="${build.dir}${file.separator}Logs" />
+
+		<copy file="${client.name}.jar" todir="${build.dir}" />
+		<copy file="${server.name}.jar" todir="${build.dir}" />
+
+		<copy todir="${build.dir}${file.separator}lib">
+			<fileset dir="${lib.dir}" />
+		</copy>
+
+		<zip destfile="${pkg.name}.zip" basedir="${build.dir}" />
 	</target>
 </project>
