@@ -51,12 +51,6 @@ public abstract class User implements Serializable
 	}
 
 
-	public int getID()
-	{
-		return ID;
-	}
-
-
 	/**
 	 * Gets the username.
 	 * 

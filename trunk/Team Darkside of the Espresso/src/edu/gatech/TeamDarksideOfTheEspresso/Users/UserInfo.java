@@ -62,17 +62,6 @@ public class UserInfo implements Serializable
 
 
 	/**
-	 * Gets the iD.
-	 * 
-	 * @return the iD
-	 */
-	public int getID()
-	{
-		return ID;
-	}
-
-
-	/**
 	 * Gets the name.
 	 * 
 	 * @return the name
