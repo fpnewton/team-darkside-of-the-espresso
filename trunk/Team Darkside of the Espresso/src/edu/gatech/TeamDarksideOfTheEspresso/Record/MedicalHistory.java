@@ -16,7 +16,6 @@ public class MedicalHistory implements Serializable
 	/** The Treatment records. */
 	private List<TreatmentRecord>	TreatmentRecords;
 
-
 	/**
 	 * Instantiates a new medical history.
 	 */
@@ -36,6 +35,5 @@ public class MedicalHistory implements Serializable
 	{
 		TreatmentRecords.add(treatmentRecord);
 	}
-
 	// TODO Add Methods
 }

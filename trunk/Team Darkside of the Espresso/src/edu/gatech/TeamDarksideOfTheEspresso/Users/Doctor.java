@@ -122,6 +122,11 @@ public class Doctor extends Nurse
 	public Doctor(String Uname, String Pword, GenderType Gend, UserInfo Info)
 	{
 		super(Uname, Pword, Gend, Info);
+		this.CurrentAppointments = new ArrayList<Appointment>();
+	}
+	
+	public ArrayList<Appointment> getCurrentAppointments(){
+		return CurrentAppointments;
 	}
 
 
@@ -132,5 +137,4 @@ public class Doctor extends Nurse
 	{
 		// TODO Implement Method
 	}
-
 }

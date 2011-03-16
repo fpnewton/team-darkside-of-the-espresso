@@ -25,6 +25,19 @@ public class PatientInfo implements Serializable
 
 	/** The Allergies. */
 	private List<String>			Allergies;
+<<<<<<< .mine
+	private	List<TreatmentRecord>	MedicalHistory;
+	
+	public PatientInfo(){}
+	
+	public PatientInfo(int Age, String InsuranceCarrier, String Pharmacy, 
+						List<String> Allergies, List<TreatmentRecord> MedicalHistory){
+		this.Age=Age;
+		this.InsuranceCarrier=InsuranceCarrier;
+		this.Pharmacy=Pharmacy;
+		this.Allergies=Allergies;
+		this.MedicalHistory=MedicalHistory;
+=======
 
 	/** The Medical history. */
 	private List<TreatmentRecord>	MedicalHistory;
@@ -51,6 +64,7 @@ public class PatientInfo implements Serializable
 		this.Pharmacy = Pharmacy;
 		this.Allergies = Allergies;
 		this.MedicalHistory = MedicalHistory;
+>>>>>>> .r109
 	}
 
 

@@ -4,19 +4,13 @@
 
 package edu.gatech.TeamDarksideOfTheEspresso.Appointment;
 
-
 import java.io.Serializable;
 
 
 public class Invoice implements Serializable
 {
-
-	/** The Appointment. */
-	Appointment	Appointment;
-
-	/** The Bill. */
-	Bill		Bill;
-
+	private Appointment	Appointment;
+	private Bill		Bill;	
 
 	/**
 	 * Instantiates a new invoice.
