@@ -18,16 +18,16 @@ import edu.gatech.TeamDarksideOfTheEspresso.Record.Vaccine;
 public class Bill implements Serializable
 {
 
-	/** The Lab work l. */
+	/** The Lab work list. */
 	private List<LabWork>		LabWorkL;
 
-	/** The Prescriptions l. */
+	/** The Prescriptions list. */
 	private List<Prescription>	PrescriptionsL;
 
-	/** The Treatments l. */
+	/** The Treatments list. */
 	private List<Treatment>		TreatmentsL;
 
-	/** The Vaccines l. */
+	/** The Vaccines list. */
 	private List<Vaccine>		VaccinesL;
 
 
@@ -44,11 +44,11 @@ public class Bill implements Serializable
 	 * Instantiates a new bill.
 	 * 
 	 * @param lWork
-	 *            the l work
+	 *            the lab work
 	 * @param prescriptions
 	 *            the prescriptions
 	 * @param treat
-	 *            the treat
+	 *            the treatment
 	 * @param vaccine
 	 *            the vaccine
 	 */

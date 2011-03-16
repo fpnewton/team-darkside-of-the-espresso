@@ -55,7 +55,7 @@ public class TreatmentRecord implements Serializable
 	 * Sets the doctor.
 	 * 
 	 * @param Dr
-	 *            the dr
+	 *            the doctor
 	 * @return the doctor
 	 */
 	public Doctor setDoctor(Doctor Dr)
@@ -79,7 +79,7 @@ public class TreatmentRecord implements Serializable
 	 * Sets the nurse.
 	 * 
 	 * @param Nu
-	 *            the nu
+	 *            the nurse
 	 * @return the nurse
 	 */
 	public Nurse setNurse(Nurse Nu)

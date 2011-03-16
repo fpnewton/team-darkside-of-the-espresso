@@ -21,13 +21,13 @@ public class DoctorsOrders implements Serializable
 	/** The Follow up appointment. */
 	private Appointment			FollowUpAppointment;
 
-	/** The Lab work l. */
+	/** The Lab work list. */
 	private List<LabWork>		LabWorkL;
 
-	/** The Prescriptions l. */
+	/** The Prescriptions list. */
 	private List<Prescription>	PrescriptionsL;
 
-	/** The Instructions. */
+	/** The Doctor's Instructions. */
 	private List<String>		Instructions;
 
 
@@ -36,17 +36,17 @@ public class DoctorsOrders implements Serializable
 	 * correct datatype.
 	 * 
 	 * @param Date
-	 *            the date
+	 *            the date of the appointment
 	 * @param Time
-	 *            the time
+	 *            the time of the appointment
 	 * @param Doc
-	 *            the doc
+	 *            the Doctor
 	 * @param lWork
-	 *            the l work
+	 *            the lab work
 	 * @param Prescip
-	 *            the prescip
+	 *            the prescipyion
 	 * @param instr
-	 *            the instr
+	 *            the doctor's instructions
 	 */
 	public DoctorsOrders(Date Date, Time Time, Doctor Doc, LabWork lWork, Prescription Prescip, String instr)
 	{
@@ -60,7 +60,7 @@ public class DoctorsOrders implements Serializable
 	/**
 	 * Returns the follow up appointment.
 	 * 
-	 * @return the Appointment
+	 * @return the follw up Appointment
 	 */
 	public Appointment getFollowUpAppointment()
 	{
@@ -84,7 +84,7 @@ public class DoctorsOrders implements Serializable
 	 * Adds a new instruction to the list of instructions.
 	 * 
 	 * @param inst
-	 *            the new istruction to be added to the list
+	 *            the new instruction to be added to the list
 	 */
 	public void addInstructions(String inst)
 	{
@@ -93,7 +93,7 @@ public class DoctorsOrders implements Serializable
 
 
 	/**
-	 * Clears out the list of intructions entirely.
+	 * Clears out the list of instructions entirely.
 	 */
 	public void clearInstructions()
 	{
