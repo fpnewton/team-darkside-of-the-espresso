@@ -14,11 +14,12 @@ public class Income implements Serializable
 
 	/** The Invoice list. */
 	private List<Invoice>	InvoiceList;
-
+	
 
 	/**
 	 * Display income.
 	 */
+	
 	public void DisplayIncome()
 	{
 		// TODO Implement Method

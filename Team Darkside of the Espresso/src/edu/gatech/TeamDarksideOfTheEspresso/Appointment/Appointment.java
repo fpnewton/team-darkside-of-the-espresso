@@ -14,7 +14,7 @@ import edu.gatech.TeamDarksideOfTheEspresso.Users.Doctor;
 
 public class Appointment implements Serializable
 {
-
+	
 	/** The Desired date. */
 	private Date	DesiredDate;
 
@@ -89,35 +89,6 @@ public class Appointment implements Serializable
 		 * unavailable dates list }
 		 */
 	}
-
-
-	/**
-	 * Checks whether a doctor is available at the desired date and time.
-	 * 
-	 * @param doc
-	 *            The desired doctor
-	 * @param date
-	 *            The desired date
-	 * @return True if the doctor is available at that time, false otherwise
-	 */
-	public boolean checkAvailability(Doctor doc, Date date)
-	{
-		// TODO I believe this should be in the Doctor class. Therefore,
-		// the method has been commented out for now.
-
-		/**
-		 * check which date list is smaller (available or unavailable)
-		 * 
-		 * if unavailable is smaller, comb through for the date if the date is
-		 * there, return false else return true
-		 * 
-		 * else if available is smaller, comb through for the date if the date
-		 * is there, return true else return false
-		 */
-
-		return false;
-	}
-
 
 	/**
 	 * Gets the date.
