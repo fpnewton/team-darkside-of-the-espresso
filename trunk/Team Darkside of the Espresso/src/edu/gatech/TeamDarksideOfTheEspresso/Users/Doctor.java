@@ -44,7 +44,7 @@ public class Doctor extends Nurse
 	 */
 	public void AddDoctorsOrders(Date date, Time time, String orders, Prescription drugs, LabWork labs, Appointment appt, Patient pat, Nurse WorkingNurse)
 	{
-		DoctorsOrders docOrder = new DoctorsOrders(date, time, this, labs, drugs, orders);
+		DoctorsOrders docOrder = new DoctorsOrders(appt.getPatient(), date, this, labs, drugs, orders);
 		pat.getMedicalHistory().addRecord(new TreatmentRecord(this, WorkingNurse, docOrder));
 		this.finishAppointment(appt);
 	}
@@ -84,13 +84,16 @@ public class Doctor extends Nurse
 	 *            the time
 	 * @return true, if successful
 	 */
-	public boolean checkAvailability(Doctor doc, Date time)
+	public boolean checkAvailability(Date time) 
 	{
+		//I removed the 'doc' parameter, since you're already calling it
+		//on a Doctor object
+		
 		// Search for a match between passed param time and times in the
 		// CurrentAppointment list
 		for (Appointment i : CurrentAppointments)
 		{
-			if (i.getTime().equals(time))
+			if (i.getDate().equals(time))
 			{
 				return false;
 			}

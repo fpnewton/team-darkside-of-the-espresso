@@ -14,17 +14,13 @@ public class HealthHistory implements Serializable
 
 	/** The Weight data. */
 	private List<Double>	WeightData;
-<<<<<<< .mine
 	
 	public HealthHistory(){}
-	
-=======
 
 
 	/**
 	 * Generate graph.
 	 */
->>>>>>> .r109
 	public void GenerateGraph()
 	{
 		// TODO Implement Method

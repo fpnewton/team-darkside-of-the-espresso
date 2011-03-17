@@ -199,4 +199,14 @@ public class Bill implements Serializable
 	{
 		return this.VaccinesL;
 	}
+	
+	public String toString(){
+		String labString="Lab Work: "+LabWorkL.toString()+"\n";
+		String prescripString="Prescriptions: "+PrescriptionsL.toString()+"\n";
+		String treatString="Treatments: "+TreatmentsL.toString()+"\n";
+		String vacString="Vaccines: "+VaccinesL.toString()+"\n";
+		
+		return labString+prescripString+treatString+vacString;
+		
+	}
 }
