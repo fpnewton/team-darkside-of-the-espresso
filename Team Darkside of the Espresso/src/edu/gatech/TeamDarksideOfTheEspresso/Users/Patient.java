@@ -103,8 +103,8 @@ public class Patient extends User
 	{
 		try
 		{
-			Appointment Appt = new Appointment(date, time, PreferredDoctor, symptoms);
-			if (PreferredDoctor.checkAvailability(PreferredDoctor, time))
+			Appointment Appt = new Appointment(this, date, PreferredDoctor, symptoms);
+			if (PreferredDoctor.checkAvailability(time))
 			{
 				Appt.scheduleDoctor(PreferredDoctor, time);
 			}
@@ -222,4 +222,5 @@ public class Patient extends User
 	{
 		return AppointmentHistory;
 	}
+
 }

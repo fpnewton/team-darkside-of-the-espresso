@@ -25,46 +25,17 @@ public class PatientInfo implements Serializable
 
 	/** The Allergies. */
 	private List<String>			Allergies;
-<<<<<<< .mine
 	private	List<TreatmentRecord>	MedicalHistory;
 	
-	public PatientInfo(){}
 	
 	public PatientInfo(int Age, String InsuranceCarrier, String Pharmacy, 
 						List<String> Allergies, List<TreatmentRecord> MedicalHistory){
+		//TODO We should probably have a name attribute here.
 		this.Age=Age;
 		this.InsuranceCarrier=InsuranceCarrier;
 		this.Pharmacy=Pharmacy;
 		this.Allergies=Allergies;
 		this.MedicalHistory=MedicalHistory;
-=======
-
-	/** The Medical history. */
-	private List<TreatmentRecord>	MedicalHistory;
-
-
-	/**
-	 * Instantiates a new patient info.
-	 * 
-	 * @param Age
-	 *            the age
-	 * @param InsuranceCarrier
-	 *            the insurance carrier
-	 * @param Pharmacy
-	 *            the pharmacy
-	 * @param Allergies
-	 *            the allergies
-	 * @param MedicalHistory
-	 *            the medical history
-	 */
-	public PatientInfo(int Age, String InsuranceCarrier, String Pharmacy, List<String> Allergies, List<TreatmentRecord> MedicalHistory)
-	{
-		this.Age = Age;
-		this.InsuranceCarrier = InsuranceCarrier;
-		this.Pharmacy = Pharmacy;
-		this.Allergies = Allergies;
-		this.MedicalHistory = MedicalHistory;
->>>>>>> .r109
 	}
 
 
@@ -156,5 +127,19 @@ public class PatientInfo implements Serializable
 	public List<TreatmentRecord> getMedicalHistory()
 	{
 		return MedicalHistory;
+	}
+	
+	/**
+	 * Converts all attributes except Allergies and MedicalHistory to one string variable
+	 * 
+	 * @return All attributes but the two ArrayLists in String form
+	 * @return
+	 */
+	public String toString(){
+		String age = "Age: "+getAge()+"\n";
+		String iCarrier = "Insurance Carrier: "+getInsuranceCarrier()+"\n";
+		String pharm = "Pharmacy: "+getPharmacy()+"\n";
+		
+		return age+iCarrier+pharm;
 	}
 }

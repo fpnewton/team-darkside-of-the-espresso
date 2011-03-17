@@ -10,10 +10,11 @@ import java.sql.Time;
 import java.util.Date;
 
 import edu.gatech.TeamDarksideOfTheEspresso.Users.Doctor;
-
+import edu.gatech.TeamDarksideOfTheEspresso.Users.Patient;
 
 public class Appointment implements Serializable
 {
+	private Patient Patient;
 	
 	/** The Desired date. */
 	private Date	DesiredDate;
@@ -24,26 +25,21 @@ public class Appointment implements Serializable
 	/** The Symptoms. */
 	private String	Symptoms;
 
-	/** The Desired time. */
-	private Time	DesiredTime;
-
 
 	/**
 	 * Appointment constructor.
 	 * 
 	 * @param date
 	 *            the date
-	 * @param time
-	 *            the time
 	 * @param desiredDoctor
 	 *            the desired doctor
 	 * @param symptoms
 	 *            the symptoms
 	 */
-	public Appointment(Date date, Time time, Doctor desiredDoctor, String symptoms)
+	public Appointment(Patient Patient, Date date, Doctor desiredDoctor, String symptoms)
 	{
+		this.Patient=Patient;
 		this.DesiredDate = date;
-		this.DesiredTime = time;
 		this.DesiredDoctor = desiredDoctor;
 		this.Symptoms = symptoms;
 	}
@@ -59,9 +55,9 @@ public class Appointment implements Serializable
 	 * @param DesiredDoctor
 	 *            the desired doctor
 	 */
-	public Appointment(Date Date, Time Time, Doctor DesiredDoctor)
+	public Appointment(Patient Patient, Date Date, Doctor DesiredDoctor)
 	{
-		this(Date, Time, DesiredDoctor, null);
+		this(Patient, Date, DesiredDoctor, null);
 	}
 
 
@@ -75,19 +71,12 @@ public class Appointment implements Serializable
 	 */
 	public void scheduleDoctor(Doctor doc, Date preferredDate)
 	{
-		// TODO This method depends heavily on doctor attributes
-		// that determine availability as well as an attribute
-		// that stores dates during which the doctor has
-		// scheduled appointments. This method,
-		// therefore, is commented out and in high-level
-		// pseudocode until this is fixed
+		
 
-		/*
-		 * if(!doc.checkAvailability(date, time)) return;
-		 * 
-		 * else{ remove Date from available dates list insert Date into
-		 * unavailable dates list }
-		 */
+		  if(!doc.checkAvailability(preferredDate)) return;
+		  
+		  else
+		  		doc.addAppointment(this);
 	}
 
 	/**
@@ -121,18 +110,6 @@ public class Appointment implements Serializable
 	{
 		return Symptoms;
 	}
-
-
-	/**
-	 * Gets the time.
-	 * 
-	 * @return the time
-	 */
-	public Time getTime()
-	{
-		return DesiredTime;
-	}
-
 
 	/**
 	 * Sets the date.
@@ -168,16 +145,8 @@ public class Appointment implements Serializable
 	{
 		this.Symptoms = Symptoms;
 	}
-
-
-	/**
-	 * Sets the time.
-	 * 
-	 * @param Time
-	 *            the new time
-	 */
-	public void setTime(Time Time)
-	{
-		this.DesiredTime = Time;
+	
+	public Patient getPatient(){
+		return Patient;
 	}
 }
