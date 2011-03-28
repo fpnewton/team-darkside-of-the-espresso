@@ -4,6 +4,7 @@ import edu.gatech.TeamDarksideOfTheEspresso.Users.UserInfo;
 import edu.gatech.TeamDarksideOfTheEspresso.Users.PatientInfo;
 import edu.gatech.TeamDarksideOfTheEspresso.Users.Doctor;
 import edu.gatech.TeamDarksideOfTheEspresso.Users.Patient;
+import edu.gatech.TeamDarksideOfTheEspresso.Users.GenderType;
 import edu.gatech.TeamDarksideOfTheEspresso.Appointment.Appointment;
 import java.util.Date;
 import junit.framework.*;
