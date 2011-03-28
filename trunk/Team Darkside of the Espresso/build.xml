@@ -2,7 +2,7 @@
 
 <project name="Team Darkside of the Espresso" default="all" basedir=".">
 	<target name="init">
-		<property name="version" value="1.0.0" />
+		<property name="version" value="1.0.1" />
 
 		<property name="client.build.num" value="build1" />
 		<property name="server.build.num" value="build1" />
@@ -21,12 +21,8 @@
 		<property name="test.dir" location="Test" />
 
 
-		<property name="global.pkg" value="edu.gatech.TeamDarksideOfTheEspresso" />
-		<property name="global.pkg.dir" value="edu${file.separator}gatech${file.separator}TeamDarksideOfTheEspresso" />
-
-
-		<property name="hospital-client.pkg" value="${global.pkg}.HospitalClient" />
-		<property name="hospital-server.pkg" value="${global.pkg}.HospitalServer" />
+		<property name="hospital-client.pkg" value="client" />
+		<property name="hospital-server.pkg" value="server" />
 
 
 		<property name="client.name" value="Hospital Client" />
@@ -67,7 +63,9 @@
 
 
 	<target name="compile" depends="prepare">
-		<javac srcdir="${src.dir}" destdir="${bin.dir}" includeantruntime="false" />
+		<javac srcdir="${src.dir}" destdir="${bin.dir}" includeantruntime="false">
+			<classpath refid="classpath" />
+		</javac>
 	</target>
 
 
@@ -78,13 +76,13 @@
 	<target name="jar-client" depends="javadoc">
 		<jar destfile="${client.name}.jar" basedir="${bin.dir}" whenmanifestonly="fail" update="true">
 			<fileset dir=".">
-				<include name="${global.pkg.dir}${file.separator}Appointment${file.separator}*.class" />
-				<include name="${global.pkg.dir}${file.separator}HospitalClient${file.separator}*.class" />
-				<include name="${global.pkg.dir}${file.separator}Network${file.separator}*.class" />
-				<include name="${global.pkg.dir}${file.separator}Record${file.separator}*.class" />
-				<include name="${global.pkg.dir}${file.separator}SystemLog${file.separator}*.class" />
-				<include name="${global.pkg.dir}${file.separator}UI${file.separator}*.class" />
-				<include name="${global.pkg.dir}${file.separator}Users${file.separator}*.class" />
+				<include name="appointment${file.separator}*.class" />
+				<include name="client${file.separator}*.class" />
+				<include name="network${file.separator}*.class" />
+				<include name="record${file.separator}*.class" />
+				<include name="log${file.separator}*.class" />
+				<include name="ui${file.separator}*.class" />
+				<include name="users${file.separator}*.class" />
 
 				<include name="${resources.dir}${file.separator}**${file.separator}*.png" />
 			</fileset>
@@ -233,11 +231,11 @@
 
 <target name="junit" depends="compile">
 	<junit>
-		<classpath refid="classpath.test"/>
+		<classpath refid="test.classpath"/>
 		<formatter usefile="false" type="brief"/>
 		<batchtest>
-			<fileset dir="${test.dir}" includes=
-				"**/Test*.class"/>
+			<fileset dir="bin" includes=
+				"*.class"/>
 		</batchtest>
 	</junit>
 </target>
