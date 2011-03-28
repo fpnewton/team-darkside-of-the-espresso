@@ -18,6 +18,7 @@
 		<property name="src.dir" location="src" />
 		<property name="test.db.dir" location="DB" />
 		<property name="test.log.dir" location="Logs" />
+		<property name="test.dir" location="Test" />
 
 
 		<property name="global.pkg" value="edu.gatech.TeamDarksideOfTheEspresso" />
@@ -229,4 +230,15 @@
 
 		<zip destfile="${pkg.name}.zip" basedir="${build.dir}" />
 	</target>
+
+<target name="junit" depends="compile">
+	<junit>
+		<classpath refid="classpath.test"/>
+		<formatter usefile="false" type="brief"/>
+		<batchtest>
+			<fileset dir="${test.dir}" includes=
+				"**/Test*.class"/>
+		</batchtest>
+	</junit>
+</target>
 </project>
