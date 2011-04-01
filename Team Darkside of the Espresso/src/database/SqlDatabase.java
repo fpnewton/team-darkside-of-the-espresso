@@ -1,6 +1,8 @@
+/*
+ * SQL Database Class.
+ */
 
 package database;
-
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,234 +22,400 @@ import users.User;
 
 import log.SystemLog;
 
+/**
+ * SQL Database Class.
+ * 
+ * @author Fraser P. Newton
+ * @version 1.0.0
+ */
+public class SqlDatabase {
 
+    /** The db connection. */
+    private Connection dbConnection;
 
-public class SqlDatabase
-{
-	private Connection		dbConnection;
-	private Statement		sqlStatement;
+    /** The SQL transaction statement. */
+    private Statement sqlStatement;
 
-	private final String	strUserTable	= "users";
+    public SqlDatabase() throws ClassNotFoundException {
+	Class.forName("org.sqlite.JDBC");
+    }
 
+    /**
+     * Creates the database tables.
+     * 
+     * @return true, if successful
+     */
+    public boolean createTables() {
+	boolean isSuccessful = true;
 
-	/*
-	 * Users Table: id, data_id, name, username, password_hash,
-	 * last_login_attempts Data Table: id, user_id, data
-	 */
+	try {
+	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
 
-	public boolean OpenDatabaseConnection()
-	{
-		try
-		{
-			// Attempt to load the SQLite connector
-			Class.forName("org.sqlite.JDBC");
+	    sqlStatement = dbConnection.createStatement();
 
-			dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
+	    sqlStatement.executeUpdate("DROP TABLE IF EXISTS users;");
+	    sqlStatement
+		    .executeUpdate("CREATE TABLE users"
+			    + "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+			    + "name VARCHAR(255), username VARCHAR(255), password_hash VARCHAR(255), data);");
+	} catch (SQLException e) {
+	    isSuccessful = false;
+
+	    handleException(e);
+	} finally {
+	    try {
+		if (sqlStatement != null) {
+		    sqlStatement.close();
 		}
-		catch (ClassNotFoundException e)
-		{
-			SystemLog.LogMessage(e.getMessage(), Level.SEVERE);
 
-			return false;
+		if (dbConnection != null) {
+		    dbConnection.close();
 		}
-		catch (SQLException e)
-		{
-			SystemLog.LogMessage(e.getMessage(), Level.SEVERE);
+	    } catch (SQLException e) {
+		isSuccessful = false;
 
-			return false;
-		}
-
-		return true;
+		handleException(e);
+	    }
 	}
 
+	return isSuccessful;
+    }
 
-	public boolean CloseDatabaseConnection()
-	{
-		try
-		{
-			// Attempt to close the database connection
-			dbConnection.close();
+    /**
+     * Insert user into the database.
+     * 
+     * @param user
+     *            the user
+     * @return true, if successful
+     */
+    public boolean insertUser(User user) {
+	PreparedStatement prepStatement = null;
+	boolean isSuccessful = true;
+
+	try {
+	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
+
+	    prepStatement = dbConnection
+		    .prepareStatement("INSERT INTO users VALUES(NULL, ?, ?, ?, ?);");
+
+	    prepStatement.setString(1, user.getUserInformation().getName());
+	    prepStatement.setString(2, user.getUsername());
+	    prepStatement.setString(3, user.getPasswordHash());
+	    prepStatement.setBytes(4, getObjectBytes(user));
+	    prepStatement.execute();
+	} catch (SQLException e) {
+	    isSuccessful = false;
+
+	    handleException(e);
+	} catch (IOException e) {
+	    isSuccessful = false;
+
+	    handleException(e);
+	} finally {
+	    try {
+		if (prepStatement != null) {
+		    prepStatement.close();
 		}
-		catch (SQLException e)
-		{
-			SystemLog.LogMessage(e.getMessage(), Level.SEVERE);
 
-			return false;
+		if (dbConnection != null) {
+		    dbConnection.close();
 		}
+	    } catch (SQLException e) {
+		isSuccessful = false;
 
-		return true;
+		handleException(e);
+	    }
 	}
 
+	return isSuccessful;
+    }
 
-	public boolean CreateNewDatabaseTables()
-	{
-		try
-		{
-			// Attempt to create a SQL statement
-			sqlStatement = dbConnection.createStatement();
+    public boolean updateUser(int id, User user) {
+	PreparedStatement prepStatement = null;
+	boolean isSuccessful = true;
 
-			sqlStatement.executeUpdate("DROP TABLE IF EXISTS " + strUserTable + ";");
-			sqlStatement.executeUpdate("CREATE TABLE " + strUserTable + "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name, username, password_hash, data);");
+	try {
+	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
 
-			// Delete the SQL statement
-			sqlStatement.close();
+	    prepStatement = dbConnection
+		    .prepareStatement("UPDATE OR ROLLBACK users SET name = '?', username = '?', password_hash = '?', data = '?' WHERE id = '"
+			    + id + "';");
+
+	    prepStatement.setString(1, user.getUserInformation().getName());
+	    prepStatement.setString(2, user.getUsername());
+	    prepStatement.setString(3, user.getPasswordHash());
+	    prepStatement.setBytes(4, getObjectBytes(user));
+
+	    prepStatement.executeUpdate();
+	} catch (SQLException e) {
+	    handleException(e);
+
+	    isSuccessful = false;
+	} catch (IOException e) {
+	    handleException(e);
+
+	    isSuccessful = false;
+	} finally {
+	    try {
+		if (prepStatement != null) {
+		    prepStatement.close();
 		}
-		catch (SQLException e)
-		{
-			SystemLog.LogMessage(e.getMessage(), Level.SEVERE);
 
-			return false;
+		if (dbConnection != null) {
+		    dbConnection.close();
 		}
+	    } catch (SQLException e) {
+		handleException(e);
 
-		return true;
+		isSuccessful = false;
+	    }
 	}
 
+	return isSuccessful;
+    }
 
-	public boolean InsertUser(User user)
-	{
-		try
-		{
-			PreparedStatement prepStatement = dbConnection.prepareStatement("INSERT INTO users VALUES(NULL, ?, ?, ?, ?);");
+    public boolean deleteUser(int id) {
+	boolean isSuccessful = true;
 
-			prepStatement.setString(1, user.getUserInformation().getName());
-			prepStatement.setString(2, user.getUsername());
-			prepStatement.setString(3, user.getPasswordHash());
-			prepStatement.setBytes(4, getObjectBytes(user));
-			prepStatement.execute();
+	try {
+	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
 
-			prepStatement.close();
-		}
-		catch (SQLException e)
-		{
-			SystemLog.LogMessage(e.getMessage(), Level.SEVERE);
+	    sqlStatement = dbConnection.createStatement();
 
-			return false;
-		}
-		catch (IOException e)
-		{
-			SystemLog.LogMessage(e.getMessage(), Level.SEVERE);
+	    sqlStatement.executeUpdate("DELETE FROM users WHERE id = '" + id + "';");
+	} catch (SQLException e) {
+	    isSuccessful = false;
 
-			return false;
+	    handleException(e);
+	} finally {
+	    try {
+		if (sqlStatement != null) {
+		    sqlStatement.close();
 		}
 
-		return true;
+		if (dbConnection != null) {
+		    dbConnection.close();
+		}
+	    } catch (SQLException e) {
+		isSuccessful = false;
+
+		handleException(e);
+	    }
 	}
 
+	return isSuccessful;
+    }
 
-	public int getUserID(String Name)
-	{
-		int id = -1;
+    /**
+     * Gets the user id.
+     * 
+     * @param Name
+     *            the name
+     * @return the user id
+     */
+    public int getUserID(String Name) {
+	int id = -1;
 
-		try
-		{
-			ResultSet results;
+	try {
+	    ResultSet results;
 
-			sqlStatement = dbConnection.createStatement();
-			results = sqlStatement.executeQuery("SELECT * FROM users WHERE name='" + Name + "';");
+	    sqlStatement = dbConnection.createStatement();
+	    results = sqlStatement.executeQuery("SELECT * FROM users WHERE name='" + Name
+		    + "';");
 
-			results.next();
+	    results.next();
 
-			id = results.getInt("id");
+	    id = results.getInt("id");
 
-			sqlStatement.close();
+	    sqlStatement.close();
+	} catch (SQLException e) {
+	    handleException(e);
+	}
+
+	return id;
+    }
+
+    /**
+     * Gets the user.
+     * 
+     * @param id
+     *            the id
+     * @return the user
+     */
+    public User getUser(int id) {
+	return (User) getObject("data", id)[0];
+    }
+
+    public User[] getAllUsers() {
+	try {
+	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
+	    ArrayList<Object> Out = new ArrayList<Object>();
+	    ResultSet Results = dbConnection.createStatement().executeQuery(
+		    "SELECT * FROM users;");
+
+	    if (Results != null) {
+		while (Results.next()) {
+		    Object obj = getDatabaseObject(Results, "data");
+		    Out.add((User) obj);
 		}
-		catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
+	    } else {
+		if (!SystemLog.LogMessage(
+			"Error: Unexpected null pointer defreferenced in sqlDatabase.",
+			Level.SEVERE)) {
+		    System.out.println("Error: Unexpected null pointer "
+			    + "defreferenced in sqlDatabase.");
+		}
+	    }
+
+	    return Out.toArray(new User[Out.size()]);
+	} catch (IOException e) {
+	    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+		e.printStackTrace();
+	    }
+	} catch (SQLException e) {
+	    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+		e.printStackTrace();
+	    }
+	} catch (ClassNotFoundException e) {
+	    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+		e.printStackTrace();
+	    }
+	} finally {
+	    if (dbConnection != null) {
+		try {
+		    dbConnection.close();
+		} catch (SQLException e) {
+		    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
 			e.printStackTrace();
+		    }
 		}
-
-		return id;
+	    }
 	}
-
-
-	public User getUser(int id)
-	{
-		try
-		{
-			ResultSet results;
-
-			sqlStatement = dbConnection.createStatement();
-			results = sqlStatement.executeQuery("SELECT * FROM users WHERE id='" + id + "';");
-
-			results.next();
-
-			User obj[] = (User[])getObject("data", id);
-
-			sqlStatement.close();
-			
-			return obj[0];
-		}
-		catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	
-		return null;
+	return null;
+    }
+
+    /**
+     * Gets the object.
+     * 
+     * @param ColumnName
+     *            the column name
+     * @param id
+     *            the id
+     * @return the object
+     */
+    public Object[] getObject(String ColumnName, int id) {
+	try {
+	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
+	    ArrayList<Object> Out = new ArrayList<Object>();
+	    ResultSet Results = dbConnection.createStatement().executeQuery(
+		    "SELECT * FROM users WHERE id='" + id + "';");
+
+	    if (Results != null) {
+		while (Results.next()) {
+		    Object obj = getDatabaseObject(Results, ColumnName);
+		    Out.add((User) obj);
+		}
+	    } else {
+		SystemLog.LogMessage(
+			"Error: Unexpected null pointer defreferenced in sqlDatabase.",
+			Level.SEVERE);
+	    }
+
+	    return Out.toArray();
+	} catch (IOException e) {
+	    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+		e.printStackTrace();
+	    }
+
+	    return null;
+	} catch (SQLException e) {
+	    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+		e.printStackTrace();
+	    }
+
+	    return null;
+	} catch (ClassNotFoundException e) {
+	    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+		e.printStackTrace();
+	    }
+
+	    return null;
+	} finally {
+	    if (dbConnection != null) {
+		try {
+		    dbConnection.close();
+		} catch (SQLException e) {
+		    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			e.printStackTrace();
+		    }
+		}
+	    }
+	}
+    }
+
+    /**
+     * Gets the object bytes.
+     * 
+     * @param object
+     *            the object
+     * @return the object bytes
+     * @throws SQLException
+     *             the sQL exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
+    private byte[] getObjectBytes(Object object) throws SQLException, IOException {
+	ByteArrayOutputStream ByteStream = new ByteArrayOutputStream();
+	ObjectOutputStream ObjectStream = new ObjectOutputStream(ByteStream);
+
+	ObjectStream.writeObject(object);
+	ObjectStream.close();
+
+	return ByteStream.toByteArray();
+    }
+
+    /**
+     * Gets the database object.
+     * 
+     * @param results
+     *            the results
+     * @param column
+     *            the column
+     * @return the database object
+     * @throws SQLException
+     *             the sQL exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     */
+    private static Object getDatabaseObject(ResultSet results, String column)
+	    throws SQLException, IOException, ClassNotFoundException {
+	byte[] Buffer = results.getBytes(column);
+
+	if (Buffer != null) {
+	    ByteArrayInputStream ByteStream = new ByteArrayInputStream(Buffer);
+	    ObjectInputStream ObjectStream = new ObjectInputStream(ByteStream);
+
+	    return ObjectStream.readObject();
 	}
 
+	return null;
+    }
 
-	public Object[] getObject(String ColumnName, int id)
-	{
-		try
-		{
-			ArrayList<Object> Out = new ArrayList<Object>();
-			ResultSet Results = dbConnection.createStatement().executeQuery("SELECT * FROM users WHERE id= " + id + ";");
-
-			while (Results.next())
-			{
-				Object obj = getDatabaseObject(Results, ColumnName);
-				Out.add((User) obj);
-			}
-
-			return Out.toArray();
-		}
-		catch (IOException e)
-		{
-			SystemLog.LogMessage(e.getMessage(), Level.SEVERE);
-
-			return null;
-		}
-		catch (SQLException e)
-		{
-			SystemLog.LogMessage(e.getMessage(), Level.SEVERE);
-
-			return null;
-		}
-		catch (ClassNotFoundException e)
-		{
-			SystemLog.LogMessage(e.getMessage(), Level.SEVERE);
-
-			return null;
-		}
+    private void handleException(Exception e) {
+	if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+	    e.printStackTrace();
 	}
+    }
 
-
-	private byte[] getObjectBytes(Object object) throws SQLException, IOException
-	{
-		ByteArrayOutputStream ByteStream = new ByteArrayOutputStream();
-		ObjectOutputStream ObjectStream = new ObjectOutputStream(ByteStream);
-
-		ObjectStream.writeObject(object);
-		ObjectStream.close();
-
-		return ByteStream.toByteArray();
-	}
-
-
-	private static Object getDatabaseObject(ResultSet results, String column) throws SQLException, IOException, ClassNotFoundException
-	{
-		byte[] Buffer = results.getBytes(column);
-
-		if (Buffer != null)
-		{
-			ByteArrayInputStream ByteStream = new ByteArrayInputStream(Buffer);
-			ObjectInputStream ObjectStream = new ObjectInputStream(ByteStream);
-
-			return ObjectStream.readObject();
-		}
-
-		return null;
-	}
+    /**
+     * toString() Override.
+     * 
+     * @return An empty String
+     */
+    public String toString() {
+	return "";
+    }
 }

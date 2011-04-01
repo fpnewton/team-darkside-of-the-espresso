@@ -1,4 +1,4 @@
-package src.users;
+package users;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;

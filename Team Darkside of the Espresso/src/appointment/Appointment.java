@@ -1,153 +1,163 @@
-/**
- * The Class Appointment.
+/*
+ * The Appointment Class.
  */
 
 package appointment;
 
-
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
 
 import users.Doctor;
 import users.Patient;
 
-
-public class Appointment implements Serializable
-{
-	private Patient Patient;
-	
-	/** The Desired date. */
-	private Date	DesiredDate;
-
-	/** The Desired doctor. */
-	private Doctor	DesiredDoctor;
-
-	/** The Symptoms. */
-	private String	Symptoms;
-
-
-	/**
-	 * Appointment constructor.
+/**
+ * The Appointment Class.
+ * 
+ * @author David Garner
+ * @version 1.0.0
+ */
+public class Appointment implements Serializable {
+    /**
 	 * 
-	 * @param date
-	 *            the date
-	 * @param desiredDoctor
-	 *            the desired doctor
-	 * @param symptoms
-	 *            the symptoms
 	 */
-	public Appointment(Patient Patient, Date date, Doctor desiredDoctor, String symptoms)
-	{
-		this.Patient=Patient;
-		this.DesiredDate = date;
-		this.DesiredDoctor = desiredDoctor;
-		this.Symptoms = symptoms;
+    private static final long serialVersionUID = 1L;
+
+    /** The patient data. */
+    private Patient patient;
+
+    /** The Desired date. */
+    private Date desiredDate;
+
+    /** The Desired doctor. */
+    private Doctor desiredDoctor;
+
+    /** The Symptoms. */
+    private String symptoms;
+
+    /**
+     * Appointment constructor.
+     * 
+     * @param patient
+     *            the patient
+     * @param date
+     *            the date
+     * @param doctor
+     *            the desired doctor
+     * @param symptoms
+     *            the symptoms
+     */
+    public Appointment(Patient patient, Date date, Doctor doctor, String symptoms) {
+	this.patient = patient;
+	this.desiredDate = date;
+	this.desiredDoctor = doctor;
+	this.symptoms = symptoms;
+    }
+
+    /**
+     * Instantiates a new appointment.
+     * 
+     * @param patient
+     *            The patient
+     * @param date
+     *            the date
+     * @param desiredDoctor
+     *            the desired doctor
+     */
+    public Appointment(Patient patient, Date date, Doctor desiredDoctor) {
+	this(patient, date, desiredDoctor, null);
+    }
+
+    /**
+     * Schedules a doctor at a specific date if he/she is available.
+     * 
+     * @param doc
+     *            The desired doctor
+     * @param preferredDate
+     *            the preferred date
+     */
+    public void scheduleDoctor(Doctor doc, Date preferredDate) {
+
+	if (!doc.checkAvailability(preferredDate)) {
+	    return;
+	} else {
+	    doc.addAppointment(this);
 	}
+    }
 
+    /**
+     * Gets the date.
+     * 
+     * @return the date
+     */
+    public Date getDate() {
+	return desiredDate;
+    }
 
-	/**
-	 * Instantiates a new appointment.
-	 * 
-	 * @param Date
-	 *            the date
-	 * @param Time
-	 *            the time
-	 * @param DesiredDoctor
-	 *            the desired doctor
-	 */
-	public Appointment(Patient Patient, Date Date, Doctor DesiredDoctor)
-	{
-		this(Patient, Date, DesiredDoctor, null);
-	}
+    /**
+     * Gets the desired doctor.
+     * 
+     * @return the desired doctor
+     */
+    public Doctor getDesiredDoctor() {
+	return desiredDoctor;
+    }
 
+    /**
+     * Gets the symptoms.
+     * 
+     * @return the symptoms
+     */
+    public String getSymptoms() {
+	return symptoms;
+    }
 
-	/**
-	 * Schedules a doctor at a specific date if he/she is available.
-	 * 
-	 * @param doc
-	 *            The desired doctor
-	 * @param preferredDate
-	 *            the preferred date
-	 */
-	public void scheduleDoctor(Doctor doc, Date preferredDate)
-	{
-		
+    /**
+     * Sets the date.
+     * 
+     * @param date
+     *            the new date
+     */
+    public void setDate(Date date) {
+	this.desiredDate = date;
+    }
 
-		  if(!doc.checkAvailability(preferredDate)) return;
-		  
-		  else
-		  		doc.addAppointment(this);
-	}
+    /**
+     * Sets the desired doctor.
+     * 
+     * @param desiredDoctor
+     *            the new desired doctor
+     */
+    public void setDesiredDoctor(Doctor desiredDoctor) {
+	this.desiredDoctor = desiredDoctor;
+    }
 
-	/**
-	 * Gets the date.
-	 * 
-	 * @return the date
-	 */
-	public Date getDate()
-	{
-		return DesiredDate;
-	}
+    /**
+     * Sets the symptoms.
+     * 
+     * @param symptoms
+     *            the new symptoms
+     */
+    public void setSymptoms(String symptoms) {
+	this.symptoms = symptoms;
+    }
 
+    /**
+     * Gets the patient object
+     * 
+     * @return The patient object
+     */
+    public Patient getPatient() {
+	return patient;
+    }
 
-	/**
-	 * Gets the desired doctor.
-	 * 
-	 * @return the desired doctor
-	 */
-	public Doctor getDesiredDoctor()
-	{
-		return DesiredDoctor;
-	}
-
-
-	/**
-	 * Gets the symptoms.
-	 * 
-	 * @return the symptoms
-	 */
-	public String getSymptoms()
-	{
-		return Symptoms;
-	}
-
-	/**
-	 * Sets the date.
-	 * 
-	 * @param Date
-	 *            the new date
-	 */
-	public void setDate(Date Date)
-	{
-		this.DesiredDate = Date;
-	}
-
-
-	/**
-	 * Sets the desired doctor.
-	 * 
-	 * @param DesiredDoctor
-	 *            the new desired doctor
-	 */
-	public void setDesiredDoctor(Doctor DesiredDoctor)
-	{
-		this.DesiredDoctor = DesiredDoctor;
-	}
-
-
-	/**
-	 * Sets the symptoms.
-	 * 
-	 * @param Symptoms
-	 *            the new symptoms
-	 */
-	public void setSymptoms(String Symptoms)
-	{
-		this.Symptoms = Symptoms;
-	}
-	
-	public Patient getPatient(){
-		return Patient;
-	}
+    /**
+     * toString Override
+     * 
+     * @return A string with the appointment data
+     */
+    public String toString() {
+	return "Patient Info: " + patient.toString() + "\nDesired Date: "
+		+ desiredDate.toString() + "\nDesiredDoctor" + desiredDoctor.toString()
+		+ "\nSymptoms: " + symptoms.toString();
+    }
 }
