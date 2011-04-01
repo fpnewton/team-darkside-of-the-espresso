@@ -18,7 +18,7 @@
 		<property name="src.dir" location="src" />
 		<property name="test.db.dir" location="DB" />
 		<property name="test.log.dir" location="Logs" />
-		<property name="test.dir" location="Test" />
+		<property name="test.dir" location="test" />
 
 
 		<property name="hospital-client.pkg" value="client" />
@@ -32,15 +32,15 @@
 		<path id="classpath">
 			<fileset dir="${lib.dir}">
 				<include name="sqlitejdbc-v056.jar" />
-				<include name="JUnit-4.9b2.jar" />
+				<include name="junit.jar" />
 			</fileset>
 		</path>
-
-		<path id="test.classpath">
-			<pathelement location="${lib.dir}${file.separator}JUnit-4.9b2.jar" />
-			<pathelement location="${src.dir}" />
-			<path refid="classpath" />
-		</path>
+		
+		<path id="junit.classpath">
+		    <pathelement location="${lib.dir}${file.separator}junit.jar" />
+		    <pathelement location="${bin.dir}${file.separator}${test.dir}" />
+		    <path refid="classpath" />
+		  </path>
 
 		<manifestclasspath property="server.manifest.classpath" jarfile="${server.name}.jar">
 			<classpath refid="classpath" />
@@ -162,7 +162,7 @@
 		<junit>
 			<classpath refid="classpath" />
 			<formatter type="brief" usefile="false" />
-			<test name="NetworkTest" />
+			<test name="DatabaseTest" />
 		</junit>
 	</target>
 
@@ -173,7 +173,12 @@
 
 
 	<target name="test-server" depends="clean,compile">
-		<!-- TODO Implement Target -->
+		<junit>
+			<classpath refid="junit.classpath" />
+			<formatter type="brief" usefile="false" />
+			<test name="DatabaseTest" />
+		</junit>
+
 	</target>
 
 
@@ -228,15 +233,4 @@
 
 		<zip destfile="${pkg.name}.zip" basedir="${build.dir}" />
 	</target>
-
-<target name="junit" depends="compile">
-	<junit>
-		<classpath refid="test.classpath"/>
-		<formatter usefile="false" type="brief"/>
-		<batchtest>
-			<fileset dir="bin" includes=
-				"*.class"/>
-		</batchtest>
-	</junit>
-</target>
 </project>

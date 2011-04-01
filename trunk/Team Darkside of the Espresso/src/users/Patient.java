@@ -114,7 +114,7 @@ public class Patient extends User
 		}
 		catch (Exception e)
 		{
-			SystemLog.LogMessage("Didn't Work!", Level.ALL);
+			SystemLog.LogMessage(e.getMessage(), Level.SEVERE);
 		}
 	}
 
@@ -225,5 +225,5 @@ public class Patient extends User
 	{
 		return AppointmentHistory;
 	}
-
+	
 }
