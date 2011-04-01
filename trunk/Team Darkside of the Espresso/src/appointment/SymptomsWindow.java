@@ -1,3 +1,5 @@
+package appointment;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -12,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 
-public class AppointmentGUI extends JFrame {
+public class SymptomsWindow extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -24,7 +26,7 @@ public class AppointmentGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AppointmentGUI frame = new AppointmentGUI();
+					SymptomsWindow frame = new SymptomsWindow();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +38,7 @@ public class AppointmentGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AppointmentGUI() {
+	public SymptomsWindow() {
 		setTitle("Symptoms");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 816, 664);
