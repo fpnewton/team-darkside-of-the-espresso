@@ -36,8 +36,13 @@ public class SqlDatabase {
     /** The SQL transaction statement. */
     private Statement sqlStatement;
 
+    /**
+     * Loads the SQLite JDBC connector
+     * 
+     * @throws ClassNotFoundException
+     */
     public SqlDatabase() throws ClassNotFoundException {
-	Class.forName("org.sqlite.JDBC");
+	Class.forName("org.sqlite.JDBC"); // $codepro.audit.disable com.instantiations.assist.eclipse.analysis.unusedReturnValue
     }
 
     /**
@@ -45,7 +50,7 @@ public class SqlDatabase {
      * 
      * @return true, if successful
      */
-    public boolean createTables() {
+    public boolean canCreateTables() {
 	boolean isSuccessful = true;
 
 	try {
@@ -53,11 +58,14 @@ public class SqlDatabase {
 
 	    sqlStatement = dbConnection.createStatement();
 
-	    sqlStatement.executeUpdate("DROP TABLE IF EXISTS users;");
+	    final int results = sqlStatement.executeUpdate("DROP TABLE IF EXISTS users;");
 	    sqlStatement
 		    .executeUpdate("CREATE TABLE users"
 			    + "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-			    + "name VARCHAR(255), username VARCHAR(255), password_hash VARCHAR(255), data);");
+			    + "name VARCHAR(255), username VARCHAR(255), "
+			    + "password_hash VARCHAR(255), data);");
+	    
+	    SystemLog.LogMessage("Execute Update results: " + results, Level.SEVERE);
 	} catch (SQLException e) {
 	    isSuccessful = false;
 
@@ -88,7 +96,7 @@ public class SqlDatabase {
      *            the user
      * @return true, if successful
      */
-    public boolean insertUser(User user) {
+    public boolean canInsertUser(User user) {
 	PreparedStatement prepStatement = null;
 	boolean isSuccessful = true;
 
@@ -209,18 +217,18 @@ public class SqlDatabase {
     /**
      * Gets the user id.
      * 
-     * @param Name
+     * @param name
      *            the name
      * @return the user id
      */
-    public int getUserID(String Name) {
+    public int getUserID(String name) {
 	int id = -1;
 
 	try {
 	    ResultSet results;
 
 	    sqlStatement = dbConnection.createStatement();
-	    results = sqlStatement.executeQuery("SELECT * FROM users WHERE name='" + Name
+	    results = sqlStatement.executeQuery("SELECT * FROM users WHERE name='" + name
 		    + "';");
 
 	    results.next();
@@ -292,7 +300,7 @@ public class SqlDatabase {
 	    }
 	}
 	
-	return null;
+	return new User[0];
     }
 
     /**
@@ -307,7 +315,7 @@ public class SqlDatabase {
     public Object[] getObject(String ColumnName, int id) {
 	try {
 	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
-	    ArrayList<Object> Out = new ArrayList<Object>();
+	    List<Object> Out = new ArrayList<Object>();
 	    ResultSet Results = dbConnection.createStatement().executeQuery(
 		    "SELECT * FROM users WHERE id='" + id + "';");
 
