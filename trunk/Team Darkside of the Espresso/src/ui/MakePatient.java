@@ -1,4 +1,4 @@
-package users;
+package ui;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -9,17 +9,17 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
-public class MakeDoctor extends JPanel {
+public class MakePatient extends JPanel {
 	private JTextField textField;
 	private final ButtonGroup genderGroup = new ButtonGroup();
 
 	/**
 	 * Create the panel.
 	 */
-	public MakeDoctor() {
+	public MakePatient() {
 		setLayout(null);
 		
-		JLabel Title = new JLabel("Make/Edit Doctor Data");
+		JLabel Title = new JLabel("Make/Edit Patient Data");
 		Title.setBounds(265, 10, 118, 14);
 		add(Title);
 		
