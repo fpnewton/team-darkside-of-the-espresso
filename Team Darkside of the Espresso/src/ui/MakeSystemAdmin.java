@@ -9,7 +9,16 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
+import client.Main;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class MakeSystemAdmin extends JPanel {
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	private final ButtonGroup genderGroup = new ButtonGroup();
 
@@ -115,6 +124,16 @@ public class MakeSystemAdmin extends JPanel {
 		add(activeCB);
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			    User sysAdmin = new SystemAdmin();
+			    
+			    Main.getDatabaseObject();
+			    
+			    Database.insertUser(new SystemAdmin("fnewton3", Crypto.getSha1Hash("password"), GenderType.Male, new UserInfo("Fraser Newton", "Address", "678-468-0074", "999-99-9999", "fnewton3@gatech.edu", new Date())));
+			}
+		});
 		btnSave.setBounds(114, 266, 76, 23);
 		add(btnSave);
 		

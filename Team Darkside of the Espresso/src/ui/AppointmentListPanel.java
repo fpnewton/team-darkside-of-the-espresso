@@ -14,6 +14,11 @@ import java.awt.SystemColor;
 import javax.swing.JTextPane;
 import javax.swing.JSeparator;
 
+import client.Main;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class AppointmentListPanel extends JPanel {
 
 	/**
@@ -41,6 +46,14 @@ public class AppointmentListPanel extends JPanel {
 		add(lblCheckAppointment);
 		
 		JButton btnEdit = new JButton("Edit");
+		btnEdit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			    ScheduleWindow scheduleWin = new ScheduleWindow();
+				
+				scheduleWin.setVisible(true);
+			}
+		});
 		btnEdit.setBounds(254, 99, 117, 29);
 		add(btnEdit);
 		
