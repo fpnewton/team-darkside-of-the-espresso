@@ -27,6 +27,8 @@ import users.UserInfo;
 public class Main {
     /** The SQL database object */
     private static SqlDatabase Database;
+    
+    private static LoginWindow window;
 
     /**
      * Hospital Client application entry point.
@@ -49,7 +51,7 @@ public class Main {
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
 		try {
-		    final LoginWindow window = new LoginWindow();
+		    window = new LoginWindow();
 
 		    window.getFrmLoginWindow().setVisible(true);
 		} catch (Exception e) {
@@ -66,6 +68,10 @@ public class Main {
      */
     public static SqlDatabase getDatabaseObject() {
 	return Database;
+    }
+    
+    public static LoginWindow getLoginWindow() {
+	return window;
     }
 
     /**
