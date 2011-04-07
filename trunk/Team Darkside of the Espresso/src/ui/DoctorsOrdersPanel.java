@@ -4,12 +4,17 @@ import javax.swing.JPanel;
 import javax.swing.JEditorPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
+import java.awt.Dimension;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 
 public class DoctorsOrdersPanel extends JPanel {
+	
+	private static final int WIDTH = 450;
+	private static final int HEIGHT = 300;
 
 	/**
 	 * Create the panel.
@@ -59,5 +64,9 @@ public class DoctorsOrdersPanel extends JPanel {
 		lblCurrentAppointmentSymptoms.setBounds(6, 199, 438, 16);
 		add(lblCurrentAppointmentSymptoms);
 
+	}
+	
+	public Dimension getSize() {
+		return new Dimension(WIDTH, HEIGHT);
 	}
 }
