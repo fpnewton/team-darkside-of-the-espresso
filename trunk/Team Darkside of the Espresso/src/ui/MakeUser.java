@@ -27,16 +27,20 @@ public class MakeUser extends JPanel {
 		add(lblMakeUser);
 		
 		JButton btnCreateNurse = new JButton("Create Nurse...");
-		btnCreateNurse.setBounds(155, 88, 127, 29);
+		btnCreateNurse.setBounds(145, 88, 137, 29);
 		add(btnCreateNurse);
 		
-		JButton btnCreateDoctor = new JButton("Create Doctor...\\");
-		btnCreateDoctor.setBounds(155, 129, 127, 29);
+		JButton btnCreateDoctor = new JButton("Create Doctor...");
+		btnCreateDoctor.setBounds(145, 129, 137, 29);
 		add(btnCreateDoctor);
 		
 		JButton btnCreatePatient = new JButton("Create Patient...");
-		btnCreatePatient.setBounds(155, 170, 127, 29);
+		btnCreatePatient.setBounds(145, 170, 137, 29);
 		add(btnCreatePatient);
+		
+		JButton btnMakeSysadmin = new JButton("Make SysAdmin...");
+		btnMakeSysadmin.setBounds(145, 211, 137, 29);
+		add(btnMakeSysadmin);
 
 	}
 	
