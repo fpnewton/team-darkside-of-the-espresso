@@ -8,7 +8,6 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -45,20 +44,25 @@ public class LoginPanel extends JPanel {
 
     /** The Constant HEIGHT. */
     private static final int HEIGHT = 250 + 25;
-    
+
+    /** The title of the panel. */
     private static final String TITLE = "Hospital Login";
 
     /** The wrong username password string. */
-    private static final String ERROR_WRONG_USERNAME_PASSWORD = "Incorrect username or password. Please try again.";
+    private static final String ERROR_WRONG_USERNAME_PASSWORD = 
+	"Incorrect username or password. Please try again.";
 
     /** The username password length string. */
-    private static final String ERROR_USERNAME_PASSWORD_LENGTH = "Username or password is too short.";
+    private static final String ERROR_USERNAME_PASSWORD_LENGTH = 
+	"Username or password is too short.";
 
     /** The lockout error string. */
-    private static final String ERROR_LOCKOUT = "Too many login attempts. Your account is now disabled.";
+    private static final String ERROR_LOCKOUT = 
+	"Too many login attempts. Your account is now disabled.";
 
     /** The login attempts error string. */
-    private static final String ERROR_LOGIN_ATTEMPTS = "Login Attempts Left: ";
+    private static final String ERROR_LOGIN_ATTEMPTS = 
+	"Login Attempts Left: ";
 
     /** The username text box. */
     private JTextField txtUsername;
@@ -182,11 +186,13 @@ public class LoginPanel extends JPanel {
 
 	if (txtUsername.getText().length() >= 6 && str.length() >= 8) {
 
-	    if (controller.login(txtUsername.getText(), str.toString())) {
+	    if (controller.canLogin(txtUsername.getText(), str.toString())) {
 		// Open the appointment window on success
-		AppointmentListPanel appointmentPanel = new AppointmentListPanel();
-		
-		Main.getApplicationWindow().setFrame(appointmentPanel, appointmentPanel.getTitle(), appointmentPanel.getWidth(), appointmentPanel.getHeight());
+		final AppointmentListPanel appointmentPanel = new AppointmentListPanel();
+
+		Main.getApplicationWindow().setFrame(appointmentPanel,
+			appointmentPanel.getTitle(), appointmentPanel.getWidth(),
+			appointmentPanel.getHeight());
 	    } else {
 		lblError.setText(ERROR_WRONG_USERNAME_PASSWORD);
 		txtPassword.setText("");
@@ -206,15 +212,30 @@ public class LoginPanel extends JPanel {
 		    + controller.getLoginAttemptsRemaining());
 	}
     }
-    
+
+    /**
+     * Gets the title.
+     * 
+     * @return The title of the panel
+     */
     public String getTitle() {
 	return TITLE;
     }
-    
+
+    /**
+     * Gets the width of the panel.
+     * 
+     * @return The width of the panel
+     */
     public int getWidth() {
 	return WIDTH;
     }
-    
+
+    /**
+     * Gets the height of the panel.
+     * 
+     * @return The height of the panel
+     */
     public int getHeight() {
 	return HEIGHT;
     }

@@ -4,6 +4,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+
+import client.Main;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,7 +16,7 @@ public class MakeUser extends JPanel {
     private static final int WIDTH = 450;
 
     /** The Constant HEIGHT. */
-    private static final int HEIGHT = 250 + 25;
+    private static final int HEIGHT = 250 + 30;
     
     private static final String TITLE = "Make User";
 
@@ -42,14 +45,41 @@ public class MakeUser extends JPanel {
 		add(btnCreateNurse);
 		
 		JButton btnCreateDoctor = new JButton("Create Doctor...");
+		btnCreateDoctor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				MakeDoctor makeDoctor = new MakeDoctor();
+				
+				Main.getApplicationWindow().setFrame(makeDoctor, makeDoctor.getTitle(), makeDoctor.getWidth(), makeDoctor.getHeight());
+			    
+			}
+		});
 		btnCreateDoctor.setBounds(145, 129, 137, 29);
 		add(btnCreateDoctor);
 		
 		JButton btnCreatePatient = new JButton("Create Patient...");
+		btnCreatePatient.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				MakePatient makePatient = new MakePatient();
+				
+				Main.getApplicationWindow().setFrame(makePatient, makePatient.getTitle(), makePatient.getWidth(), makePatient.getHeight());
+			    
+			}
+		});
 		btnCreatePatient.setBounds(145, 170, 137, 29);
 		add(btnCreatePatient);
 		
 		JButton btnMakeSysadmin = new JButton("Make SysAdmin...");
+		btnMakeSysadmin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				MakeSystemAdmin makeSysAdmin = new MakeSystemAdmin();
+				
+				Main.getApplicationWindow().setFrame(makeSysAdmin, makeSysAdmin.getTitle(), makeSysAdmin.getWidth(), makeSysAdmin.getHeight());
+			    
+			}
+		});
 		btnMakeSysadmin.setBounds(145, 211, 137, 29);
 		add(btnMakeSysadmin);
 
