@@ -1,6 +1,7 @@
 package ui;
 
-import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -9,11 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class MakePatient extends JPanel {
 	private JTextField textField;
@@ -142,11 +138,7 @@ public class MakePatient extends JPanel {
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setBounds(125, 54, 66, 16);
 		add(lblUsername);
-		
-		JLabel lblCreateeditDoctor = DefaultComponentFactory.getInstance().createTitle("Create/Edit Patient");
-		lblCreateeditDoctor.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCreateeditDoctor.setBounds(141, 0, 200, 34);
-		add(lblCreateeditDoctor);
+
 		
 		/* find function... */
 	}

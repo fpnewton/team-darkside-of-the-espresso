@@ -10,7 +10,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 import javax.swing.SwingConstants;
 
 public class MakeDoctor extends JPanel {
@@ -133,13 +132,7 @@ public class MakeDoctor extends JPanel {
 		
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setBounds(125, 54, 66, 16);
-		add(lblUsername);
-		
-		JLabel lblCreateeditDoctor = DefaultComponentFactory.getInstance().createTitle("Create/Edit Doctor");
-		lblCreateeditDoctor.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCreateeditDoctor.setBounds(141, 0, 200, 34);
-		add(lblCreateeditDoctor);
-		
+		add(lblUsername);	
 		
 		/* find function... */
 	}

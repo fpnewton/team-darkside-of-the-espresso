@@ -1,31 +1,25 @@
 package ui;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import users.GenderType;
-import users.SystemAdmin;
-import users.User;
-import users.UserInfo;
-
-import client.Main;
-import database.Crypto;
-import database.SqlDatabase;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+import users.GenderType;
+import users.SystemAdmin;
+import users.User;
+import users.UserInfo;
+import client.Main;
+import database.Crypto;
 
 public class MakeSystemAdmin extends JPanel {
 	/**
@@ -170,11 +164,7 @@ public class MakeSystemAdmin extends JPanel {
 		lblUsername.setBounds(125, 54, 66, 16);
 		add(lblUsername);
 		
-		JLabel lblCreateeditDoctor = DefaultComponentFactory.getInstance().createTitle("Create/Edit Nurse");
-		lblCreateeditDoctor.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCreateeditDoctor.setBounds(141, 0, 200, 34);
-		add(lblCreateeditDoctor);
-		
+	
 		
 		/* find function... */
 	}

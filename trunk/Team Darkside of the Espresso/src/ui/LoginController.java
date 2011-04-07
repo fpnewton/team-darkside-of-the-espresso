@@ -36,7 +36,7 @@ public class LoginController {
      * @param password the password
      * @return true, if successful
      */
-    public boolean login(String username, String password) {
+    public boolean canLogin(String username, String password) {
 	final User[] userList = Main.getDatabaseObject().getAllUsers();
 	final String passwordHash = Crypto.getSha1Hash(password);
 
