@@ -5,6 +5,7 @@ import javax.swing.JSpinner;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -20,6 +21,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class AppointmentListPanel extends JPanel {
+	
+	private static final int WIDTH = 450;
+	private static final int HEIGHT = 300;
 
 	/**
 	 * Create the panel.
@@ -49,9 +53,7 @@ public class AppointmentListPanel extends JPanel {
 		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			    ScheduleWindow scheduleWin = new ScheduleWindow();
-				
-				scheduleWin.setVisible(true);
+			    
 			}
 		});
 		btnEdit.setBounds(254, 99, 117, 29);
@@ -80,5 +82,9 @@ public class AppointmentListPanel extends JPanel {
 		separator.setBounds(6, 60, 438, 12);
 		add(separator);
 
+	}
+	
+	public Dimension getSize() {
+		return new Dimension(WIDTH, HEIGHT);
 	}
 }
