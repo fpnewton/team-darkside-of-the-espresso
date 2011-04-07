@@ -75,13 +75,13 @@ public class Appointment implements Serializable {
      * @param preferredDate
      *            the preferred date
      */
-    public void scheduleDoctor(Doctor doc, Date preferredDate) {
-
-	if (!doc.checkAvailability(preferredDate)) {
-	    return;
-	} else {
-	    doc.addAppointment(this);
-	}
+    public void scheduleDoctor(Doctor doc, Patient pat, Date preferredDate) {
+    	if (!doc.checkAvailability(preferredDate)) {
+    		return;
+    	} else {
+    		doc.addAppointment(this);
+    		pat.getAppointmentHistory().add(this);
+    	}
     }
 
     /**
