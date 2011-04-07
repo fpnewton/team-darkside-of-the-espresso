@@ -120,18 +120,19 @@ public class AppointmentListPanel extends JPanel {
 
 	if (Main.getCurrentUser() instanceof Patient) {
 	    btnClose.setEnabled(false);
+	} else {
+	    btnClose.addMouseListener(new MouseAdapter() {
+		@Override
+		public void mouseClicked(final MouseEvent e) {
+		    final DoctorsOrdersPanel doctorsOrdersPanel = new DoctorsOrdersPanel();
+
+		    Main.getApplicationWindow().setFrame(doctorsOrdersPanel,
+			    doctorsOrdersPanel.getTitle(), doctorsOrdersPanel.getWidth(),
+			    doctorsOrdersPanel.getHeight());
+		}
+	    });
 	}
 
-	btnClose.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(final MouseEvent e) {
-		final DoctorsOrdersPanel doctorsOrdersPanel = new DoctorsOrdersPanel();
-
-		Main.getApplicationWindow().setFrame(doctorsOrdersPanel,
-			doctorsOrdersPanel.getTitle(), doctorsOrdersPanel.getWidth(),
-			doctorsOrdersPanel.getHeight());
-	    }
-	});
 	btnClose.setBounds(254, 222, 117, 29);
 	add(btnClose);
 
@@ -159,7 +160,7 @@ public class AppointmentListPanel extends JPanel {
 	    @Override
 	    public void mouseClicked(final MouseEvent e) {
 		final MakeUser makeUser = new MakeUser();
-		
+
 		Main.getApplicationWindow().setFrame(makeUser, makeUser.getTitle(),
 			makeUser.getWidth(), makeUser.getHeight());
 	    }
