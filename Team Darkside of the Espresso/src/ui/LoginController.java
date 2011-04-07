@@ -43,6 +43,8 @@ public class LoginController {
 	for (User usr : userList) {
 	    if (usr.getUsername().equals(username)
 		    && usr.getPasswordHash().equals(passwordHash)) {
+		Main.setCurrentUser(usr);
+		
 		return true;
 	    }
 	}

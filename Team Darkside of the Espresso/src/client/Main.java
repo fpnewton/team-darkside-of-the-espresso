@@ -5,18 +5,13 @@
 package client;
 
 import java.awt.EventQueue;
-import java.util.Date;
 import java.util.logging.Level;
 
 import log.SystemLog;
-
-import database.Crypto;
-import database.SqlDatabase;
-
+import ui.ApplicationWindow;
 import ui.LoginWindow;
-import users.GenderType;
-import users.SystemAdmin;
-import users.UserInfo;
+import users.User;
+import database.SqlDatabase;
 
 /**
  * Hospital Client Application Entry Point.
@@ -28,7 +23,9 @@ public class Main {
     /** The SQL database object */
     private static SqlDatabase Database;
     
-    private static LoginWindow window;
+    private static ApplicationWindow window;
+    
+    private static User currentUser;
 
     /**
      * Hospital Client application entry point.
@@ -37,6 +34,8 @@ public class Main {
      *            Application arguments
      */
     public static void main(String[] args) {
+	currentUser = null;
+	
 	try {
 	    Database = new SqlDatabase();
 	    
@@ -51,9 +50,7 @@ public class Main {
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
 		try {
-		    window = new LoginWindow();
-
-		    window.getFrmLoginWindow().setVisible(true);
+		    window = new ApplicationWindow();
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
@@ -70,8 +67,16 @@ public class Main {
 	return Database;
     }
     
-    public static LoginWindow getLoginWindow() {
+    public static ApplicationWindow getApplicationWindow() {
 	return window;
+    }
+    
+    public static User getCurrentUser() {
+	return currentUser;
+    }
+    
+    public static void setCurrentUser(User newUser) {
+	currentUser = newUser;
     }
 
     /**
