@@ -19,8 +19,13 @@ public class MakePatient extends JPanel {
 	private JTextField textField;
 	private final ButtonGroup genderGroup = new ButtonGroup();
 	
-	private static final int WIDTH = 450;
-	private static final int HEIGHT = 300;
+	/** The Constant WIDTH. */
+    private static final int WIDTH = 450;
+
+    /** The Constant HEIGHT. */
+    private static final int HEIGHT = 300 + 25;
+    
+    private static final String TITLE = "Make Patient";
 
 	/**
 	 * Create the panel.
@@ -146,7 +151,15 @@ public class MakePatient extends JPanel {
 		/* find function... */
 	}
 	
-	public Dimension getSize() {
-		return new Dimension(WIDTH, HEIGHT);
+	public String getTitle() {
+		return TITLE;
+	}
+	    
+	public int getWidth() {
+		return WIDTH;
+	}
+	    
+	public int getHeight() {
+		return HEIGHT;
 	}
 }

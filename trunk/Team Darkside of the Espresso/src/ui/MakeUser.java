@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MakeUser extends JPanel {
 	
@@ -27,6 +29,15 @@ public class MakeUser extends JPanel {
 		add(lblMakeUser);
 		
 		JButton btnCreateNurse = new JButton("Create Nurse...");
+		btnCreateNurse.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				MakeNurse makeNurse = new MakeNurse();
+				
+				Main.getApplicationWindow().setFrame(makeNurse, makeNurse.getTitle(), makeNurse.getWidth(), makeNurse.getHeight());
+			    
+			}
+		});
 		btnCreateNurse.setBounds(145, 88, 137, 29);
 		add(btnCreateNurse);
 		
