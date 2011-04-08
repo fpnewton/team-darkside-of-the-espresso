@@ -35,6 +35,7 @@ public class ScheduleAppointmentTest extends TestCase {
 		testPat.ScheduleAppointment(date, new Time(11l), "symptoms", doctor);
 		
 		Assert.assertNotNull(testPat.getAppointmentHistory());
+		Assert.assertNotNull(doctor.getCurrentAppointments());
 		
 	}
 
