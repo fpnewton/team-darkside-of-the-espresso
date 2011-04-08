@@ -3,6 +3,8 @@ import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import org.junit.Test;
+
 import users.Doctor;
 import users.GenderType;
 import users.Patient;
@@ -12,12 +14,13 @@ import junit.framework.TestCase;
 public class ScheduleDoctorTest extends TestCase{
 	
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
+	@Test
 	public void docAppointmentTest(){
 		Doctor doc = new Doctor("bob", "poop", GenderType.Male, null);
 		assertEquals(doc.getCurrentAppointments(), null);
 	}
-
+	
+	@Test
 	public void scheduleTest(){
 		Doctor doc = new Doctor("bob", "poop", GenderType.Male, null);
 		Patient p = new Patient("suzie", "poopie", GenderType.Female, null, null);
