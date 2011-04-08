@@ -7,6 +7,9 @@ import java.util.Date;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+
+import org.junit.Test;
+
 import users.Doctor;
 import users.GenderType;
 import users.Patient;
@@ -20,6 +23,7 @@ public class ScheduleAppointmentTest extends TestCase {
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	Doctor doctor;
 	
+	@Test
 	public void testAppointment(){
 		Patient testPat = new Patient("fnewton3","password",GenderType.Male,
 				new UserInfo("Fraser Newton","Some Address","999999999","","",new Date()), 
