@@ -147,8 +147,7 @@ public class SqlDatabase {
 	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
 
 	    prepStatement = dbConnection
-		    .prepareStatement("UPDATE OR ROLLBACK users SET name = '?', username = '?', password_hash = '?', data = '?' WHERE id = '"
-			    + id + "';");
+		    .prepareStatement("UPDATE OR ROLLBACK users SET name = ?, username = ?, password_hash = ?, data = ? WHERE id = '" + id + "';");
 
 	    prepStatement.setString(1, user.getUserInformation().getName());
 	    prepStatement.setString(2, user.getUsername());
@@ -222,26 +221,78 @@ public class SqlDatabase {
      *            the name
      * @return the user id
      */
+//    public int getUserID(String name) {
+//	int id = -1;
+//
+//	try {
+//	    ResultSet results;
+//
+//	    sqlStatement = dbConnection.createStatement();
+//	    results = sqlStatement.executeQuery("SELECT * FROM users WHERE name='" + name
+//		    + "';");
+//
+//	    results.next();
+//
+//	    id = results.getInt("id");
+//
+//	    sqlStatement.close();
+//	} catch (SQLException e) {
+//	    handleException(e);
+//	}
+//
+//	return id;
+//    }
     public int getUserID(String name) {
-	int id = -1;
-
 	try {
-	    ResultSet results;
+	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
+	    ArrayList<Object> Out = new ArrayList<Object>();
+	    ResultSet Results = dbConnection.createStatement().executeQuery(
+		    "SELECT * FROM users;");
 
-	    sqlStatement = dbConnection.createStatement();
-	    results = sqlStatement.executeQuery("SELECT * FROM users WHERE name='" + name
-		    + "';");
+	    if (Results != null) {
+		while (Results.next()) {
+		    Object obj = getDatabaseObject(Results, "data");
+		    User user = (User)obj;
+		    
+		    if (user.getUserInformation().getName().equals(name))
+		    {
+			return Results.getInt("id");
+		    }
+		}
+	    } else {
+		if (!SystemLog.LogMessage(
+			"Error: Unexpected null pointer defreferenced in sqlDatabase.",
+			Level.SEVERE)) {
+		    System.out.println("Error: Unexpected null pointer "
+			    + "defreferenced in sqlDatabase.");
+		}
+	    }
 
-	    results.next();
-
-	    id = results.getInt("id");
-
-	    sqlStatement.close();
+	} catch (IOException e) {
+	    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+		e.printStackTrace();
+	    }
 	} catch (SQLException e) {
-	    handleException(e);
+	    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+		e.printStackTrace();
+	    }
+	} catch (ClassNotFoundException e) {
+	    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+		e.printStackTrace();
+	    }
+	} finally {
+	    if (dbConnection != null) {
+		try {
+		    dbConnection.close();
+		} catch (SQLException e) {
+		    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			e.printStackTrace();
+		    }
+		}
+	    }
 	}
-
-	return id;
+	
+	return -1;
     }
 
     /**
@@ -315,7 +366,7 @@ public class SqlDatabase {
      */
     public Object[] getObject(String ColumnName, int id) {
 	try {
-	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
+	    //dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
 	    List<Object> Out = new ArrayList<Object>();
 	    ResultSet Results = dbConnection.createStatement().executeQuery(
 		    "SELECT * FROM users WHERE id='" + id + "';");
@@ -351,7 +402,7 @@ public class SqlDatabase {
 
 	    return null;
 	} finally {
-	    if (dbConnection != null) {
+	    /*if (dbConnection != null) {
 		try {
 		    dbConnection.close();
 		} catch (SQLException e) {
@@ -359,7 +410,7 @@ public class SqlDatabase {
 			e.printStackTrace();
 		    }
 		}
-	    }
+	    }*/
 	}
     }
 
