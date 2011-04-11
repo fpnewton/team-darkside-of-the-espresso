@@ -18,7 +18,8 @@
 		<property name="src.dir" location="src" />
 		<property name="test.db.dir" location="DB" />
 		<property name="test.log.dir" location="Logs" />
-		<property name="test.dir" location="test" />
+		<property name="test.dir" location="${src.dir}${file.separator}test" />
+		<property name="test.bin.dir" location="${test.dir}${file.separator}bin"/>
 
 
 		<property name="hospital-client.pkg" value="client" />
@@ -36,6 +37,12 @@
 			</fileset>
 		</path>
 		
+		<path id="test.classpath"> 
+			<pathelement location="${lib.dir}${file.separator}JUnit-4.9b2.jar"/> 
+			<pathelement location="${lib.dir}${file.separator}ant-junit.jar"/> 
+			<pathelement location="${src.dir}"/> <path refid="classpath"/> 
+		</path>
+
 		<path id="junit.classpath">
 		    <pathelement location="${lib.dir}${file.separator}junit.jar" />
 		    <pathelement location="${bin.dir}${file.separator}${test.dir}" />
@@ -67,6 +74,12 @@
 			<classpath refid="classpath" />
 		</javac>
 	</target>
+
+<target name="test-compile" depends="prepare"> 
+	<javac includeantruntime="false" destdir="${test.bin.dir}" 			srcdir="${test.dir}"> 
+			<classpath refid="classpath"/> 
+	</javac> 
+</target>
 
 
 	<target name="jar" depends="jar-client,jar-server">
@@ -233,4 +246,16 @@
 
 		<zip destfile="${pkg.name}.zip" basedir="${build.dir}" />
 	</target>
+
+<target name="junit" depends="compile,test-compile">
+	<junit> 
+		<classpath refid="test.classpath"/> 
+		<formatter usefile="false" type="brief"/>
+		<batchtest>
+			<fileset dir="${test.dir}"> 
+			<include name="*.java"/> 
+			</fileset> 
+		</batchtest> 
+	</junit> 
+</target>
 </project>

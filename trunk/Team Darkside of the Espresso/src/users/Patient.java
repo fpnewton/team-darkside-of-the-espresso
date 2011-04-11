@@ -99,7 +99,7 @@ public class Patient extends User {
 	try {
 	    Appointment Appt = new Appointment(this, date, PreferredDoctor, symptoms);
 	    if (PreferredDoctor.checkAvailability(time)) {
-		Appt.scheduleDoctor(PreferredDoctor, time);
+		//Appt.scheduleDoctor(PreferredDoctor, time);
 	    }
 	} catch (Exception e) {
 	    SystemLog.LogMessage(e.getMessage(), Level.SEVERE);
