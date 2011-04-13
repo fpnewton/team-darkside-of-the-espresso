@@ -86,4 +86,16 @@ public class Treatment implements Serializable
 	{
 		this.Price = Price;
 	}
+	
+	public Treatment OfficeVisitBase(){
+		return new Treatment("Office Visit Base", "50.00");
+	}
+	
+	public Treatment PhoneConsult(){
+		return new Treatment("Phone Consult", "35.00");
+	}
+	
+	public Treatment AnnualPhysical(){
+		return new Treatment("Annual Physical", "75.00");
+	}
 }
