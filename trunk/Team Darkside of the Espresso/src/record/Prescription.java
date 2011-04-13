@@ -86,4 +86,20 @@ public class Prescription implements Serializable
 	{
 		this.Price = Price;
 	}
+	
+	public Prescription Placebo(){
+		return new Prescription("Placebo", "15.00");
+	}
+	
+	public Prescription JoesCureAll(){
+		return new Prescription("Joe's Cure All", "20.00");
+	}
+	
+	public Prescription FixItElixar(){
+		return new Prescription("Fix It Elixar", "10.50");
+	}
+	
+	public Prescription InstantHair(){
+		return new Prescription("Instant Hair", "59.00");
+	}
 }

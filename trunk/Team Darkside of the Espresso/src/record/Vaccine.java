@@ -86,4 +86,24 @@ public class Vaccine implements Serializable
 	{
 		this.Price = Price;
 	}
+	
+	public Vaccine Flu(){
+		return new Vaccine("Flu", "25.00");
+	}
+	
+	public Vaccine Tetanus(){
+		return new Vaccine("Tetanus", "30.00");
+	}
+	
+	public Vaccine MMR(){
+		return new Vaccine("MMR", "15.00");
+	}
+	
+	public Vaccine HepatitisA(){
+		return new Vaccine("Hepatitis A", "50.00");
+	}
+	
+	public Vaccine Steroid(){
+		return new Vaccine("Steroid", "56.00");
+	}
 }
