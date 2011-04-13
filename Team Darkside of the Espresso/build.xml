@@ -39,8 +39,7 @@
 		
 		<path id="test.classpath"> 
 			<pathelement location="${lib.dir}${file.separator}JUnit-4.9b2.jar"/> 
-			<pathelement location="${lib.dir}${file.separator}ant-junit.jar"/> 
-			<pathelement location="${src.dir}"/> <path refid="classpath"/> 
+			<pathelement location="${test.bin.dir}"/> <path refid="classpath"/> 
 		</path>
 
 		<path id="junit.classpath">
