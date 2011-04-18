@@ -8,11 +8,15 @@ package ui;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import appointment.Appointment;
 
 import client.Main;
 
@@ -22,127 +26,133 @@ import client.Main;
  * @author Someone?
  * @version 1.0.0
  */
+@SuppressWarnings("serial")
 public class SchedulePanel extends JPanel {
 
-    /** The Constant WIDTH. */
-    private static final int WIDTH = 500;
+	/** The Constant WIDTH. */
+	private static final int WIDTH = 500;
 
-    /** The Constant HEIGHT. */
-    private static final int HEIGHT = 400 + 25;
+	/** The Constant HEIGHT. */
+	private static final int HEIGHT = 400 + 25;
 
-    /** The Constant TITLE. */
-    private static final String TITLE = "Schedule Appointment";
+	/** The Constant TITLE. */
+	private static final String TITLE = "Schedule Appointment";
 
-    /**
-     * Create the panel.
-     */
-    public SchedulePanel() {
-	initialize();
-    }
+	/**
+	 * Create the panel.
+	 */
+	public SchedulePanel(Appointment app) {
+		initialize(app);
+	}
 
-    /**
-     * Initializes the panel.
-     */
-    private void initialize() {
-	setLayout(null);
+	/**
+	 * Initializes the panel.
+	 */
+	private void initialize(final Appointment app) {
+		setLayout(null);
 
-	final JComboBox comboBox = new JComboBox();
-	comboBox.setBounds(151, 147, 135, 20);
-	add(comboBox);
+		// TODO Make an array list of available dates for the JComboBox
+		ArrayList<Date> availableDate = new ArrayList<Date>();
 
-	final JLabel lblDate = new JLabel("Date:");
-	lblDate.setBounds(105, 150, 46, 14);
-	add(lblDate);
+		final JComboBox dateBox = new JComboBox();
+		dateBox.setBounds(151, 147, 135, 20);
+		add(dateBox);
 
-	final JLabel lblTime = new JLabel("Time:");
-	lblTime.setBounds(105, 210, 46, 14);
-	add(lblTime);
+		final JLabel lblDate = new JLabel("Date:");
+		lblDate.setBounds(105, 150, 46, 14);
+		add(lblDate);
 
-	final JLabel lblDoctor = new JLabel("Doctor:");
-	lblDoctor.setBounds(90, 279, 61, 14);
-	add(lblDoctor);
+		final JLabel lblTime = new JLabel("Time:");
+		lblTime.setBounds(105, 210, 46, 14);
+		add(lblTime);
 
-	final JComboBox comboBox_1 = new JComboBox();
-	comboBox_1.setBounds(151, 207, 135, 20);
-	add(comboBox_1);
+		final JLabel lblDoctor = new JLabel("Doctor:");
+		lblDoctor.setBounds(90, 279, 61, 14);
+		add(lblDoctor);
 
-	final JComboBox comboBox_2 = new JComboBox();
-	comboBox_2.setBounds(151, 276, 135, 20);
-	add(comboBox_2);
+		final JComboBox timeBox = new JComboBox();
+		timeBox.setBounds(151, 207, 135, 20);
 
-	final JLabel lblInstructions = new JLabel("Instructions:");
-	lblInstructions.setBounds(45, 11, 160, 14);
-	add(lblInstructions);
+		add(timeBox);
 
-	final JLabel lblSelectA = new JLabel("1. Select a deired date.");
-	lblSelectA.setBounds(70, 36, 274, 14);
-	add(lblSelectA);
+		final JComboBox docBox = new JComboBox();
+		docBox.setBounds(151, 276, 135, 20);
+		add(docBox);
 
-	final JLabel lblSelectA_1 = new JLabel(
-		"2. Select a desired time from the list of available");
-	lblSelectA_1.setBounds(70, 60, 319, 14);
-	add(lblSelectA_1);
+		final JLabel lblInstructions = new JLabel("Instructions:");
+		lblInstructions.setBounds(45, 11, 160, 14);
+		add(lblInstructions);
 
-	final JLabel lblTimesAtThe = new JLabel("times at the selected date.");
-	lblTimesAtThe.setBounds(90, 77, 231, 14);
-	add(lblTimesAtThe);
+		final JLabel lblSelectA = new JLabel("1. Select a deired date.");
+		lblSelectA.setBounds(70, 36, 274, 14);
+		add(lblSelectA);
 
-	final JLabel lblSelectedA = new JLabel(
-		"3. Selected a desired doctor from the list of available");
-	lblSelectedA.setBounds(70, 102, 341, 14);
-	add(lblSelectedA);
+		final JLabel lblSelectA_1 = new JLabel(
+				"2. Select a desired time from the list of available");
+		lblSelectA_1.setBounds(70, 60, 319, 14);
+		add(lblSelectA_1);
 
-	final JLabel lblDoctorsAtThe = new JLabel("doctors at the selected date and time.");
-	lblDoctorsAtThe.setBounds(93, 122, 318, 14);
-	add(lblDoctorsAtThe);
+		final JLabel lblTimesAtThe = new JLabel("times at the selected date.");
+		lblTimesAtThe.setBounds(90, 77, 231, 14);
+		add(lblTimesAtThe);
 
-	final JButton btnPrevious = new JButton("Previous");
-	btnPrevious.setBounds(105, 342, 89, 23);
-	add(btnPrevious);
+		final JLabel lblSelectedA = new JLabel(
+				"3. Selected a desired doctor from the list of available");
+		lblSelectedA.setBounds(70, 102, 341, 14);
+		add(lblSelectedA);
 
-	final JButton btnSubmit = new JButton("Submit");
-	btnSubmit.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		final SymptomsPanel symptomsPanel = new SymptomsPanel();
+		final JLabel lblDoctorsAtThe = new JLabel(
+				"doctors at the selected date and time.");
+		lblDoctorsAtThe.setBounds(93, 122, 318, 14);
+		add(lblDoctorsAtThe);
 
-		Main.getApplicationWindow().setFrame(symptomsPanel,
-			symptomsPanel.getTitle(), symptomsPanel.getWidth(),
-			symptomsPanel.getHeight());
-	    }
-	});
-	btnSubmit.setBounds(206, 342, 89, 23);
-	add(btnSubmit);
+		final JButton btnPrevious = new JButton("Previous");
+		btnPrevious.setBounds(105, 342, 89, 23);
+		btnPrevious.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(final MouseEvent e) {
+				final SymptomsPanel symptomsPanel = new SymptomsPanel(app);
 
-	final JButton btnCancel = new JButton("Cancel");
-	btnCancel.setBounds(307, 342, 89, 23);
-	add(btnCancel);
-    }
+				Main.getApplicationWindow().setFrame(symptomsPanel,
+						symptomsPanel.getTitle(), symptomsPanel.getWidth(),
+						symptomsPanel.getHeight());
+			}
+		});
+		add(btnPrevious);
 
-    /**
-     * Gets the title.
-     * 
-     * @return The title of the panel
-     */
-    public String getTitle() {
-	return TITLE;
-    }
+		final JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setBounds(206, 342, 89, 23);
+		add(btnSubmit);
 
-    /**
-     * Gets the width of the panel.
-     * 
-     * @return The width of the panel
-     */
-    public int getWidth() {
-	return WIDTH;
-    }
+		final JButton btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(307, 342, 89, 23);
+		add(btnCancel);
+	}
 
-    /**
-     * Gets the height of the panel.
-     * 
-     * @return The height of the panel
-     */
-    public int getHeight() {
-	return HEIGHT;
-    }
+	/**
+	 * Gets the title.
+	 * 
+	 * @return The title of the panel
+	 */
+	public String getTitle() {
+		return TITLE;
+	}
+
+	/**
+	 * Gets the width of the panel.
+	 * 
+	 * @return The width of the panel
+	 */
+	public int getWidth() {
+		return WIDTH;
+	}
+
+	/**
+	 * Gets the height of the panel.
+	 * 
+	 * @return The height of the panel
+	 */
+	public int getHeight() {
+		return HEIGHT;
+	}
 }

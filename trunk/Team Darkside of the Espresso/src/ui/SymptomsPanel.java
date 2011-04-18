@@ -6,11 +6,19 @@
 
 package ui;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import appointment.Appointment;
+
+import client.Main;
 
 /**
  * The SymptomsPanel Class.
@@ -20,201 +28,308 @@ import javax.swing.JTextField;
  */
 public class SymptomsPanel extends JPanel {
 
-    /** The text field. */
-    private JTextField textField;
+	/** The text field. */
+	private JTextField textField;
 
-    /** The Constant WIDTH. */
-    private static final int WIDTH = 800;
-    
-    /** The Constant HEIGHT. */
-    private static final int HEIGHT = 500 + 25;
-    
-    /** The Constant TITLE. */
-    private static final String TITLE = "Symptoms";
+	/** The Constant WIDTH. */
+	private static final int WIDTH = 800;
 
-    /**
-     * Create the panel.
-     */
-    public SymptomsPanel() {
-	initialize();
-    }
-    
-    /**
-     * Initializes the panel.
-     */
-    private void initialize() {
-	setLayout(null);
+	/** The Constant HEIGHT. */
+	private static final int HEIGHT = 500 + 25;
 
-	final JLabel lblSymptomscheckAll = new JLabel("Check All That Apply");
-	lblSymptomscheckAll.setBounds(10, 29, 162, 14);
-	add(lblSymptomscheckAll);
+	/** The Constant TITLE. */
+	private static final String TITLE = "Symptoms";
 
-	final JCheckBox chckbxAbdominalPain = new JCheckBox("Abdominal Pain");
-	chckbxAbdominalPain.setBounds(41, 50, 131, 23);
-	add(chckbxAbdominalPain);
+	private SchedulePanel sched;
 
-	final JCheckBox chckbxAllergies = new JCheckBox("Allergies");
-	chckbxAllergies.setBounds(41, 76, 97, 23);
-	add(chckbxAllergies);
+	private ArrayList<String> sympList; // ArrayList of symptom names
+	private ArrayList<JCheckBox> sympCheckList; // ArrayList of symptom
+												// checkboxes
+	private String symptoms;
 
-	final JCheckBox chckbxBackPain = new JCheckBox("Back Pain");
-	chckbxBackPain.setBounds(41, 102, 97, 23);
-	add(chckbxBackPain);
+	/* Initializing all of the JCheckBoxes */
+	final JCheckBox abdominalPain = new JCheckBox("Abdominal Pain");
+	final JCheckBox allergies = new JCheckBox("Allergies");
+	final JCheckBox backPain = new JCheckBox("Back Pain");
+	final JCheckBox bloodInStool = new JCheckBox("Blood in Stool");
+	final JCheckBox bloodInUrine = new JCheckBox("Blood in Urine");
+	final JCheckBox breathingTrouble = new JCheckBox("Breathing Trouble");
+	final JCheckBox chestPain = new JCheckBox("Chest Pain");
+	final JCheckBox coldfluEar = new JCheckBox("Cold/Flu/Ear Pain");
+	final JCheckBox constipation = new JCheckBox("Constipation");
+	final JCheckBox cough = new JCheckBox("Cough");
+	final JCheckBox diarrhea = new JCheckBox("Diarrhea");
+	final JCheckBox eyeProblems = new JCheckBox("Eye Problems");
+	final JCheckBox fatigueTired = new JCheckBox("Fatigue / Tired");
+	final JCheckBox fever = new JCheckBox("Fever");
+	final JCheckBox headacheMigraine = new JCheckBox("Headache/Migraine");
+	final JCheckBox highBloodPressure = new JCheckBox("High Blood Pressure");
+	final JCheckBox insomnia = new JCheckBox("Insomnia");
+	final JCheckBox jointPain = new JCheckBox("Joint Pain / Injury");
+	final JCheckBox labBlood = new JCheckBox("Lab - Blood Work");
+	final JCheckBox labTest = new JCheckBox("Lab - Test Results");
+	final JCheckBox moleLump = new JCheckBox("Mole / Lump");
+	final JCheckBox painWithUrination = new JCheckBox("Pain With Urination");
+	final JCheckBox penileDischarge = new JCheckBox("Penile Discharge");
+	final JCheckBox soreThroat = new JCheckBox("Sore Throat");
+	final JCheckBox skinProblems = new JCheckBox("Skin Problems");
+	final JCheckBox stitchesRemoval = new JCheckBox("Stitches Removal");
+	final JCheckBox testicularPainlump = new JCheckBox("Testicular Pain/Lump");
+	final JCheckBox wart = new JCheckBox("Wart");
+	final JCheckBox injectionAllergy = new JCheckBox("INJECTION - Allergy");
+	final JCheckBox injectionOnly = new JCheckBox("INJECTION Only");
+	final JCheckBox other = new JCheckBox("Other (Please Specify)");
+	final JCheckBox personal = new JCheckBox("Personal");
 
-	final JCheckBox chckbxBloodInStool = new JCheckBox("Blood in Stool");
-	chckbxBloodInStool.setBounds(41, 128, 131, 23);
-	add(chckbxBloodInStool);
+	/**
+	 * Create the panel.
+	 */
+	public SymptomsPanel(Appointment app) {
+		initialize(app);
+	}
 
-	final JCheckBox chckbxBloodInUrine = new JCheckBox("Blood in Urine");
-	chckbxBloodInUrine.setBounds(41, 154, 131, 23);
-	add(chckbxBloodInUrine);
+	/**
+	 * Initializes the panel.
+	 */
+	private void initialize(final Appointment app) {
+		setLayout(null);
 
-	final JCheckBox chckbxBreathingTrouble = new JCheckBox("Breathing Trouble");
-	chckbxBreathingTrouble.setBounds(41, 180, 156, 23);
-	add(chckbxBreathingTrouble);
+		/* Adding all of the JCheckBoxes to the ArrayList */
+		sympCheckList.add(abdominalPain);
+		sympCheckList.add(allergies);
+		sympCheckList.add(backPain);
+		sympCheckList.add(bloodInStool);
+		sympCheckList.add(bloodInUrine);
+		sympCheckList.add(breathingTrouble);
+		sympCheckList.add(chestPain);
+		sympCheckList.add(coldfluEar);
+		sympCheckList.add(constipation);
+		sympCheckList.add(cough);
+		sympCheckList.add(diarrhea);
+		sympCheckList.add(eyeProblems);
+		sympCheckList.add(fatigueTired);
+		sympCheckList.add(fever);
+		sympCheckList.add(headacheMigraine);
+		sympCheckList.add(highBloodPressure);
+		sympCheckList.add(insomnia);
+		sympCheckList.add(jointPain);
+		sympCheckList.add(labBlood);
+		sympCheckList.add(labTest);
+		sympCheckList.add(moleLump);
+		sympCheckList.add(painWithUrination);
+		sympCheckList.add(penileDischarge);
+		sympCheckList.add(soreThroat);
+		sympCheckList.add(skinProblems);
+		sympCheckList.add(stitchesRemoval);
+		sympCheckList.add(testicularPainlump);
+		sympCheckList.add(wart);
+		sympCheckList.add(injectionAllergy);
+		sympCheckList.add(injectionOnly);
+		sympCheckList.add(personal);
 
-	final JCheckBox chckbxChestPain = new JCheckBox("Chest Pain");
-	chckbxChestPain.setBounds(41, 206, 156, 23);
-	add(chckbxChestPain);
+		final JLabel lblSymptomscheckAll = new JLabel("Check All That Apply");
+		lblSymptomscheckAll.setBounds(10, 29, 162, 14);
+		add(lblSymptomscheckAll);
 
-	final JCheckBox chckbxColdfluEar = new JCheckBox("Cold/Flu/Ear Pain");
-	chckbxColdfluEar.setBounds(41, 232, 156, 23);
-	add(chckbxColdfluEar);
+		abdominalPain.setBounds(41, 50, 131, 23);
+		add(abdominalPain);
+		sympList.add("Abdominal Pain");
 
-	final JCheckBox chckbxConstipation = new JCheckBox("Constipation");
-	chckbxConstipation.setBounds(41, 258, 156, 23);
-	add(chckbxConstipation);
+		allergies.setBounds(41, 76, 97, 23);
+		add(allergies);
+		sympList.add("Allergies");
 
-	final JCheckBox chckbxCough = new JCheckBox("Cough");
-	chckbxCough.setBounds(41, 284, 97, 23);
-	add(chckbxCough);
+		backPain.setBounds(41, 102, 97, 23);
+		add(backPain);
+		sympList.add("Back Pain");
 
-	final JCheckBox chckbxDiarrhea = new JCheckBox("Diarrhea");
-	chckbxDiarrhea.setBounds(41, 310, 97, 23);
-	add(chckbxDiarrhea);
+		bloodInStool.setBounds(41, 128, 131, 23);
+		add(bloodInStool);
+		sympList.add("Blood in Stool");
 
-	final JCheckBox chckbxEyeProblems = new JCheckBox("Eye Problems");
-	chckbxEyeProblems.setBounds(41, 336, 156, 23);
-	add(chckbxEyeProblems);
+		bloodInUrine.setBounds(41, 154, 131, 23);
+		add(bloodInUrine);
+		sympList.add("Blood in Urine");
 
-	final JCheckBox chckbxFatigueTired = new JCheckBox("Fatigue / Tired");
-	chckbxFatigueTired.setBounds(41, 362, 156, 23);
-	add(chckbxFatigueTired);
+		breathingTrouble.setBounds(41, 180, 156, 23);
+		add(breathingTrouble);
+		sympList.add("Breathing Trouble");
 
-	final JCheckBox chckbxFever = new JCheckBox("Fever");
-	chckbxFever.setBounds(41, 388, 97, 23);
-	add(chckbxFever);
+		chestPain.setBounds(41, 206, 156, 23);
+		add(chestPain);
+		sympList.add("Chest Pain");
 
-	final JCheckBox chckbxHeadacheMigraine = new JCheckBox("Headache/Migraine");
-	chckbxHeadacheMigraine.setBounds(41, 414, 156, 23);
-	add(chckbxHeadacheMigraine);
+		coldfluEar.setBounds(41, 232, 156, 23);
+		add(coldfluEar);
+		sympList.add("Cold/Flu/Ear Pain");
 
-	final JCheckBox chckbxHighBloodPressure = new JCheckBox("High Blood Pressure");
-	chckbxHighBloodPressure.setBounds(41, 440, 162, 23);
-	add(chckbxHighBloodPressure);
+		constipation.setBounds(41, 258, 156, 23);
+		add(constipation);
+		sympList.add("Constipation");
 
-	final JCheckBox chckbxInsomnia = new JCheckBox("Insomnia");
-	chckbxInsomnia.setBounds(209, 50, 97, 23);
-	add(chckbxInsomnia);
+		cough.setBounds(41, 284, 97, 23);
+		add(cough);
+		sympList.add("Cough");
 
-	final JCheckBox chckbxJointPain = new JCheckBox("Joint Pain / Injury");
-	chckbxJointPain.setBounds(209, 76, 173, 23);
-	add(chckbxJointPain);
+		diarrhea.setBounds(41, 310, 97, 23);
+		add(diarrhea);
+		sympList.add("Diarrhea");
 
-	final JCheckBox chckbxLabBlood = new JCheckBox("Lab - Blood Work");
-	chckbxLabBlood.setBounds(209, 102, 173, 23);
-	add(chckbxLabBlood);
+		eyeProblems.setBounds(41, 336, 156, 23);
+		add(eyeProblems);
+		sympList.add("Eye Problems");
 
-	final JCheckBox chckbxLabTest = new JCheckBox("Lab - Test Results");
-	chckbxLabTest.setBounds(209, 128, 162, 23);
-	add(chckbxLabTest);
+		fatigueTired.setBounds(41, 362, 156, 23);
+		add(fatigueTired);
+		sympList.add("Fatigue / Tired");
 
-	final JCheckBox chckbxMoleLump = new JCheckBox("Mole / Lump");
-	chckbxMoleLump.setBounds(209, 154, 162, 23);
-	add(chckbxMoleLump);
+		fever.setBounds(41, 388, 97, 23);
+		add(fever);
+		sympList.add("Fever");
 
-	final JCheckBox chckbxPainWithUrination = new JCheckBox("Pain With Urination");
-	chckbxPainWithUrination.setBounds(209, 180, 162, 23);
-	add(chckbxPainWithUrination);
+		headacheMigraine.setBounds(41, 414, 156, 23);
+		add(headacheMigraine);
+		sympList.add("Headache/Migraine");
 
-	final JCheckBox chckbxPenileDischarge = new JCheckBox("Penile Discharge");
-	chckbxPenileDischarge.setBounds(209, 206, 162, 23);
-	add(chckbxPenileDischarge);
+		highBloodPressure.setBounds(41, 440, 162, 23);
+		add(highBloodPressure);
+		sympList.add("High Blood Pressure");
 
-	final JCheckBox chckbxSoreThroat = new JCheckBox("Sore Throat");
-	chckbxSoreThroat.setBounds(209, 258, 162, 23);
-	add(chckbxSoreThroat);
+		insomnia.setBounds(209, 50, 97, 23);
+		add(insomnia);
+		sympList.add("Insomnia");
 
-	final JCheckBox chckbxSkinProblems = new JCheckBox("Skin Problems");
-	chckbxSkinProblems.setBounds(209, 284, 162, 23);
-	add(chckbxSkinProblems);
+		jointPain.setBounds(209, 76, 173, 23);
+		add(jointPain);
+		sympList.add("Joint Pain / Injury");
 
-	final JCheckBox chckbxStichesRemoval = new JCheckBox("Stiches Removal");
-	chckbxStichesRemoval.setBounds(209, 310, 162, 23);
-	add(chckbxStichesRemoval);
+		labBlood.setBounds(209, 102, 173, 23);
+		add(labBlood);
+		sympList.add("Lab - Blood Work");
 
-	final JCheckBox chckbxTesticularPainlump = new JCheckBox("Testicular Pain/Lump");
-	chckbxTesticularPainlump.setBounds(209, 336, 190, 23);
-	add(chckbxTesticularPainlump);
+		labTest.setBounds(209, 128, 162, 23);
+		add(labTest);
+		sympList.add("Lab - Test Results");
 
-	final JCheckBox chckbxWart = new JCheckBox("Wart");
-	chckbxWart.setBounds(209, 362, 97, 23);
-	add(chckbxWart);
+		moleLump.setBounds(209, 154, 162, 23);
+		add(moleLump);
+		sympList.add("Mole / Lump");
 
-	final JCheckBox chckbxInjectionAllergy = new JCheckBox("INJECTION - Allergy");
-	chckbxInjectionAllergy.setBounds(209, 388, 162, 23);
-	add(chckbxInjectionAllergy);
+		painWithUrination.setBounds(209, 180, 162, 23);
+		add(painWithUrination);
+		sympList.add("Pain With Urination");
 
-	final JCheckBox chckbxInjectionOnly = new JCheckBox("INJECTION Only");
-	chckbxInjectionOnly.setBounds(209, 414, 162, 23);
-	add(chckbxInjectionOnly);
+		penileDischarge.setBounds(209, 206, 162, 23);
+		add(penileDischarge);
+		sympList.add("Penile Discharge");
 
-	final JCheckBox chckbxOtherpleaseSpecify = new JCheckBox("Other (Please Specify)");
-	chckbxOtherpleaseSpecify.setBounds(483, 50, 190, 23);
-	add(chckbxOtherpleaseSpecify);
+		soreThroat.setBounds(209, 258, 162, 23);
+		add(soreThroat);
+		sympList.add("Sore Throat");
 
-	final JCheckBox chckbxPersonal = new JCheckBox("Personal");
-	chckbxPersonal.setBounds(209, 232, 97, 23);
-	add(chckbxPersonal);
+		skinProblems.setBounds(209, 284, 162, 23);
+		add(skinProblems);
+		sympList.add("Skin Problems");
 
-	textField = new JTextField();
-	textField.setBounds(483, 76, 302, 388);
-	add(textField);
-	textField.setColumns(10);
+		stitchesRemoval.setBounds(209, 310, 162, 23);
+		add(stitchesRemoval);
+		sympList.add("Stitches Removal");
 
-	final JButton btnSubmit = new JButton("Submit");
-	btnSubmit.setBounds(209, 471, 89, 23);
-	add(btnSubmit);
+		testicularPainlump.setBounds(209, 336, 190, 23);
+		add(testicularPainlump);
+		sympList.add("Testicular Pain/Lump");
 
-	final JButton btnCancel = new JButton("Cancel");
-	btnCancel.setBounds(310, 471, 89, 23);
-	add(btnCancel);
-    }
+		wart.setBounds(209, 362, 97, 23);
+		add(wart);
+		sympList.add("Wart");
 
-    /**
-     * Gets the title.
-     * 
-     * @return The title of the panel
-     */
-    public String getTitle() {
-	return TITLE;
-    }
+		injectionAllergy.setBounds(209, 388, 162, 23);
+		add(injectionAllergy);
+		sympList.add("INJECTION - Allergy");
 
-    /**
-     * Gets the width of the panel.
-     * 
-     * @return The width of the panel
-     */
-    public int getWidth() {
-	return WIDTH;
-    }
+		injectionOnly.setBounds(209, 414, 162, 23);
+		add(injectionOnly);
+		sympList.add("INJECTION Only");
 
-    /**
-     * Gets the height of the panel.
-     * 
-     * @return The height of the panel
-     */
-    public int getHeight() {
-	return HEIGHT;
-    }
+		other.setBounds(483, 50, 190, 23);
+		add(other);
+
+		personal.setBounds(209, 232, 97, 23);
+		add(personal);
+
+		textField = new JTextField();
+		textField.setBounds(483, 76, 302, 388);
+		add(textField);
+		textField.setColumns(10);
+
+		/*
+		 * Nullifies the symptoms string in case the user comes back to this
+		 * page from the schedule panel. Subsequently, it adds to this symptoms
+		 * string all selected symptom checkboxes and opens the scheduling
+		 * window.
+		 */
+		final JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				symptoms = null;
+				for (int i = 0; i < sympList.size() - 1; i++)
+					if (sympCheckList.get(i).isSelected()) {
+						if (i != sympList.size() - 1)
+							symptoms += sympList.get(i) + '\n';
+						else
+							symptoms += sympList.get(i);
+					}
+
+				app.setSymptoms(symptoms);
+
+				sched = new SchedulePanel(app);
+				Main.getApplicationWindow().setFrame(sched, sched.getTitle(),
+						sched.getWidth(), sched.getHeight());
+			}
+		});
+		btnSubmit.setBounds(584, 504, 89, 23);
+		add(btnSubmit);
+
+		final JButton btnCancel = new JButton("Cancel");
+		btnCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				final MakeUser makeUserPanel = new MakeUser();
+
+				Main.getApplicationWindow().setFrame(makeUserPanel,
+						makeUserPanel.getTitle(), makeUserPanel.getWidth(),
+						makeUserPanel.getHeight());
+			}
+		});
+		btnCancel.setBounds(696, 504, 89, 23);
+		add(btnCancel);
+	}
+
+	/**
+	 * Gets the title.
+	 * 
+	 * @return The title of the panel
+	 */
+	public String getTitle() {
+		return TITLE;
+	}
+
+	/**
+	 * Gets the width of the panel.
+	 * 
+	 * @return The width of the panel
+	 */
+	public int getWidth() {
+		return WIDTH;
+	}
+
+	/**
+	 * Gets the height of the panel.
+	 * 
+	 * @return The height of the panel
+	 */
+	public int getHeight() {
+		return HEIGHT;
+	}
 }
