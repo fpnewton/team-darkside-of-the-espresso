@@ -7,11 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AppointmentFrame extends JFrame {
 
 	private JPanel contentPane;
-
+	private JPanel panel;
+	private JPanel panel2;
 	/**
 	 * Launch the application.
 	 */
@@ -33,15 +36,17 @@ public class AppointmentFrame extends JFrame {
 	 */
 	public AppointmentFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 846, 623);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new CardLayout(0, 0));
+		contentPane.setLayout(null);
 		
-		SymptomsPanel symPan = new SymptomsPanel();
-		SchedulePanel schPan = new SchedulePanel();
+		panel = new SymptomsPanel();
+		panel.setBounds(0, 0, 820, 585);
+		contentPane.add(panel);
 		
 	}
+
 
 }

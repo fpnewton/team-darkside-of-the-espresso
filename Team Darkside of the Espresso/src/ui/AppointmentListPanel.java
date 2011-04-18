@@ -19,6 +19,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
+import appointment.Appointment;
+
 import users.Patient;
 import users.SystemAdmin;
 
@@ -82,7 +84,7 @@ public class AppointmentListPanel extends JPanel {
 	btnEdit.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(final MouseEvent e) {
-		final SchedulePanel schedulePanel = new SchedulePanel();
+		final SymptomsPanel schedulePanel = new SymptomsPanel(new Appointment(null, null, null, null));
 		// TODO Pass selected appointment
 		Main.getApplicationWindow().setFrame(schedulePanel,
 			schedulePanel.getTitle(), schedulePanel.getWidth(),
@@ -96,7 +98,7 @@ public class AppointmentListPanel extends JPanel {
 	btnAdd.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(final MouseEvent e) {
-		final SchedulePanel schedulePanel = new SchedulePanel();
+		final SymptomsPanel schedulePanel = new SymptomsPanel(new Appointment(null, null, null, null));
 
 		Main.getApplicationWindow().setFrame(schedulePanel,
 			schedulePanel.getTitle(), schedulePanel.getWidth(),

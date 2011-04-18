@@ -5,6 +5,7 @@
 package ui;
 
 import javax.swing.JPanel;
+import appointment.Appointment;
 
 /**
  * The InvoicePanel Class.
@@ -26,7 +27,7 @@ public class InvoicePanel extends JPanel {
     /**
      * Create the panel.
      */
-    public InvoicePanel() {
+    public InvoicePanel(Appointment app) {
 	// TODO Implement Method
     }
 

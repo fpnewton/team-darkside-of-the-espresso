@@ -160,4 +160,5 @@ public class Appointment implements Serializable {
 		+ desiredDate.toString() + "\nDesiredDoctor" + desiredDoctor.toString()
 		+ "\nSymptoms: " + symptoms.toString();
     }
+    
 }
