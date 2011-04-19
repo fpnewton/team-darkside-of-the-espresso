@@ -4,12 +4,8 @@
 
 package client;
 
-import java.awt.EventQueue;
-import java.util.logging.Level;
-
-import log.SystemLog;
+import network.Client;
 import ui.ApplicationWindow;
-import ui.LoginWindow;
 import users.User;
 import database.SqlDatabase;
 
@@ -22,9 +18,9 @@ import database.SqlDatabase;
 public class Main {
     /** The SQL database object */
     private static SqlDatabase Database;
-    
+
     private static ApplicationWindow window;
-    
+
     private static User currentUser;
 
     /**
@@ -32,15 +28,21 @@ public class Main {
      * 
      * @param args
      *            Application arguments
+     * @throws ClassNotFoundException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
 	currentUser = null;
 	
+	Client c = new Client(10000);
+/*
 	try {
 	    Database = new SqlDatabase();
-	    
-	   // Database.createTables();
-	    //Database.insertUser(new SystemAdmin("fnewton3", Crypto.getSha1Hash("password"), GenderType.Male, new UserInfo("Fraser Newton", "Address", "678-468-0074", "999-99-9999", "fnewton3@gatech.edu", new Date())));
+
+//	    Database.canCreateTables();
+//	    Database.canInsertUser(new SystemAdmin("fnewton3", Crypto
+//		    .getSha1Hash("password"), GenderType.Male, new UserInfo(
+//		    "Fraser Newton", "Address", "678-468-0074", "999-99-9999",
+//		    "fnewton3@gatech.edu", new Date())));
 	} catch (ClassNotFoundException e) {
 	    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
 		e.printStackTrace();
@@ -56,6 +58,11 @@ public class Main {
 		}
 	    }
 	});
+
+	User[] userList = Database.getAllUsers();
+
+	System.out.println(userList.length);
+	*/
     }
 
     /**
@@ -66,15 +73,15 @@ public class Main {
     public static SqlDatabase getDatabaseObject() {
 	return Database;
     }
-    
+
     public static ApplicationWindow getApplicationWindow() {
 	return window;
     }
-    
+
     public static User getCurrentUser() {
 	return currentUser;
     }
-    
+
     public static void setCurrentUser(User newUser) {
 	currentUser = newUser;
     }

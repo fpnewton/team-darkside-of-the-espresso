@@ -7,7 +7,6 @@
 package ui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -20,8 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import client.Main;
 
@@ -169,8 +166,6 @@ public class LoginPanel extends JPanel {
 	lblError.setForeground(Color.RED);
 	lblError.setBounds(22, 53, 416, 30);
 	add(lblError);
-	setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { txtUsername,
-		txtPassword, btnLogin, btnClear, btnSettings }));
     }
 
     /**

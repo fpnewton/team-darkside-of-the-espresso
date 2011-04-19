@@ -1,103 +1,108 @@
-/*
- * The ServerThread Class.
- */
-
 package network;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.ObjectInputStream;
+import java.net.Socket;
+import java.util.logging.Level;
 
-/**
- * The ServerThread Class.
- * 
- * @author Fraser P. Newton
- * @version 1.0.0
- */
-public class ServerThread extends Thread {
-    /** The server. */
-    private Server server = null;
+import log.SystemLog;
 
-    private List<Message> messagePool = null;
+public class ServerThread implements Runnable
+{
+	private final String	SERVER_DOWN_MESSAGE			= "The server is going down NOW!";
+	private final String	CLIENT_DISCONNECT_MESSAGE	= "The client has disconnected.";
 
-    /** The is done flag. */
-    private boolean isDone;
+	private Socket			connection;
+	private boolean			isDone;
+	private boolean			isTerm;
 
-    /**
-     * Instantiates a new server thread.
-     * 
-     * @param port
-     *            the port
-     * @param channel
-     *            the channel
-     * 
-     * @throws UnknownHostException
-     *             the unknown host exception
-     * @throws IOException
-     *             Signals that an I/O exception has occurred.
-     */
-    public ServerThread(int port, int channel) throws IOException {
-	isDone = false;
 
-	server = new Server(port, channel);
-	messagePool = new ArrayList<Message>();
-    }
-
-    /**
-     * Cleanup.
-     */
-    public void cleanup() {
-	server.cleanup();
-    }
-
-    public Message[] getMessages(MessageKey key) {
-	final List<Message> msgList = new ArrayList<Message>();
-
-	for (Message msg : messagePool) {
-	    if (msg.equals(key)) {
-		msgList.add(msg);
-		messagePool.remove(msg);
-	    }
+	public ServerThread(Socket client)
+	{
+		connection = client;
+		isDone = false;
+		isTerm = false;
 	}
 
-	return msgList.toArray(new Message[msgList.size()]);
-    }
 
-    public int getMessagePoolSize() {
-	return messagePool.size();
-    }
+	public void run()
+	{
+		try
+		{
+			// Create an object stream to receive incoming messages from the
+			// client
+			ObjectInputStream stream = new ObjectInputStream(connection.getInputStream());
 
-    /**
-     * The client thread loop.
-     */
-    public void run() {
-	while (!isDone) {
-	    messagePool.add(server.receiveMessage());
+			while (!isDone)
+			{
+				// Stop the server thread if the client has disconnected
+				if (connection.isClosed())
+				{
+					// Log the client disconnect message
+					if (!SystemLog.LogMessage(CLIENT_DISCONNECT_MESSAGE, Level.INFO))
+					{
+						System.out.println("Error: Could not log message \""
+								+ CLIENT_DISCONNECT_MESSAGE + "\".");
+					}
+
+					isDone = true;
+
+					continue;
+				}
+
+				// Receive the message object from the client
+				Message msg = (Message) stream.readObject();
+
+				// Stop the server thread if a TERM message was sent
+				if (msg.getKey() == MessageKey.TERM)
+				{
+					System.out.println(SERVER_DOWN_MESSAGE);
+
+					if (!SystemLog.LogMessage(SERVER_DOWN_MESSAGE, Level.INFO))
+					{
+						System.out.println("Error: Could not log message \"" + SERVER_DOWN_MESSAGE + "\".");
+					}
+
+					isDone = true;
+					isTerm = true;
+				}
+				else
+				{
+					// Process all other messages
+					processMessage(msg);
+				}
+			}
+
+			// Close the object stream for the incoming messages
+			stream.close();
+
+			// Close the socket connection with the client
+			connection.close();
+		}
+		catch (Exception e)
+		{
+			if (!SystemLog.LogMessage(e.getStackTrace().toString(), Level.SEVERE))
+			{
+				e.printStackTrace();
+			}
+		}
 	}
-    }
 
-    /**
-     * Checks if is running.
-     * 
-     * @return true, if is running
-     */
-    public boolean isRunning() {
-	return !isDone;
-    }
 
-    /**
-     * Terminates the running thread.
-     */
-    public void terminate() {
-	isDone = true;
-    }
+	public boolean didReceiveTerm()
+	{
+		return isTerm;
+	}
 
-    /**
-     * Converts the object to a string.
-     * 
-     * @return A string with the fully qualified name of the class
-     */
-    public String toString() {
-	return this.getClass().toString();
-    }
+
+	private void processMessage(Message message)
+	{
+
+		System.out.println("Message Echo: " + message.getData());
+
+		if (!SystemLog.LogMessage("Server Message Echo: " + message.getData(), Level.INFO))
+		{
+			System.out.println("Error: Could not write message echo to system log.");
+		}
+
+	}
 }

@@ -14,11 +14,6 @@ import java.io.Serializable;
  */
 public class Message implements Serializable {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-
     /** The message Key. */
     private MessageKey key; // Message Key - Describes how the message should be
 			    // handled
