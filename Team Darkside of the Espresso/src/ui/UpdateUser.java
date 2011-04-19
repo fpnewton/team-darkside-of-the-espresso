@@ -74,7 +74,7 @@ public class UpdateUser extends JPanel {
     private JTextField txtBirthDate;
 
     /** The username text box. */
-    private JTextField txtusername;
+    private JTextField txtUsername;
 
     /** The active check box. */
     private JCheckBox chkActive;
@@ -221,10 +221,10 @@ public class UpdateUser extends JPanel {
 	btnSave.setBounds(265, 271, 76, 23);
 	add(btnSave);
 
-	txtusername = new JTextField();
-	txtusername.setBounds(211, 52, 227, 20);
-	add(txtusername);
-	txtusername.setColumns(10);
+	txtUsername = new JTextField();
+	txtUsername.setBounds(211, 52, 227, 20);
+	add(txtUsername);
+	txtUsername.setColumns(10);
 
 	final JLabel lblUsername = new JLabel("Username:");
 	lblUsername.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -296,13 +296,27 @@ public class UpdateUser extends JPanel {
 		strPassword.append(c);
 	    }
 
-	    userInfo = new UserInfo(txtName.getText(), txtAddress.getText() + "\n"
-		    + txtCityStateZip.getText(), txtPhoneNum.getText(), txtSSN.getText(),
-		    txtEmailAddress.getText(), birthDate);
-
-	    user = new SystemAdmin(txtusername.getText(), Crypto.getSha1Hash(strPassword
-		    .toString()), (rdoMale.isSelected() ? GenderType.Male
-		    : GenderType.Female), userInfo);
+	    User currentUser = Main.getCurrentUser();
+	    String oldName = currentUser.getUserInformation().getName();
+	    
+	    currentUser.setUsername(txtUsername.getText());
+	    currentUser.setPasswordHash(Crypto.getSha1Hash(strPassword.toString()));
+	    currentUser.setGender(rdoMale.isSelected() ? GenderType.Male : GenderType.Female);
+	    
+	    UserInfo currentUserInfo = currentUser.getUserInformation();
+	    
+	    currentUserInfo.setName(txtName.getText());
+	    currentUserInfo.setAddress(txtAddress.getText());
+	    currentUserInfo.setPhoneNumber(txtPhoneNum.getText());
+	    currentUserInfo.setSocialSecurityNumber(txtSSN.getText());
+	    currentUserInfo.setEmailAddress(txtEmailAddress.getText());
+	    
+	    currentUserInfo.setBirthDate(birthDate);
+	    
+	    if (db.updateUser(db.getUserID(oldName), currentUser))
+	    {
+		Main.setCurrentUser(currentUser);
+	    }
 
 	    if (db.updateUser(userID, user)) {
 		if (!SystemLog.LogMessage("User " + userInfo.getName()

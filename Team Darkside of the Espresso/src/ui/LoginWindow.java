@@ -158,7 +158,7 @@ public class LoginWindow {
 	if (txtUsername.getText().length() >= 4
 		&& txtPassword.getPassword().toString().length() >= 6) {
 	    
-	    if (controller.login(txtUsername.getText(), str.toString())) {
+	    if (controller.canLogin(txtUsername.getText(), str.toString())) {
 		// Open the appointment window on success
 		//frmLoginWindow.setVisible(false);
 		

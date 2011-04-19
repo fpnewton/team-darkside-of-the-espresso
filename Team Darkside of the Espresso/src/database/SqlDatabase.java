@@ -309,7 +309,8 @@ public class SqlDatabase {
     public User[] getAllUsers() {
 	try {
 	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
-	    ArrayList<Object> Out = new ArrayList<Object>();
+	    
+	    ArrayList<User> Out = new ArrayList<User>();
 	    ResultSet Results = dbConnection.createStatement().executeQuery(
 		    "SELECT * FROM users;");
 
