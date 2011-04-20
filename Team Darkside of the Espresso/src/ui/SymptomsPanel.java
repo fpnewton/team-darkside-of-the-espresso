@@ -16,14 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import appointment.Appointment;
-
 import client.Main;
 
 /**
  * The SymptomsPanel Class.
  * 
- * @author Someone?
+ * @author David Garner
  * @version 1.0.0
  */
 public class SymptomsPanel extends JPanel {
@@ -40,93 +38,63 @@ public class SymptomsPanel extends JPanel {
 	/** The Constant TITLE. */
 	private static final String TITLE = "Symptoms";
 
-	private SchedulePanel sched;
+	private final SchedulePanel sched = new SchedulePanel();
 
-	private ArrayList<String> sympList; // ArrayList of symptom names
-	private ArrayList<JCheckBox> sympCheckList; // ArrayList of symptom
+	private ArrayList<String> sympList = new ArrayList<String>(); // ArrayList of symptom names
+	private ArrayList<JCheckBox> sympCheckList = new ArrayList<JCheckBox>(); // ArrayList of symptom
 												// checkboxes
 	private String symptoms;
-
-	/* Initializing all of the JCheckBoxes */
-	final JCheckBox abdominalPain = new JCheckBox("Abdominal Pain");
-	final JCheckBox allergies = new JCheckBox("Allergies");
-	final JCheckBox backPain = new JCheckBox("Back Pain");
-	final JCheckBox bloodInStool = new JCheckBox("Blood in Stool");
-	final JCheckBox bloodInUrine = new JCheckBox("Blood in Urine");
-	final JCheckBox breathingTrouble = new JCheckBox("Breathing Trouble");
-	final JCheckBox chestPain = new JCheckBox("Chest Pain");
-	final JCheckBox coldfluEar = new JCheckBox("Cold/Flu/Ear Pain");
-	final JCheckBox constipation = new JCheckBox("Constipation");
-	final JCheckBox cough = new JCheckBox("Cough");
-	final JCheckBox diarrhea = new JCheckBox("Diarrhea");
-	final JCheckBox eyeProblems = new JCheckBox("Eye Problems");
-	final JCheckBox fatigueTired = new JCheckBox("Fatigue / Tired");
-	final JCheckBox fever = new JCheckBox("Fever");
-	final JCheckBox headacheMigraine = new JCheckBox("Headache/Migraine");
-	final JCheckBox highBloodPressure = new JCheckBox("High Blood Pressure");
-	final JCheckBox insomnia = new JCheckBox("Insomnia");
-	final JCheckBox jointPain = new JCheckBox("Joint Pain / Injury");
-	final JCheckBox labBlood = new JCheckBox("Lab - Blood Work");
-	final JCheckBox labTest = new JCheckBox("Lab - Test Results");
-	final JCheckBox moleLump = new JCheckBox("Mole / Lump");
-	final JCheckBox painWithUrination = new JCheckBox("Pain With Urination");
-	final JCheckBox penileDischarge = new JCheckBox("Penile Discharge");
-	final JCheckBox soreThroat = new JCheckBox("Sore Throat");
-	final JCheckBox skinProblems = new JCheckBox("Skin Problems");
-	final JCheckBox stitchesRemoval = new JCheckBox("Stitches Removal");
-	final JCheckBox testicularPainlump = new JCheckBox("Testicular Pain/Lump");
-	final JCheckBox wart = new JCheckBox("Wart");
-	final JCheckBox injectionAllergy = new JCheckBox("INJECTION - Allergy");
-	final JCheckBox injectionOnly = new JCheckBox("INJECTION Only");
-	final JCheckBox other = new JCheckBox("Other (Please Specify)");
-	final JCheckBox personal = new JCheckBox("Personal");
-
+	
 	/**
 	 * Create the panel.
 	 */
-	public SymptomsPanel(Appointment app) {
-		initialize(app);
+	public SymptomsPanel() {
+		initialize();
 	}
 
 	/**
 	 * Initializes the panel.
 	 */
-	private void initialize(final Appointment app) {
+	private void initialize() {
 		setLayout(null);
+		
 
-		/* Adding all of the JCheckBoxes to the ArrayList */
-		sympCheckList.add(abdominalPain);
-		sympCheckList.add(allergies);
-		sympCheckList.add(backPain);
-		sympCheckList.add(bloodInStool);
-		sympCheckList.add(bloodInUrine);
-		sympCheckList.add(breathingTrouble);
-		sympCheckList.add(chestPain);
-		sympCheckList.add(coldfluEar);
-		sympCheckList.add(constipation);
-		sympCheckList.add(cough);
-		sympCheckList.add(diarrhea);
-		sympCheckList.add(eyeProblems);
-		sympCheckList.add(fatigueTired);
-		sympCheckList.add(fever);
-		sympCheckList.add(headacheMigraine);
-		sympCheckList.add(highBloodPressure);
-		sympCheckList.add(insomnia);
-		sympCheckList.add(jointPain);
-		sympCheckList.add(labBlood);
-		sympCheckList.add(labTest);
-		sympCheckList.add(moleLump);
-		sympCheckList.add(painWithUrination);
-		sympCheckList.add(penileDischarge);
-		sympCheckList.add(soreThroat);
-		sympCheckList.add(skinProblems);
-		sympCheckList.add(stitchesRemoval);
-		sympCheckList.add(testicularPainlump);
-		sympCheckList.add(wart);
-		sympCheckList.add(injectionAllergy);
-		sympCheckList.add(injectionOnly);
-		sympCheckList.add(personal);
+		/* Initializing all of the JCheckBoxes */
+		final JCheckBox abdominalPain = new JCheckBox("Abdominal Pain");
+		final JCheckBox allergies = new JCheckBox("Allergies");
+		final JCheckBox backPain = new JCheckBox("Back Pain");
+		final JCheckBox bloodInStool = new JCheckBox("Blood in Stool");
+		final JCheckBox bloodInUrine = new JCheckBox("Blood in Urine");
+		final JCheckBox breathingTrouble = new JCheckBox("Breathing Trouble");
+		final JCheckBox chestPain = new JCheckBox("Chest Pain");
+		final JCheckBox coldfluEar = new JCheckBox("Cold/Flu/Ear Pain");
+		final JCheckBox constipation = new JCheckBox("Constipation");
+		final JCheckBox cough = new JCheckBox("Cough");
+		final JCheckBox diarrhea = new JCheckBox("Diarrhea");
+		final JCheckBox eyeProblems = new JCheckBox("Eye Problems");
+		final JCheckBox fatigueTired = new JCheckBox("Fatigue / Tired");
+		final JCheckBox fever = new JCheckBox("Fever");
+		final JCheckBox headacheMigraine = new JCheckBox("Headache/Migraine");
+		final JCheckBox highBloodPressure = new JCheckBox("High Blood Pressure");
+		final JCheckBox insomnia = new JCheckBox("Insomnia");
+		final JCheckBox jointPain = new JCheckBox("Joint Pain / Injury");
+		final JCheckBox labBlood = new JCheckBox("Lab - Blood Work");
+		final JCheckBox labTest = new JCheckBox("Lab - Test Results");
+		final JCheckBox moleLump = new JCheckBox("Mole / Lump");
+		final JCheckBox painWithUrination = new JCheckBox("Pain With Urination");
+		final JCheckBox penileDischarge = new JCheckBox("Penile Discharge");
+		final JCheckBox soreThroat = new JCheckBox("Sore Throat");
+		final JCheckBox skinProblems = new JCheckBox("Skin Problems");
+		final JCheckBox stitchesRemoval = new JCheckBox("Stitches Removal");
+		final JCheckBox testicularPainlump = new JCheckBox("Testicular Pain/Lump");
+		final JCheckBox wart = new JCheckBox("Wart");
+		final JCheckBox injectionAllergy = new JCheckBox("INJECTION - Allergy");
+		final JCheckBox injectionOnly = new JCheckBox("INJECTION Only");
+		final JCheckBox other = new JCheckBox("Other (Please Specify)");
+		final JCheckBox personal = new JCheckBox("Personal");
 
+
+		System.out.println("foo\nfoo\nfoo\nfoo\nfoo\nfoo\nfoo\nfoo\nfoo\n");
 		final JLabel lblSymptomscheckAll = new JLabel("Check All That Apply");
 		lblSymptomscheckAll.setBounds(10, 29, 162, 14);
 		add(lblSymptomscheckAll);
@@ -251,17 +219,53 @@ public class SymptomsPanel extends JPanel {
 		add(injectionOnly);
 		sympList.add("INJECTION Only");
 
-		other.setBounds(483, 50, 190, 23);
-		add(other);
-
 		personal.setBounds(209, 232, 97, 23);
 		add(personal);
+		sympList.add("personal");
+		
+		other.setBounds(483, 50, 190, 23);
+		add(other);
+		sympList.add("other");
 
 		textField = new JTextField();
 		textField.setBounds(483, 76, 302, 388);
 		add(textField);
 		textField.setColumns(10);
 
+		/* Adding all of the JCheckBoxes to the ArrayList */
+		sympCheckList.add(abdominalPain);
+		sympCheckList.add(allergies);
+		sympCheckList.add(backPain);
+		sympCheckList.add(bloodInStool);
+		sympCheckList.add(bloodInUrine);
+		sympCheckList.add(breathingTrouble);
+		sympCheckList.add(chestPain);
+		sympCheckList.add(coldfluEar);
+		sympCheckList.add(constipation);
+		sympCheckList.add(cough);
+		sympCheckList.add(diarrhea);
+		sympCheckList.add(eyeProblems);
+		sympCheckList.add(fatigueTired);
+		sympCheckList.add(fever);
+		sympCheckList.add(headacheMigraine);
+		sympCheckList.add(highBloodPressure);
+		sympCheckList.add(insomnia);
+		sympCheckList.add(jointPain);
+		sympCheckList.add(labBlood);
+		sympCheckList.add(labTest);
+		sympCheckList.add(moleLump);
+		sympCheckList.add(painWithUrination);
+		sympCheckList.add(penileDischarge);
+		sympCheckList.add(soreThroat);
+		sympCheckList.add(skinProblems);
+		sympCheckList.add(stitchesRemoval);
+		sympCheckList.add(testicularPainlump);
+		sympCheckList.add(wart);
+		sympCheckList.add(injectionAllergy);
+		sympCheckList.add(injectionOnly);
+		sympCheckList.add(personal);
+		sympCheckList.add(other);
+		
 		/*
 		 * Nullifies the symptoms string in case the user comes back to this
 		 * page from the schedule panel. Subsequently, it adds to this symptoms
@@ -272,18 +276,19 @@ public class SymptomsPanel extends JPanel {
 		btnSubmit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				symptoms = null;
-				for (int i = 0; i < sympList.size() - 1; i++)
+				symptoms = "";
+				for (int i = 0; i < sympList.size() - 1; i++){
 					if (sympCheckList.get(i).isSelected()) {
-						if (i != sympList.size() - 1)
+						if (i != sympList.size() - 1){
 							symptoms += sympList.get(i) + '\n';
-						else
+						}
+						else{
 							symptoms += sympList.get(i);
+						}
 					}
+				}
 
-				app.setSymptoms(symptoms);
-
-				sched = new SchedulePanel(app);
+				//app.setSymptoms(symptoms);
 				Main.getApplicationWindow().setFrame(sched, sched.getTitle(),
 						sched.getWidth(), sched.getHeight());
 			}

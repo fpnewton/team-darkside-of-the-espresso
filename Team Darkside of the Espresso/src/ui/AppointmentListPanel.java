@@ -84,7 +84,7 @@ public class AppointmentListPanel extends JPanel {
 	btnEdit.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(final MouseEvent e) {
-		final SymptomsPanel schedulePanel = new SymptomsPanel(new Appointment(null, null, null, null));
+		final SymptomsPanel schedulePanel = new SymptomsPanel();
 		// TODO Pass selected appointment
 		Main.getApplicationWindow().setFrame(schedulePanel,
 			schedulePanel.getTitle(), schedulePanel.getWidth(),
@@ -98,7 +98,7 @@ public class AppointmentListPanel extends JPanel {
 	btnAdd.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(final MouseEvent e) {
-		final SymptomsPanel schedulePanel = new SymptomsPanel(new Appointment(null, null, null, null));
+		final SymptomsPanel schedulePanel = new SymptomsPanel();
 
 		Main.getApplicationWindow().setFrame(schedulePanel,
 			schedulePanel.getTitle(), schedulePanel.getWidth(),
