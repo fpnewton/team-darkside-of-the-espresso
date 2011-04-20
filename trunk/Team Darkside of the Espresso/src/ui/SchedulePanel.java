@@ -13,7 +13,10 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import appointment.Appointment;
@@ -121,10 +124,33 @@ public class SchedulePanel extends JPanel {
 		add(btnPrevious);
 
 		final JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JComponent successDialog = null;
+				JOptionPane.showMessageDialog(successDialog, "You have successfully scheduled an appointment!");
+				
+				final AppointmentListPanel appWindow = new AppointmentListPanel();
+				
+				Main.getApplicationWindow().setFrame(appWindow,
+						appWindow.getTitle(), appWindow.getWidth(),
+						appWindow.getHeight());
+			}
+		});
 		btnSubmit.setBounds(206, 342, 89, 23);
 		add(btnSubmit);
 
 		final JButton btnCancel = new JButton("Cancel");
+		btnCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				final AppointmentListPanel appWindow = new AppointmentListPanel();
+				
+				Main.getApplicationWindow().setFrame(appWindow,
+						appWindow.getTitle(), appWindow.getWidth(),
+						appWindow.getHeight());
+			}
+		});
 		btnCancel.setBounds(307, 342, 89, 23);
 		add(btnCancel);
 	}

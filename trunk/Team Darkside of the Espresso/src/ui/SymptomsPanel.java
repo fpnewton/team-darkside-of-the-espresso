@@ -30,10 +30,10 @@ public class SymptomsPanel extends JPanel {
 	private JTextField textField;
 
 	/** The Constant WIDTH. */
-	private static final int WIDTH = 800;
+	private static final int WIDTH = 850;
 
 	/** The Constant HEIGHT. */
-	private static final int HEIGHT = 500 + 25;
+	private static final int HEIGHT = 550 + 25;
 
 	/** The Constant TITLE. */
 	private static final String TITLE = "Symptoms";
@@ -57,7 +57,6 @@ public class SymptomsPanel extends JPanel {
 	 */
 	private void initialize() {
 		setLayout(null);
-		
 
 		/* Initializing all of the JCheckBoxes */
 		final JCheckBox abdominalPain = new JCheckBox("Abdominal Pain");
@@ -300,12 +299,12 @@ public class SymptomsPanel extends JPanel {
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				final MakeUser makeUserPanel = new MakeUser();
+				final AppointmentListPanel appWindow = new AppointmentListPanel();
 
-				Main.getApplicationWindow().setFrame(makeUserPanel,
-						makeUserPanel.getTitle(), makeUserPanel.getWidth(),
-						makeUserPanel.getHeight());
-			}
+					Main.getApplicationWindow().setFrame(appWindow,
+							appWindow.getTitle(), appWindow.getWidth(),
+							appWindow.getHeight());
+				}
 		});
 		btnCancel.setBounds(696, 504, 89, 23);
 		add(btnCancel);
