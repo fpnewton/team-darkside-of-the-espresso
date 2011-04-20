@@ -41,14 +41,14 @@ public class SchedulePanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public SchedulePanel(Appointment app) {
-		initialize(app);
+	public SchedulePanel() {
+		initialize();
 	}
 
 	/**
 	 * Initializes the panel.
 	 */
-	private void initialize(final Appointment app) {
+	private void initialize() {
 		setLayout(null);
 
 		// TODO Make an array list of available dates for the JComboBox
@@ -111,7 +111,7 @@ public class SchedulePanel extends JPanel {
 		btnPrevious.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(final MouseEvent e) {
-				final SymptomsPanel symptomsPanel = new SymptomsPanel(app);
+				final SymptomsPanel symptomsPanel = new SymptomsPanel();
 
 				Main.getApplicationWindow().setFrame(symptomsPanel,
 						symptomsPanel.getTitle(), symptomsPanel.getWidth(),
