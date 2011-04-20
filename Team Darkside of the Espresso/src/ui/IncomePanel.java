@@ -5,6 +5,9 @@
 package ui;
 
 import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
 
 /**
  * The IncomePanel Class.
@@ -27,6 +30,32 @@ public class IncomePanel extends JPanel {
      * Create the panel.
      */
     public IncomePanel() {
+    	setLayout(null);
+    	
+    	JLabel lblDoctorsOfficeIncome = new JLabel("Doctor's Office Income");
+    	lblDoctorsOfficeIncome.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+    	lblDoctorsOfficeIncome.setBounds(125, 27, 196, 16);
+    	add(lblDoctorsOfficeIncome);
+    	
+    	JButton btnReturn = new JButton("Return");
+    	btnReturn.setBounds(165, 265, 117, 29);
+    	add(btnReturn);
+    	
+    	JLabel lblTotalCompletedAppointments = new JLabel("Total Completed Appointments:");
+    	lblTotalCompletedAppointments.setBounds(45, 79, 209, 16);
+    	add(lblTotalCompletedAppointments);
+    	
+    	JLabel lblTotalMoneyFrom = new JLabel("Total Money From Invoices:");
+    	lblTotalMoneyFrom.setBounds(45, 143, 185, 16);
+    	add(lblTotalMoneyFrom);
+    	
+    	JLabel label = new JLabel("New label");
+    	label.setBounds(315, 79, 61, 16);
+    	add(label);
+    	
+    	JLabel label_1 = new JLabel("New label");
+    	label_1.setBounds(315, 143, 61, 16);
+    	add(label_1);
 	// TODO Implement Method
     }
 
