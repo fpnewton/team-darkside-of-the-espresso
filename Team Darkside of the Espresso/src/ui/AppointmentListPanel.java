@@ -19,11 +19,9 @@ import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
-import appointment.Appointment;
-
+import users.Doctor;
 import users.Patient;
 import users.SystemAdmin;
-
 import client.Main;
 
 /**
@@ -91,7 +89,7 @@ public class AppointmentListPanel extends JPanel {
 			schedulePanel.getHeight());
 	    }
 	});
-	btnEdit.setBounds(254, 99, 117, 29);
+	btnEdit.setBounds(191, 84, 117, 29);
 	add(btnEdit);
 
 	final JButton btnAdd = new JButton("Add");
@@ -105,7 +103,7 @@ public class AppointmentListPanel extends JPanel {
 			schedulePanel.getHeight());
 	    }
 	});
-	btnAdd.setBounds(254, 140, 117, 29);
+	btnAdd.setBounds(191, 125, 117, 29);
 	add(btnAdd);
 
 	final JButton btnDelete = new JButton("Delete");
@@ -115,7 +113,7 @@ public class AppointmentListPanel extends JPanel {
 		// TODO Delete appointment
 	    }
 	});
-	btnDelete.setBounds(254, 181, 117, 29);
+	btnDelete.setBounds(191, 166, 117, 29);
 	add(btnDelete);
 
 	final JButton btnClose = new JButton("Close");
@@ -135,7 +133,7 @@ public class AppointmentListPanel extends JPanel {
 	    });
 	}
 
-	btnClose.setBounds(254, 222, 117, 29);
+	btnClose.setBounds(191, 207, 117, 29);
 	add(btnClose);
 
 	final JTextPane txtpnAppointmentTips = new JTextPane();
@@ -167,8 +165,33 @@ public class AppointmentListPanel extends JPanel {
 			makeUser.getWidth(), makeUser.getHeight());
 	    }
 	});
-	btnSystemAdmin.setBounds(254, 263, 133, 25);
+	btnSystemAdmin.setBounds(185, 263, 123, 25);
 	add(btnSystemAdmin);
+	
+	JButton btnViewInvoice = new JButton("View Invoice");
+	btnViewInvoice.setBounds(37, 261, 142, 29);
+	add(btnViewInvoice);
+	
+	JButton btnViewIncome = new JButton("View Income");
+	btnViewIncome.setVisible(false);
+	
+	if (Main.getCurrentUser() instanceof Doctor) {
+	    btnViewInvoice.setVisible(true);
+	}
+	
+	btnViewIncome.setBounds(315, 261, 117, 29);
+	add(btnViewIncome);
+	
+	JButton btnAddDocorders = new JButton("Add Doctors..");
+	
+	btnAddDocorders.setVisible(false);
+	
+	if (Main.getCurrentUser() instanceof Doctor) {
+	    btnAddDocorders.setVisible(true);
+	}
+	
+	btnAddDocorders.setBounds(320, 125, 117, 29);
+	add(btnAddDocorders);
     }
 
     /**
