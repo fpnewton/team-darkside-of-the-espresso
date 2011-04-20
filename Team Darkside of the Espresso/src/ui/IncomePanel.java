@@ -7,7 +7,12 @@ package ui;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JButton;
+
+import client.Main;
 
 /**
  * The IncomePanel Class.
@@ -39,6 +44,16 @@ public class IncomePanel extends JPanel {
     	
     	JButton btnReturn = new JButton("Return");
     	btnReturn.setBounds(165, 265, 117, 29);
+		btnReturn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				final AppointmentListPanel appWindow = new AppointmentListPanel();
+
+					Main.getApplicationWindow().setFrame(appWindow,
+							appWindow.getTitle(), appWindow.getWidth(),
+							appWindow.getHeight());
+				}
+		});
     	add(btnReturn);
     	
     	JLabel lblTotalCompletedAppointments = new JLabel("Total Completed Appointments:");
