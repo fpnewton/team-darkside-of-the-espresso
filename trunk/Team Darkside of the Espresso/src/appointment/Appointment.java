@@ -7,6 +7,8 @@ package appointment;
 import java.io.Serializable;
 import java.util.Date;
 
+import record.DoctorsOrders;
+
 import users.Doctor;
 import users.Patient;
 
@@ -33,6 +35,9 @@ public class Appointment implements Serializable {
 
     /** The Symptoms. */
     private String symptoms;
+    
+    /** The Doctors Orders for the follow-up appointment */
+    private DoctorsOrders docOrders;
 
     /**
      * Appointment constructor.
@@ -51,6 +56,7 @@ public class Appointment implements Serializable {
 	this.desiredDate = date;
 	this.desiredDoctor = doctor;
 	this.symptoms = symptoms;
+	this.docOrders = null;
     }
 
     /**
@@ -63,8 +69,12 @@ public class Appointment implements Serializable {
      * @param desiredDoctor
      *            the desired doctor
      */
-    public Appointment(Patient patient, Date date, Doctor desiredDoctor) {
-	this(patient, date, desiredDoctor, null);
+    public Appointment(Patient patient, Date date, Doctor desiredDoctor, DoctorsOrders docOrders) {
+    	this.patient = patient;
+    	this.desiredDate = date;
+    	this.desiredDoctor = desiredDoctor;
+    	this.symptoms = null;
+    	this.docOrders = docOrders;
     }
 
     /**
