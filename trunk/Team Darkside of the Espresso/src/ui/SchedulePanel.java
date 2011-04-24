@@ -8,6 +8,7 @@ package ui;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,9 +20,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import users.Doctor;
+import users.User;
+
 import appointment.Appointment;
 
 import client.Main;
+import database.SqlDatabase;
 
 /**
  * The SchedulePanel Class.
@@ -54,11 +59,37 @@ public class SchedulePanel extends JPanel {
 	private void initialize() {
 		setLayout(null);
 
-		// TODO Make an array list of available dates for the JComboBox
+		// TODO Maybe fix the null database.
+		SqlDatabase s = null;
+		User[] uList = s.getAllUsers();
 		ArrayList<Date> availableDate = new ArrayList<Date>();
+
+		/*
+		 * Looks at every doctor's list of available dates in the User database
+		 * and compiles an array list of available dates to be displayed in the
+		 * JComboBox
+		 */
+		for (int i = 0; i < uList.length; i++) {
+			if (uList[i] instanceof Doctor) {
+				ArrayList<Date> avail = ((Doctor) uList[i]).getAvailabilities();
+				for (int j = 0; j < avail.size(); j++)
+					if (!availableDate.contains(avail.get(j)))
+						availableDate.add(avail.get(j));
+			}
+		}
+
+		// TODO Make an array list of available times for the selected date
+		ArrayList<Time> availableTime = new ArrayList<Time>();
+
+		// TODO Make an array list of available doctors for the selected date /
+		// time
+		ArrayList<Doctor> availableDoc = new ArrayList<Doctor>();
 
 		final JComboBox dateBox = new JComboBox();
 		dateBox.setBounds(151, 147, 135, 20);
+		dateBox.addItem("Pick a desired date");
+		for (int i = 0; i < availableDate.size(); i++)
+			dateBox.addItem(availableDate.get(i));
 		add(dateBox);
 
 		final JLabel lblDate = new JLabel("Date:");
@@ -86,7 +117,7 @@ public class SchedulePanel extends JPanel {
 		lblInstructions.setBounds(45, 11, 160, 14);
 		add(lblInstructions);
 
-		final JLabel lblSelectA = new JLabel("1. Select a deired date.");
+		final JLabel lblSelectA = new JLabel("1. Select a desired date.");
 		lblSelectA.setBounds(70, 36, 274, 14);
 		add(lblSelectA);
 
@@ -128,10 +159,11 @@ public class SchedulePanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JComponent successDialog = null;
-				JOptionPane.showMessageDialog(successDialog, "You have successfully scheduled an appointment!");
-				
+				JOptionPane.showMessageDialog(successDialog,
+						"You have successfully scheduled an appointment!");
+
 				final AppointmentListPanel appWindow = new AppointmentListPanel();
-				
+
 				Main.getApplicationWindow().setFrame(appWindow,
 						appWindow.getTitle(), appWindow.getWidth(),
 						appWindow.getHeight());
@@ -145,7 +177,7 @@ public class SchedulePanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				final AppointmentListPanel appWindow = new AppointmentListPanel();
-				
+
 				Main.getApplicationWindow().setFrame(appWindow,
 						appWindow.getTitle(), appWindow.getWidth(),
 						appWindow.getHeight());
@@ -181,4 +213,5 @@ public class SchedulePanel extends JPanel {
 	public int getHeight() {
 		return HEIGHT;
 	}
+
 }
