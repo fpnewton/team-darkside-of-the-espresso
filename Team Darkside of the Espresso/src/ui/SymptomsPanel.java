@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import appointment.Appointment;
+
 import client.Main;
 
 /**
@@ -37,8 +39,11 @@ public class SymptomsPanel extends JPanel {
 
 	/** The Constant TITLE. */
 	private static final String TITLE = "Symptoms";
-
+	
 	private final SchedulePanel sched = new SchedulePanel();
+	
+	private Appointment app;
+
 
 	private ArrayList<String> sympList = new ArrayList<String>(); // ArrayList of symptom names
 	private ArrayList<JCheckBox> sympCheckList = new ArrayList<JCheckBox>(); // ArrayList of symptom
@@ -92,8 +97,6 @@ public class SymptomsPanel extends JPanel {
 		final JCheckBox other = new JCheckBox("Other (Please Specify)");
 		final JCheckBox personal = new JCheckBox("Personal");
 
-
-		System.out.println("foo\nfoo\nfoo\nfoo\nfoo\nfoo\nfoo\nfoo\nfoo\n");
 		final JLabel lblSymptomscheckAll = new JLabel("Check All That Apply");
 		lblSymptomscheckAll.setBounds(10, 29, 162, 14);
 		add(lblSymptomscheckAll);
@@ -285,6 +288,10 @@ public class SymptomsPanel extends JPanel {
 							symptoms += sympList.get(i);
 						}
 					}
+					
+//					app.setSymptoms(symptoms);
+//					System.out.println(app.getSymptoms());
+					//TODO Test that the symptoms get properly saved
 				}
 
 				//app.setSymptoms(symptoms);
@@ -336,4 +343,8 @@ public class SymptomsPanel extends JPanel {
 	public int getHeight() {
 		return HEIGHT;
 	}
+/*	
+	public Appointment getAppointment(){
+		return app;
+	}*/
 }

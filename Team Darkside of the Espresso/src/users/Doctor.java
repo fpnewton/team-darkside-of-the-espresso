@@ -27,7 +27,7 @@ public class Doctor extends Nurse
 	/** The Current appointments. */
 	private ArrayList<Appointment>	CurrentAppointments;
 
-
+	private ArrayList<Date> availabilities;
 	/**
 	 * Adds the doctors orders.
 	 * 
@@ -61,6 +61,7 @@ public class Doctor extends Nurse
 	public void addAppointment(Appointment appt)
 	{
 		CurrentAppointments.add(appt);
+		availabilities.remove(appt);
 	}
 
 
@@ -128,10 +129,15 @@ public class Doctor extends Nurse
 	{
 		super(Uname, Pword, Gend, Info);
 		this.CurrentAppointments = new ArrayList<Appointment>();
+		this.availabilities = new ArrayList<Date>();
 	}
 	
 	public ArrayList<Appointment> getCurrentAppointments(){
 		return CurrentAppointments;
+	}
+	
+	public ArrayList<Date> getAvailabilities(){
+		return availabilities;
 	}
 
 
