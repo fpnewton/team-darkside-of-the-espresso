@@ -19,6 +19,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
+import appointment.Appointment;
+
 import users.Doctor;
 import users.Patient;
 import users.SystemAdmin;
@@ -56,9 +58,9 @@ public class AppointmentListPanel extends JPanel {
      */
     private void initialize() {
 	setLayout(null);
-	String[] values = new String[Main.getCurrentUser().getAppointmentList().size()];
+	Object[] values = new String[Main.getCurrentUser().getAppointmentList().size()];
 	for(int i = 0; i < Main.getCurrentUser().getAppointmentList().size(); i++){
-		values[i] =  Main.getCurrentUser().getAppointmentList().get(i).toString();
+		values[i] =  Main.getCurrentUser().getAppointmentList().get(i);
     }
 	final JList list = new JList(values);
 	list.setBounds(37, 104, 142, 62);
@@ -74,6 +76,7 @@ public class AppointmentListPanel extends JPanel {
 	    @Override
 	    public void mouseClicked(final MouseEvent e) {
 		final SymptomsPanel schedulePanel = new SymptomsPanel();
+		Main.setCurrentAppointment((Appointment)list.getSelectedValue());
 		// TODO Pass selected appointment
 		Main.getApplicationWindow().setFrame(schedulePanel,
 			schedulePanel.getTitle(), schedulePanel.getWidth(),
@@ -115,6 +118,7 @@ public class AppointmentListPanel extends JPanel {
 	    btnClose.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(final MouseEvent e) {
+			Main.setCurrentAppointment((Appointment)list.getSelectedValue());
 		    final DoctorsOrdersPanel doctorsOrdersPanel = new DoctorsOrdersPanel();
 
 		    Main.getApplicationWindow().setFrame(doctorsOrdersPanel,

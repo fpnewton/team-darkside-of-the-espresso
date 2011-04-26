@@ -55,7 +55,7 @@ public class DoctorsOrders implements Serializable
 	public DoctorsOrders(Patient Patient, Date Date, Doctor Doc, LabWork lWork, Prescription Prescip, String instr)
 	{
 		this.Patient = Patient;
-		this.FollowUpAppointment = new Appointment(Patient, Date, Doc);
+		this.FollowUpAppointment = new Appointment(Patient, Date, Doc,"");
 		this.LabWorkL.add(lWork);
 		this.PrescriptionsL.add(Prescip);
 		this.Instructions.add(instr);

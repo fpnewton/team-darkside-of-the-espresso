@@ -7,6 +7,7 @@ package client;
 import network.Client;
 import ui.ApplicationWindow;
 import users.User;
+import appointment.Appointment;
 import database.SqlDatabase;
 
 /**
@@ -22,6 +23,8 @@ public class Main {
     private static ApplicationWindow window;
 
     private static User currentUser;
+    
+    private static Appointment appt;
 
     /**
      * Hospital Client application entry point.
@@ -84,6 +87,14 @@ public class Main {
 
     public static void setCurrentUser(User newUser) {
 	currentUser = newUser;
+    }
+    
+    public static Appointment getCurrentAppointment(){
+    	return appt;
+    }
+    
+    public static void setCurrentAppointment(Appointment appoint){
+    	appt = appoint;
     }
 
     /**
