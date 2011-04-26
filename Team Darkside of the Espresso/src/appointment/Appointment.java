@@ -5,7 +5,7 @@
 package appointment;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 
 import record.DoctorsOrders;
 
@@ -28,7 +28,7 @@ public class Appointment implements Serializable {
     private Patient patient;
 
     /** The Desired date. */
-    private Date desiredDate;
+    private Calendar desiredDate;
 
     /** The Desired doctor. */
     private Doctor desiredDoctor;
@@ -51,7 +51,7 @@ public class Appointment implements Serializable {
      * @param symptoms
      *            the symptoms
      */
-    public Appointment(Patient patient, Date date, Doctor doctor, String symptoms) {
+    public Appointment(Patient patient, Calendar date, Doctor doctor, String symptoms) {
 	this.patient = patient;
 	this.desiredDate = date;
 	this.desiredDoctor = doctor;
@@ -69,7 +69,7 @@ public class Appointment implements Serializable {
      * @param desiredDoctor
      *            the desired doctor
      */
-    public Appointment(Patient patient, Date date, Doctor desiredDoctor, DoctorsOrders docOrders) {
+    public Appointment(Patient patient, Calendar date, Doctor desiredDoctor, DoctorsOrders docOrders) {
     	this.patient = patient;
     	this.desiredDate = date;
     	this.desiredDoctor = desiredDoctor;
@@ -85,7 +85,7 @@ public class Appointment implements Serializable {
      * @param preferredDate
      *            the preferred date
      */
-    public void scheduleDoctor(Doctor doc, Patient pat, Date preferredDate) {
+    public void scheduleDoctor(Doctor doc, Patient pat, Calendar preferredDate) {
     	if (!doc.checkAvailability(preferredDate)) {
     		return;
     	} else {
@@ -99,7 +99,7 @@ public class Appointment implements Serializable {
      * 
      * @return the date
      */
-    public Date getDate() {
+    public Calendar getDate() {
 	return desiredDate;
     }
 
@@ -127,7 +127,7 @@ public class Appointment implements Serializable {
      * @param date
      *            the new date
      */
-    public void setDate(Date date) {
+    public void setDate(Calendar date) {
 	this.desiredDate = date;
     }
 

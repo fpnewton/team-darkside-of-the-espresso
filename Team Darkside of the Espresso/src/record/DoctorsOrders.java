@@ -8,7 +8,7 @@ package record;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import users.Doctor;
@@ -52,7 +52,7 @@ public class DoctorsOrders implements Serializable
 	 * @param instr
 	 *            the doctor's instructions
 	 */
-	public DoctorsOrders(Patient Patient, Date Date, Doctor Doc, LabWork lWork, Prescription Prescip, String instr)
+	public DoctorsOrders(Patient Patient, Calendar Date, Doctor Doc, LabWork lWork, Prescription Prescip, String instr)
 	{
 		this.Patient = Patient;
 		this.FollowUpAppointment = new Appointment(Patient, Date, Doc,"");

@@ -9,8 +9,9 @@ package ui;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -61,7 +62,7 @@ public class SchedulePanel extends JPanel {
 		// TODO Maybe fix the null database.
 		SqlDatabase s = null;
 		User[] uList = s.getAllUsers();
-		ArrayList<Date> availableDate = new ArrayList<Date>();
+		ArrayList<Calendar> availableDate = new ArrayList<Calendar>();
 
 		/*
 		 * Looks at every doctor's list of available dates in the User database
@@ -70,15 +71,12 @@ public class SchedulePanel extends JPanel {
 		 */
 		for (int i = 0; i < uList.length; i++) {
 			if (uList[i] instanceof Doctor) {
-				ArrayList<Date> avail = ((Doctor) uList[i]).getAvailabilities();
+				ArrayList<Calendar> avail = ((Doctor) uList[i]).getAvailabilities();
 				for (int j = 0; j < avail.size(); j++)
 					if (!availableDate.contains(avail.get(j)))
 						availableDate.add(avail.get(j));
 			}
 		}
-
-		// TODO Make an array list of available times for the selected date
-		ArrayList<Time> availableTime = new ArrayList<Time>();
 
 		// TODO Make an array list of available doctors for the selected date /
 		// time
@@ -86,10 +84,13 @@ public class SchedulePanel extends JPanel {
 
 		final JComboBox dateBox = new JComboBox();
 		dateBox.setBounds(151, 147, 135, 20);
-		dateBox.addItem("Pick a desired date");
+		SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy");
 		for (int i = 0; i < availableDate.size(); i++)
-			dateBox.addItem(availableDate.get(i));
+			dateBox.addItem(sdf.format(availableDate.get(i)));
 		add(dateBox);
+		
+		// TODO Make an array list of available times for the selected date
+		ArrayList<Time> availableTime = new ArrayList<Time>();
 
 		final JLabel lblDate = new JLabel("Date:");
 		lblDate.setBounds(105, 150, 46, 14);
