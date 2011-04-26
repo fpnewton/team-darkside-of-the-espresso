@@ -31,7 +31,7 @@ import database.SqlDatabase;
 /**
  * The SchedulePanel Class.
  * 
- * @author Someone?
+ * @author David Garner
  * @version 1.0.0
  */
 @SuppressWarnings("serial")
@@ -78,10 +78,6 @@ public class SchedulePanel extends JPanel {
 			}
 		}
 
-		// TODO Make an array list of available doctors for the selected date /
-		// time
-		ArrayList<Doctor> availableDoc = new ArrayList<Doctor>();
-
 		final JComboBox dateBox = new JComboBox();
 		dateBox.setBounds(151, 147, 135, 20);
 		SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy");
@@ -89,9 +85,7 @@ public class SchedulePanel extends JPanel {
 			dateBox.addItem(sdf.format(availableDate.get(i)));
 		add(dateBox);
 		
-		// TODO Make an array list of available times for the selected date
-		ArrayList<Time> availableTime = new ArrayList<Time>();
-
+		
 		final JLabel lblDate = new JLabel("Date:");
 		lblDate.setBounds(105, 150, 46, 14);
 		add(lblDate);
@@ -106,11 +100,25 @@ public class SchedulePanel extends JPanel {
 
 		final JComboBox timeBox = new JComboBox();
 		timeBox.setBounds(151, 207, 135, 20);
-
+		if(dateBox.getSelectedItem()!=null){
+			SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm aaa");
+			for(int i=0; i<availableDate.size(); i++)
+				timeBox.addItem(sdf1.format(availableDate.get(i)));
+		}
 		add(timeBox);
 
 		final JComboBox docBox = new JComboBox();
 		docBox.setBounds(151, 276, 135, 20);
+		if(timeBox.getSelectedItem()!=null){
+			for(int i=0; i<uList.length; i++){
+				if(uList[i] instanceof Doctor){
+					ArrayList<Calendar> avail = ((Doctor) uList[i]).getAvailabilities();
+					for (int j = 0; j < avail.size(); j++)
+						if (availableDate.contains(avail.get(j)))
+							docBox.addItem(uList[i].toString());
+				}
+			}
+		}
 		add(docBox);
 
 		final JLabel lblInstructions = new JLabel("Instructions:");
@@ -164,7 +172,7 @@ public class SchedulePanel extends JPanel {
 
 				final AppointmentListPanel appWindow = new AppointmentListPanel();
 				Main.getCurrentUser().addAppointment(new Appointment((Patient) Main.getCurrentUser(),
-						(Date)dateBox.getSelectedItem(),(Doctor)docBox.getSelectedItem(),""));
+						(Calendar)dateBox.getSelectedItem(),(Doctor)docBox.getSelectedItem(),""));
 
 				Main.getApplicationWindow().setFrame(appWindow,
 						appWindow.getTitle(), appWindow.getWidth(),
