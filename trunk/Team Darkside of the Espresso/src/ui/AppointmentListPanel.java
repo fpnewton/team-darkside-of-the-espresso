@@ -56,20 +56,11 @@ public class AppointmentListPanel extends JPanel {
      */
     private void initialize() {
 	setLayout(null);
-
-	final JList list = new JList();
-	list.setModel(new AbstractListModel() {
-	    /** The appointment values. */
-	    private final String[] values = new String[] { "List of Appointments" };
-
-	    public int getSize() {
-		return values.length;
-	    }
-
-	    public Object getElementAt(final int index) {
-		return values[index];
-	    }
-	});
+	String[] values = new String[Main.getCurrentUser().getAppointmentList().size()];
+	for(int i = 0; i < Main.getCurrentUser().getAppointmentList().size(); i++){
+		values[i] =  Main.getCurrentUser().getAppointmentList().get(i).toString();
+    }
+	final JList list = new JList(values);
 	list.setBounds(37, 104, 142, 62);
 	add(list);
 
