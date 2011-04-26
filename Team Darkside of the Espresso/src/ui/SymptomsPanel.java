@@ -42,7 +42,6 @@ public class SymptomsPanel extends JPanel {
 	
 	private final SchedulePanel sched = new SchedulePanel();
 	
-	private Appointment app;
 
 
 	private ArrayList<String> sympList = new ArrayList<String>(); // ArrayList of symptom names
@@ -291,7 +290,7 @@ public class SymptomsPanel extends JPanel {
 					
 //					app.setSymptoms(symptoms);
 //					System.out.println(app.getSymptoms());
-					//TODO Test that the symptoms get properly saved
+					//TODO Find a way to transfer symptoms to SchedulePanel
 				}
 
 				//app.setSymptoms(symptoms);
@@ -343,8 +342,4 @@ public class SymptomsPanel extends JPanel {
 	public int getHeight() {
 		return HEIGHT;
 	}
-/*	
-	public Appointment getAppointment(){
-		return app;
-	}*/
 }
