@@ -15,16 +15,15 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import users.Doctor;
-import users.User;
-
 import appointment.Appointment;
 
+import users.Doctor;
+import users.Patient;
+import users.User;
 import client.Main;
 import database.SqlDatabase;
 
@@ -163,6 +162,8 @@ public class SchedulePanel extends JPanel {
 						"You have successfully scheduled an appointment!");
 
 				final AppointmentListPanel appWindow = new AppointmentListPanel();
+				Main.getCurrentUser().addAppointment(new Appointment((Patient) Main.getCurrentUser(),
+						(Date)dateBox.getSelectedItem(),(Doctor)docBox.getSelectedItem(),""));
 
 				Main.getApplicationWindow().setFrame(appWindow,
 						appWindow.getTitle(), appWindow.getWidth(),

@@ -9,6 +9,9 @@ package users;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import appointment.Appointment;
 
 
 public abstract class User implements Serializable
@@ -27,6 +30,8 @@ public abstract class User implements Serializable
 
 	/** The is active. */
 	private boolean		isActive;
+	
+	private ArrayList<Appointment> appointments;
 
 
 	/**
@@ -189,6 +194,14 @@ public abstract class User implements Serializable
 			return true;
 		}
 		return false;
+	}
+	
+	public void addAppointment(Appointment appt){
+		
+	}
+	
+	public ArrayList<Appointment> getAppointmentList(){
+		return appointments;
 	}
 	
 
