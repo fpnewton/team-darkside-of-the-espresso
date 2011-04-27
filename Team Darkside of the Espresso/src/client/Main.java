@@ -12,6 +12,8 @@ import network.Network;
 import network.client.Client;
 import ui.ApplicationWindow;
 import users.User;
+import appointment.Appointment;
+import database.SqlDatabase;
 
 
 /**
@@ -24,6 +26,7 @@ public class Main {
     private static ApplicationWindow window;
     private static User currentUser;
     private static Client client;
+    private static Appointment tempAppt;
 
     /**
      * Hospital Client application entry point.
@@ -86,6 +89,20 @@ public class Main {
 
     public static void setCurrentUser(User newUser) {
 	currentUser = newUser;
+    }
+    
+    public static SqlDatabase getDatabaseObject() {
+    	return null;
+    }
+    
+    public static Appointment getCurrentAppointment()
+    {
+    	return tempAppt;
+    }
+    
+    public static void setCurrentAppointment(Appointment appt)
+    {
+    	tempAppt = appt;
     }
 
     /**
