@@ -88,6 +88,10 @@ public class DoctorsOrdersPanel extends JPanel {
 	lblCurrentAppointmentSymptoms.setHorizontalAlignment(SwingConstants.CENTER);
 	lblCurrentAppointmentSymptoms.setBounds(6, 199, 438, 16);
 	add(lblCurrentAppointmentSymptoms);
+	
+	JButton btnFinish = new JButton("Finish");
+	btnFinish.setBounds(165, 289, 117, 29);
+	add(btnFinish);
     }
 
     /**
