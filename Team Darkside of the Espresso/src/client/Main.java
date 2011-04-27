@@ -4,11 +4,15 @@
 
 package client;
 
-import network.Client;
+import java.awt.EventQueue;
+
+import network.Message;
+import network.MessageKey;
+import network.Network;
+import network.client.Client;
 import ui.ApplicationWindow;
 import users.User;
-import appointment.Appointment;
-import database.SqlDatabase;
+
 
 /**
  * Hospital Client Application Entry Point.
@@ -17,14 +21,9 @@ import database.SqlDatabase;
  * @version 1.0.0
  */
 public class Main {
-    /** The SQL database object */
-    private static SqlDatabase Database;
-
     private static ApplicationWindow window;
-
     private static User currentUser;
-    
-    private static Appointment appt;
+    private static Client client;
 
     /**
      * Hospital Client application entry point.
@@ -33,48 +32,48 @@ public class Main {
      *            Application arguments
      * @throws ClassNotFoundException
      */
-    public static void main(String[] args) throws ClassNotFoundException {
-	currentUser = null;
-	
-	Client c = new Client(10000);
-/*
-	try {
-	    Database = new SqlDatabase();
-
-//	    Database.canCreateTables();
-//	    Database.canInsertUser(new SystemAdmin("fnewton3", Crypto
-//		    .getSha1Hash("password"), GenderType.Male, new UserInfo(
-//		    "Fraser Newton", "Address", "678-468-0074", "999-99-9999",
-//		    "fnewton3@gatech.edu", new Date())));
-	} catch (ClassNotFoundException e) {
-	    if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
-		e.printStackTrace();
-	    }
-	}
-
-	EventQueue.invokeLater(new Runnable() {
-	    public void run() {
-		try {
-		    window = new ApplicationWindow();
-		} catch (Exception e) {
-		    e.printStackTrace();
+    public static void main(String[] args)
+    {
+    	// No user is logged in at the login window
+		currentUser = null;
+		
+		// Start the networking client threads
+		client = new Client(Network.NETWORK_PORT);
+		
+		if (!client.isSuccessfulConnection())
+		{
+			// TODO Handle invalid network stack
+			System.out.println("Error: Could not connect.");
 		}
-	    }
-	});
-
-	User[] userList = Database.getAllUsers();
-
-	System.out.println(userList.length);
-	*/
+		
+		Message msg = new Message(MessageKey.DB_GETUSER, "1");
+		client.sendMessage(msg);
+		
+		msg = client.popMessage();
+		Object obj = msg.getAttachment();
+		
+		System.out.println(obj.getClass().getName());
+		
+		// Launch the GUI
+		EventQueue.invokeLater(new Runnable()
+		{
+		    public void run()
+		    {
+				try
+				{
+				    window = new ApplicationWindow();
+				}
+				catch (Exception e)
+				{
+				    e.printStackTrace();
+				}
+		    }
+		});
     }
-
-    /**
-     * Gets the database object.
-     * 
-     * @return A pointer to the database object
-     */
-    public static SqlDatabase getDatabaseObject() {
-	return Database;
+    
+    public static Client getClientObject()
+    {
+    	return client;
     }
 
     public static ApplicationWindow getApplicationWindow() {
@@ -87,14 +86,6 @@ public class Main {
 
     public static void setCurrentUser(User newUser) {
 	currentUser = newUser;
-    }
-    
-    public static Appointment getCurrentAppointment(){
-    	return appt;
-    }
-    
-    public static void setCurrentAppointment(Appointment appoint){
-    	appt = appoint;
     }
 
     /**
