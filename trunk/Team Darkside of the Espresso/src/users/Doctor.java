@@ -7,7 +7,7 @@
 
 package users;
 
-import java.sql.Time;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -24,7 +24,7 @@ public class Doctor extends Nurse {
 	/** The Current appointments. */
 	private ArrayList<Appointment> CurrentAppointments;
 
-	private ArrayList<Calendar> dateAvailabilities;
+	private ArrayList<Calendar> availabilities;
 
 	/**
 	 * Adds the doctors orders.
@@ -42,7 +42,7 @@ public class Doctor extends Nurse {
 	 * @param WorkingNurse
 	 *            the working nurse
 	 */
-	public void AddDoctorsOrders(Calendar date, Time time, String orders,
+	public void AddDoctorsOrders(Calendar date, String orders,
 			Prescription drugs, LabWork labs, Appointment appt, Patient pat,
 			Nurse WorkingNurse) {
 		DoctorsOrders docOrder = new DoctorsOrders(appt.getPatient(), date,
@@ -60,7 +60,7 @@ public class Doctor extends Nurse {
 	 */
 	public void addAppointment(Appointment appt) {
 		CurrentAppointments.add(appt);
-		dateAvailabilities.remove(appt);
+		availabilities.remove(appt);
 	}
 
 	/**
@@ -121,13 +121,13 @@ public class Doctor extends Nurse {
 	{
 		super(Uname, Pword, Gend, Info);
 		this.CurrentAppointments = new ArrayList<Appointment>();
-		this.dateAvailabilities = new ArrayList<Calendar>();
+		this.availabilities = new ArrayList<Calendar>();
 		for(int i=0; i<365; i++){
 			Calendar calendar = new GregorianCalendar(2011, Calendar.MAY, 1, 9, 1);
 			calendar.add(Calendar.DAY_OF_MONTH,i);
 			for(int j=0; j<(30*16); j+=30){
 				calendar.add(Calendar.MINUTE,j);
-				dateAvailabilities.add(calendar);
+				availabilities.add(calendar);
 			}
 		}
 	}
@@ -137,7 +137,7 @@ public class Doctor extends Nurse {
 	}
 
 	public ArrayList<Calendar> getAvailabilities() {
-		return dateAvailabilities;
+		return availabilities;
 	}
 
 	/**

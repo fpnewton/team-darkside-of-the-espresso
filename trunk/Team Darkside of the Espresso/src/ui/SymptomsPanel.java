@@ -9,12 +9,16 @@ package ui;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import users.Doctor;
+import users.Patient;
 
 import appointment.Appointment;
 
@@ -39,16 +43,19 @@ public class SymptomsPanel extends JPanel {
 
 	/** The Constant TITLE. */
 	private static final String TITLE = "Symptoms";
-	
+
 	private final SchedulePanel sched = new SchedulePanel();
-	
 
-
-	private ArrayList<String> sympList = new ArrayList<String>(); // ArrayList of symptom names
-	private ArrayList<JCheckBox> sympCheckList = new ArrayList<JCheckBox>(); // ArrayList of symptom
-												// checkboxes
+	private ArrayList<String> sympList = new ArrayList<String>(); // ArrayList
+																	// of
+																	// symptom
+																	// names
+	private ArrayList<JCheckBox> sympCheckList = new ArrayList<JCheckBox>(); // ArrayList
+																				// of
+																				// symptom
+	// checkboxes
 	private String symptoms;
-	
+
 	/**
 	 * Create the panel.
 	 */
@@ -89,7 +96,8 @@ public class SymptomsPanel extends JPanel {
 		final JCheckBox soreThroat = new JCheckBox("Sore Throat");
 		final JCheckBox skinProblems = new JCheckBox("Skin Problems");
 		final JCheckBox stitchesRemoval = new JCheckBox("Stitches Removal");
-		final JCheckBox testicularPainlump = new JCheckBox("Testicular Pain/Lump");
+		final JCheckBox testicularPainlump = new JCheckBox(
+				"Testicular Pain/Lump");
 		final JCheckBox wart = new JCheckBox("Wart");
 		final JCheckBox injectionAllergy = new JCheckBox("INJECTION - Allergy");
 		final JCheckBox injectionOnly = new JCheckBox("INJECTION Only");
@@ -223,7 +231,7 @@ public class SymptomsPanel extends JPanel {
 		personal.setBounds(209, 232, 97, 23);
 		add(personal);
 		sympList.add("personal");
-		
+
 		other.setBounds(483, 50, 190, 23);
 		add(other);
 		sympList.add("other");
@@ -266,7 +274,7 @@ public class SymptomsPanel extends JPanel {
 		sympCheckList.add(injectionOnly);
 		sympCheckList.add(personal);
 		sympCheckList.add(other);
-		
+
 		/*
 		 * Nullifies the symptoms string in case the user comes back to this
 		 * page from the schedule panel. Subsequently, it adds to this symptoms
@@ -278,22 +286,19 @@ public class SymptomsPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				symptoms = "";
-				for (int i = 0; i < sympList.size() - 1; i++){
+				for (int i = 0; i < sympList.size() - 1; i++) {
 					if (sympCheckList.get(i).isSelected()) {
-						if (i != sympList.size() - 1){
+						if (i != sympList.size() - 1) {
 							symptoms += sympList.get(i) + '\n';
-						}
-						else{
+						} else {
 							symptoms += sympList.get(i);
 						}
 					}
-					
-//					app.setSymptoms(symptoms);
-//					System.out.println(app.getSymptoms());
-					//TODO Find a way to transfer symptoms to SchedulePanel
+					Main.getCurrentUser().addAppointment(
+							new Appointment((Patient) Main.getCurrentUser(),
+									null, null, symptoms));
 				}
 
-				//app.setSymptoms(symptoms);
 				Main.getApplicationWindow().setFrame(sched, sched.getTitle(),
 						sched.getWidth(), sched.getHeight());
 			}
@@ -307,10 +312,10 @@ public class SymptomsPanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				final AppointmentListPanel appWindow = new AppointmentListPanel();
 
-					Main.getApplicationWindow().setFrame(appWindow,
-							appWindow.getTitle(), appWindow.getWidth(),
-							appWindow.getHeight());
-				}
+				Main.getApplicationWindow().setFrame(appWindow,
+						appWindow.getTitle(), appWindow.getWidth(),
+						appWindow.getHeight());
+			}
 		});
 		btnCancel.setBounds(696, 504, 89, 23);
 		add(btnCancel);
