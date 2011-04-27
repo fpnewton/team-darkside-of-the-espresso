@@ -51,13 +51,13 @@ public class Main {
 			System.out.println("Error: Could not connect.");
 		}
 		
-		Message msg = new Message(MessageKey.DB_GETUSER, "1");
-		client.sendMessage(msg);
+//		Message msg = new Message(MessageKey.DB_GETUSER, "1");
+//		client.sendMessage(msg);
+//		
+//		msg = client.popMessage();
+//		Object obj = msg.getAttachment();
 		
-		msg = client.popMessage();
-		Object obj = msg.getAttachment();
-		
-		System.out.println(obj.getClass().getName());
+//		System.out.println(obj.getClass().getName());
 		
 		// Launch the GUI
 		EventQueue.invokeLater(new Runnable()

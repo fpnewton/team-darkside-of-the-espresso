@@ -174,9 +174,16 @@ public class SchedulePanel extends JPanel {
 
 				final AppointmentListPanel appWindow = new AppointmentListPanel();
 				Appointment app = Main.getCurrentAppointment();
+				
+				/* Finish setting up the appointment object */
 				app.setDesiredDoctor((Doctor)docBox.getSelectedItem());
 				app.setDate((GregorianCalendar)timeBox.getSelectedItem());
 
+				/* Remove the date from the availabilities list */
+				app.getDesiredDoctor().getAvailabilities().remove(app.getDate());
+				
+				app.getDesiredDoctor().addAppointment(app);
+				
 				Main.getApplicationWindow().setFrame(appWindow,
 						appWindow.getTitle(), appWindow.getWidth(),
 						appWindow.getHeight());
