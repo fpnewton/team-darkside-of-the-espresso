@@ -6,12 +6,12 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 
+import network.Network;
+
 import log.SystemLog;
 import network.Message;
 import network.MessageKey;
 import network.Network;
-
-
 
 public class Client
 {

@@ -12,6 +12,7 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -63,6 +64,7 @@ public class SchedulePanel extends JPanel {
 		SqlDatabase s = null;
 		User[] uList = s.getAllUsers();
 		ArrayList<Calendar> availableDate = new ArrayList<Calendar>();
+		
 
 		/*
 		 * Looks at every doctor's list of available dates in the User database
@@ -171,8 +173,9 @@ public class SchedulePanel extends JPanel {
 						"You have successfully scheduled an appointment!");
 
 				final AppointmentListPanel appWindow = new AppointmentListPanel();
-				Main.getCurrentUser().addAppointment(new Appointment((Patient) Main.getCurrentUser(),
-						(Calendar)dateBox.getSelectedItem(),(Doctor)docBox.getSelectedItem(),""));
+				Appointment app = Main.getCurrentAppointment();
+				app.setDesiredDoctor((Doctor)docBox.getSelectedItem());
+				app.setDate((GregorianCalendar)timeBox.getSelectedItem());
 
 				Main.getApplicationWindow().setFrame(appWindow,
 						appWindow.getTitle(), appWindow.getWidth(),

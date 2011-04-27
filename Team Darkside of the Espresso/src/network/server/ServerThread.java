@@ -1,8 +1,11 @@
-package network;
+package network.server;
 
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.logging.Level;
+
+import network.Message;
+import network.MessageKey;
 
 import log.SystemLog;
 
