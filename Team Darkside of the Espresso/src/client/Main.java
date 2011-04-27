@@ -12,6 +12,9 @@ import network.Network;
 import network.client.Client;
 import ui.ApplicationWindow;
 import users.User;
+import record.Vaccine;
+import record.Prescription;
+import record.LabWork;
 import appointment.Appointment;
 import database.SqlDatabase;
 
@@ -27,6 +30,9 @@ public class Main {
     private static User currentUser;
     private static Client client;
     private static Appointment tempAppt;
+    private static Vaccine tempVaccine;
+    private static Prescription tempPresc;
+    private static LabWork tempLabWork;
 
     /**
      * Hospital Client application entry point.
@@ -113,4 +119,31 @@ public class Main {
     public String toString() {
 	return this.getClass().toString();
     }
+    
+    public static void setTempPresc(Prescription presc){
+        tempPresc = presc;
+    }
+    
+    public static Prescription getTempPresc(){
+        return tempPresc;
+    }
+    
+    public static void setTempVaccine(Vaccine vacc){
+    	tempVaccine = vacc;
+    }
+    
+    public static Vaccine getTempVaccine(){
+    	return tempVaccine;
+    }
+    
+    public static void setTempPresc(LabWork labWork){
+    	tempLabWork = labWork;
+    }
+    
+    public static LabWork setTempPresc(){
+    	return tempLabWork;
+    }
+    
+    
+    
 }
