@@ -12,9 +12,7 @@ import network.Network;
 import network.client.Client;
 import ui.ApplicationWindow;
 import users.User;
-import record.Vaccine;
-import record.Prescription;
-import record.LabWork;
+import record.DoctorsOrders;
 import appointment.Appointment;
 import database.SqlDatabase;
 
@@ -30,9 +28,7 @@ public class Main {
     private static User currentUser;
     private static Client client;
     private static Appointment tempAppt;
-    private static Vaccine tempVaccine;
-    private static Prescription tempPresc;
-    private static LabWork tempLabWork;
+    private static DoctorsOrders tempDrOrders;
 
     /**
      * Hospital Client application entry point.
@@ -120,30 +116,11 @@ public class Main {
 	return this.getClass().toString();
     }
     
-    public static void setTempPresc(Prescription presc){
-        tempPresc = presc;
+    public static void setTempDocOrders(DoctorsOrders docOrders){
+    	tempDrOrders = docOrders;
     }
     
-    public static Prescription getTempPresc(){
-        return tempPresc;
+    public static DoctorsOrders getTempDocOrders(){
+    	return tempDrOrders;
     }
-    
-    public static void setTempVaccine(Vaccine vacc){
-    	tempVaccine = vacc;
-    }
-    
-    public static Vaccine getTempVaccine(){
-    	return tempVaccine;
-    }
-    
-    public static void setTempPresc(LabWork labWork){
-    	tempLabWork = labWork;
-    }
-    
-    public static LabWork setTempPresc(){
-    	return tempLabWork;
-    }
-    
-    
-    
 }
