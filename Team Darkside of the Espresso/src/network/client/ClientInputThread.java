@@ -1,26 +1,79 @@
-package network;
+package network.client;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+
+import log.SystemLog;
+import network.Message;
+
+
 
 public class ClientInputThread implements Runnable
 {
+	private final String SERVER_DISCONNECT_MESSAGE = "The server has disconnected.";
+	
 	private Socket connection;
 	private List<Message> messagePool;
+	private boolean isDone;
 	
 	public ClientInputThread(Socket clientSocket)
 	{
 		messagePool = new ArrayList<Message>();
 		
 		connection = clientSocket;
+		
+		isDone = false;
 	}
 	
 	public void run()
 	{
-		// TODO Auto-generated method stub
+		while (!isDone)
+		{
+			try
+			{
+				// Create an object stream to receive incoming messages from the
+				// client
+				ObjectInputStream stream = new ObjectInputStream(connection.getInputStream());
+
+				while (!isDone)
+				{
+					// Stop the server thread if the client has disconnected
+					if (connection.isClosed())
+					{
+						// Log the client disconnect message
+						if (!SystemLog.LogMessage(SERVER_DISCONNECT_MESSAGE, Level.INFO))
+						{
+							System.out.println("Error: Could not log message \"" + SERVER_DISCONNECT_MESSAGE + "\".");
+						}
+
+						isDone = true;
+
+						continue;
+					}
+
+					// Receive the message object from the client
+					Message msg = (Message) stream.readObject();
+					
+					messagePool.add(msg);
+				}
+
+				// Close the object stream for the incoming messages
+				stream.close();
+
+				// Close the socket connection with the client
+				connection.close();
+			}
+			catch (Exception e)
+			{
+				if (!SystemLog.LogMessage(e.getStackTrace().toString(), Level.SEVERE))
+				{
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	public int getMessagePoolSize()
@@ -40,65 +93,5 @@ public class ClientInputThread implements Runnable
 		messagePool.remove(0);
 		
 		return msg;
-	}
-	
-	public void sendBytes(byte[] bytes)
-	{
-		try
-		{
-			BufferedOutputStream output = new BufferedOutputStream(connection.getOutputStream());
-			byte[] b = new byte[4];
-			
-			for (int i = 0; i < 4; i++)
-			{
-				int offset = (b.length - 1 - i) * 8;
-				
-				b[i] = (byte) ((bytes.length >>> offset) & 0xFF);
-			}
-			output.write(b[0]);
-			output.write(b[1]);
-			output.write(b[2]);
-			output.write(b[3]);
-			output.write(bytes);
-			output.flush();
-		}
-		catch (Exception e)
-		{
-			System.out.println(e);
-		}
-	}
-
-
-	public byte[] recieveBytes()
-	{
-		try
-		{
-			BufferedInputStream input = new BufferedInputStream(connection.getInputStream());
-			byte[] b = new byte[4];
-			
-			b[0] = (byte) input.read();
-			b[1] = (byte) input.read();
-			b[2] = (byte) input.read();
-			b[3] = (byte) input.read();
-			int value = 0;
-			
-			for (int i = 0; i < 4; i++)
-			{
-				int shift = (4 - 1 - i) * 8;
-				
-				value += (b[i] & 0x000000FF) << shift;
-			}
-			
-			byte[] bytearr = new byte[value];
-			
-			input.read(bytearr);
-			
-			return bytearr;
-		}
-		catch (Exception e)
-		{
-			System.out.println(e);
-		}
-		return null;
 	}
 }
