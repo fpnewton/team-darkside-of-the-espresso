@@ -15,6 +15,17 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.Calendar;
+
+import record.DoctorsOrders;
+import users.Doctor;
+import record.LabWork;
+import users.Patient;
+import record.Prescription;
+import client.Main;
+import appointment.Appointment;
 
 /**
  * The DoctorsOrdersPanel Class.
@@ -32,6 +43,14 @@ public class DoctorsOrdersPanel extends JPanel {
 
     /** The Constant TITLE. */
     private static final String TITLE = "Doctors Orders";
+    
+    private final PresciptionPanel prescPanel = new PresciptionPanel();
+    
+    private final VaccinePanel vaccPanel = new VaccinePanel();
+    
+    private final LabWorkPanel labWorkPanel = new LabWorkPanel();
+    
+    private final AppointmentListPanel apptListPanel = new AppointmentListPanel();
 
     /**
      * Create the panel.
@@ -45,21 +64,71 @@ public class DoctorsOrdersPanel extends JPanel {
      */
     private void initialize() {
 	setLayout(null);
-
+	
 	final JEditorPane dtrpnEnterOrdersHere = new JEditorPane();
 	dtrpnEnterOrdersHere.setText("Enter Orders Here");
 	dtrpnEnterOrdersHere.setBounds(200, 117, 189, 70);
 	add(dtrpnEnterOrdersHere);
+	
+	final JTextArea txtrAppointmentSymptoms = new JTextArea();
+	txtrAppointmentSymptoms.setText("Appointment Symptoms");
+	txtrAppointmentSymptoms.setBounds(6, 227, 438, 50);
+	add(txtrAppointmentSymptoms);
 
 	final JButton btnAddPrescription = new JButton("Add Prescription...");
+	btnAddPrescription.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			/*FIX ME */
+			Appointment tempAppt = Main.getCurrentAppointment();
+			DoctorsOrders tempDocOrders = Main.getTempDocOrders();
+			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
+			tempDocOrders.setSymptoms(txtrAppointmentSymptoms.getText());
+			Main.setTempDocOrders(tempDocOrders);
+			tempAppt.setDoctorsOrders(tempDocOrders);
+			Main.setCurrentAppointment(tempAppt);
+			
+			Main.getApplicationWindow().setFrame(prescPanel, prescPanel.getTitle(),
+					prescPanel.getWidth(), prescPanel.getHeight());
+		}
+	});
 	btnAddPrescription.setBounds(38, 58, 150, 29);
 	add(btnAddPrescription);
 
 	final JButton btnAddVaccine = new JButton("Add Vaccine...");
+	btnAddVaccine.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			/*FIX ME */
+			Appointment tempAppt = Main.getCurrentAppointment();
+			DoctorsOrders tempDocOrders = new DoctorsOrders();
+			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
+			tempDocOrders.setSymptoms(txtrAppointmentSymptoms.getText());
+			Main.setTempDocOrders(tempDocOrders);
+			tempAppt.setDoctorsOrders(tempDocOrders);
+			Main.setCurrentAppointment(tempAppt);
+			
+			Main.getApplicationWindow().setFrame(vaccPanel , vaccPanel.getTitle(),
+					vaccPanel.getWidth(), vaccPanel.getHeight());
+		}
+	});
 	btnAddVaccine.setBounds(38, 102, 150, 29);
 	add(btnAddVaccine);
 
 	final JButton btnAddLabwork = new JButton("Add LabWork...");
+	btnAddLabwork.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			/*FIX ME the follow up appointmnet needs it */
+			Appointment tempAppt = Main.getCurrentAppointment();
+			DoctorsOrders tempDocOrders = new DoctorsOrders();
+			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
+			tempDocOrders.setSymptoms(txtrAppointmentSymptoms.getText());
+			Main.setTempDocOrders(tempDocOrders);
+			tempAppt.setDoctorsOrders(tempDocOrders);
+			Main.setCurrentAppointment(tempAppt);
+			
+			Main.getApplicationWindow().setFrame(labWorkPanel, labWorkPanel.getTitle(),
+					labWorkPanel.getWidth(), labWorkPanel.getHeight());
+		}
+	});
 	btnAddLabwork.setBounds(38, 143, 150, 29);
 	add(btnAddLabwork);
 
@@ -78,11 +147,6 @@ public class DoctorsOrdersPanel extends JPanel {
 	separator.setBounds(6, 34, 438, 12);
 	add(separator);
 
-	final JTextArea txtrAppointmentSymptoms = new JTextArea();
-	txtrAppointmentSymptoms.setText("Appointment Symptoms");
-	txtrAppointmentSymptoms.setBounds(6, 227, 438, 50);
-	add(txtrAppointmentSymptoms);
-
 	final JLabel lblCurrentAppointmentSymptoms = new JLabel(
 		"Current Appointment Symptoms");
 	lblCurrentAppointmentSymptoms.setHorizontalAlignment(SwingConstants.CENTER);
@@ -90,6 +154,20 @@ public class DoctorsOrdersPanel extends JPanel {
 	add(lblCurrentAppointmentSymptoms);
 	
 	JButton btnFinish = new JButton("Finish");
+	btnFinish.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			Appointment tempAppt = Main.getCurrentAppointment();
+			DoctorsOrders tempDocOrders = Main.getTempDocOrders();
+			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
+			tempDocOrders.setSymptoms(txtrAppointmentSymptoms.getText());
+			Main.setTempDocOrders(tempDocOrders);
+			tempAppt.setDoctorsOrders(tempDocOrders);
+			Main.setCurrentAppointment(tempAppt);
+			
+			Main.getApplicationWindow().setFrame(apptListPanel, apptListPanel.getTitle(),
+					apptListPanel.getWidth(), apptListPanel.getHeight());
+		}
+	});
 	btnFinish.setBounds(165, 289, 117, 29);
 	add(btnFinish);
     }

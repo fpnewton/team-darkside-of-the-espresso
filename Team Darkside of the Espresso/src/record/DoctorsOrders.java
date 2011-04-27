@@ -33,6 +33,9 @@ public class DoctorsOrders implements Serializable
 
 	/** The Doctor's Instructions. */
 	private List<String>		Instructions;
+	
+	/** The Doctor's Vaccines. */
+	private List<Vaccine>		Vaccines;
 
 
 	/**
@@ -185,6 +188,37 @@ public class DoctorsOrders implements Serializable
 	public List<Prescription> getPrescription()
 	{
 		return this.PrescriptionsL;
+	}
+	
+	/**
+	 * Adds a new vaccine to the list of vaccines.
+	 * 
+	 * @param inst
+	 *            the new vaccine to be added to the list
+	 */
+	public void addVaccines(Vaccine vaccine)
+	{
+		this.Vaccines.add(vaccine);
+	}
+
+
+	/**
+	 * Clears out the list of vaccines entirely.
+	 */
+	public void clearVaccines()
+	{
+		this.Vaccines = new ArrayList<Vaccine>();
+	}
+
+
+	/**
+	 * Return the list of Vaccines.
+	 * 
+	 * @return a list of Vaccines
+	 */
+	public List<Vaccine> getVaccines()
+	{
+		return this.Vaccines;
 	}
 
 }
