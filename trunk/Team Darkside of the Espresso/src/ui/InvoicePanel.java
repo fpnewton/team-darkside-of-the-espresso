@@ -9,11 +9,12 @@ import appointment.Appointment;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
+import appointment.Invoice;
 
 /**
  * The InvoicePanel Class.
  * 
- * @author Someone?
+ * @author David Garner
  * @version 1.0.0
  */
 public class InvoicePanel extends JPanel {

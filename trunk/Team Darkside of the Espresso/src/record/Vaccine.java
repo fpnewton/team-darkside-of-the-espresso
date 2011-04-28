@@ -15,7 +15,7 @@ public class Vaccine implements Serializable
 	private String	Info;
 
 	/** The Price. */
-	private String	Price;
+	private double	Price;
 
 
 	/**
@@ -23,7 +23,7 @@ public class Vaccine implements Serializable
 	 */
 	public Vaccine()
 	{
-		this("", "");
+		this("", 0);
 	}
 
 
@@ -35,7 +35,7 @@ public class Vaccine implements Serializable
 	 * @param Price
 	 *            the price
 	 */
-	public Vaccine(String Info, String Price)
+	public Vaccine(String Info, double Price)
 	{
 		this.Info = Info;
 		this.Price = Price;
@@ -58,7 +58,7 @@ public class Vaccine implements Serializable
 	 * 
 	 * @return the price
 	 */
-	public String getPrice()
+	public double getPrice()
 	{
 		return Price;
 	}
@@ -82,28 +82,28 @@ public class Vaccine implements Serializable
 	 * @param Price
 	 *            the new price
 	 */
-	public void setPrice(String Price)
+	public void setPrice(double Price)
 	{
 		this.Price = Price;
 	}
 	
 	public Vaccine Flu(){
-		return new Vaccine("Flu", "25.00");
+		return new Vaccine("Flu", 25.00);
 	}
 	
 	public Vaccine Tetanus(){
-		return new Vaccine("Tetanus", "30.00");
+		return new Vaccine("Tetanus", 30.00);
 	}
 	
 	public Vaccine MMR(){
-		return new Vaccine("MMR", "15.00");
+		return new Vaccine("MMR", 15.00);
 	}
 	
 	public Vaccine HepatitisA(){
-		return new Vaccine("Hepatitis A", "50.00");
+		return new Vaccine("Hepatitis A", 50.00);
 	}
 	
 	public Vaccine Steroid(){
-		return new Vaccine("Steroid", "56.00");
+		return new Vaccine("Steroid", 56.00);
 	}
 }

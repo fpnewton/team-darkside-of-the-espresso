@@ -15,7 +15,7 @@ public class Treatment implements Serializable
 	private String	Info;
 
 	/** The Price. */
-	private String	Price;
+	private double	Price;
 
 
 	/**
@@ -23,7 +23,7 @@ public class Treatment implements Serializable
 	 */
 	public Treatment()
 	{
-		this("", "");
+		this("", 0);
 	}
 
 
@@ -35,7 +35,7 @@ public class Treatment implements Serializable
 	 * @param Price
 	 *            the price
 	 */
-	public Treatment(String Info, String Price)
+	public Treatment(String Info, double Price)
 	{
 		this.Info = Info;
 		this.Price = Price;
@@ -58,7 +58,7 @@ public class Treatment implements Serializable
 	 * 
 	 * @return the price
 	 */
-	public String getPrice()
+	public double getPrice()
 	{
 		return Price;
 	}
@@ -82,20 +82,20 @@ public class Treatment implements Serializable
 	 * @param Price
 	 *            the new price
 	 */
-	public void setPrice(String Price)
+	public void setPrice(double Price)
 	{
 		this.Price = Price;
 	}
 	
 	public Treatment OfficeVisitBase(){
-		return new Treatment("Office Visit Base", "50.00");
+		return new Treatment("Office Visit Base", 50.00);
 	}
 	
 	public Treatment PhoneConsult(){
-		return new Treatment("Phone Consult", "35.00");
+		return new Treatment("Phone Consult", 35.00);
 	}
 	
 	public Treatment AnnualPhysical(){
-		return new Treatment("Annual Physical", "75.00");
+		return new Treatment("Annual Physical", 75.00);
 	}
 }
