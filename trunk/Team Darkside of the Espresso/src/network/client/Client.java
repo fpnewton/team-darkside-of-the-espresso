@@ -2,6 +2,7 @@ package network.client;
 
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import network.Message;
 import network.MessageKey;
@@ -12,10 +13,12 @@ public class Client
 	private boolean isSuccessful;
 	private Runnable inputRunner;
 	private Runnable outputRunner;
+	private ArrayList<Message> messagePool;
 
 
 	public Client(int port)
 	{
+		messagePool = new ArrayList<Message>();
 		inputRunner = null;
 		outputRunner = null;
 		
@@ -37,6 +40,16 @@ public class Client
 			((ClientOutputThread) outputRunner).sendMessage(new Message(MessageKey.DB_GETALLUSERS, ""));
 			
 			isSuccessful = true;
+			
+			while (inputThread.isAlive() && outputThread.isAlive())
+			{
+				Message msg = ((ClientInputThread) inputRunner).getMessage();
+				
+				if (msg != null)
+				{
+					messagePool.add(msg);
+				}
+			}
 		}
 		catch (Exception e)
 		{
@@ -57,14 +70,22 @@ public class Client
 	{
 		((ClientOutputThread) outputRunner).sendMessage(message);
 	}
-//	
-//	public int getMessagePoolSize()
-//	{
-//		return ((ClientInputThread) inputRunner).getMessagePoolSize();
-//	}
-//	
-//	public Message popMessage()
-//	{
-//		return ((ClientInputThread) inputRunner).popMessage();
-//	}
+	
+	public Message popMessage(MessageKey key)
+	{
+		if (messagePool.size() > 0)
+		{
+			for (Message msg : messagePool)
+			{
+				if (msg.getKey() == key)
+				{
+					messagePool.remove(msg);
+					
+					return msg;
+				}
+			}
+		}
+		
+		return null;
+	}
 }
