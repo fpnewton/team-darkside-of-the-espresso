@@ -9,11 +9,13 @@ import users.User;
 
 public class ClientInputThread implements Runnable
 {
-private Socket connection;
+	private Socket connection;
+	private Message msg;
 	
 	public ClientInputThread(Socket socket)
 	{
 		connection = socket;
+		msg = null;
 	}
 	
 	public void run()
@@ -22,23 +24,19 @@ private Socket connection;
 		{
 			try
 			{
-				ObjectInputStream oo = new ObjectInputStream(
-						connection.getInputStream());
+				ObjectInputStream oo = new ObjectInputStream(connection.getInputStream());
 	
-		
-				Message input = (Message) oo.readObject();
-				
-				@SuppressWarnings("unchecked")
-				ArrayList<User> list = (ArrayList<User>) input.getAttachment();
-				System.out.println(list.get(0).getUsername());
-				System.out.println(list.get(0).getUserInformation().getName());
-				
-				break;
+				msg = (Message) oo.readObject();
 			}
 			catch (Exception e)
 			{
 				System.out.println(e);
 			}
 		}
+	}
+	
+	public Message getMessage()
+	{
+		return msg;
 	}
 }
