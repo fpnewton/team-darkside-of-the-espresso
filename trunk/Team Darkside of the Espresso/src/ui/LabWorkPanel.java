@@ -118,7 +118,7 @@ public class LabWorkPanel extends JPanel {
 				tempDocOrders.AddLabWork(labWork.getInfo(), labWork.getPrice());
 				Main.setTempDocOrders(tempDocOrders);
 				tempAppt.setDoctorsOrders(tempDocOrders);
-				
+				Main.setCurrentAppointment(tempAppt);
 			}
 		});
 		submitBtn.setBounds(176, 249, 89, 23);
