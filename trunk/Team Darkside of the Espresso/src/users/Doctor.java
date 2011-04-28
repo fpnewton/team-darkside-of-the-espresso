@@ -18,6 +18,7 @@ import record.Prescription;
 import record.TreatmentRecord;
 
 import appointment.Appointment;
+import appointment.Invoice;
 
 public class Doctor extends Nurse {
 
@@ -25,6 +26,8 @@ public class Doctor extends Nurse {
 	private ArrayList<Appointment> CurrentAppointments;
 
 	private ArrayList<Calendar> availabilities;
+	
+	private ArrayList<Invoice> income;
 
 	/**
 	 * Adds the doctors orders.
@@ -130,6 +133,8 @@ public class Doctor extends Nurse {
 				availabilities.add(calendar);
 			}
 		}
+		
+		this.income = new ArrayList<Invoice>(); 
 	}
 
 	public ArrayList<Appointment> getCurrentAppointments() {
