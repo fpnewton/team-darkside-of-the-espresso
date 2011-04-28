@@ -9,8 +9,9 @@ package ui;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
-import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -20,14 +21,17 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-import appointment.Appointment;
-
-import client.Main;
-
+import network.Message;
+import network.MessageKey;
 import users.Doctor;
 import users.Patient;
 import users.SystemAdmin;
+import users.User;
+import appointment.Appointment;
+import client.Main;
 
 /**
  * The AppointmentListPanel Class.
@@ -61,15 +65,29 @@ public class AppointmentListPanel extends JPanel {
 	 */
 	private void initialize() {
 		setLayout(null);
-		Object[] values = new String[Main.getCurrentUser().getAppointmentList()
-				.size()];
-		for (int i = 0; i < Main.getCurrentUser().getAppointmentList().size(); i++) {
-			values[i] = Main.getCurrentUser().getAppointmentList().get(i);
+		final Message msg = new Message(MessageKey.DB_GETALLUSERS,"");
+	    Main.getClientObject().sendMessage(msg);
+		final ArrayList<User> userList = (ArrayList<User>)Main.getClientObject().popMessage().getAttachment();
+
+		DefaultListModel listModel = new DefaultListModel();
+
+		final int selectedUser = -1;
+
+		for (User usr : userList) {
+		    listModel.addElement(usr.getUserInformation().getName());
 		}
-		final JList list = new JList(values);
+
+		final JList list = new JList(listModel);
+		list.addListSelectionListener(new ListSelectionListener() {
+		    public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+				    selectedUser = list.getSelectedIndex();
+				}
+		    }
+		});
 		list.setBounds(37, 104, 142, 62);
 		add(list);
-
+	
 		final JLabel lblCheckAppointment = new JLabel(
 				"Office Appointment Schedule");
 		lblCheckAppointment.setHorizontalAlignment(SwingConstants.CENTER);
