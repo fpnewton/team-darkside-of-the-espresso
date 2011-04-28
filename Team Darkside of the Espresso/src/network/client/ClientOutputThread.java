@@ -1,55 +1,101 @@
+/*
+ * The Class ClientOutputThread.
+ */
+
 package network.client;
 
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import network.Message;
-import network.MessageKey;
 
-public class ClientOutputThread implements Runnable
-{
-	private Socket connection;
+/**
+ * The Class ClientOutputThread.
+ * 
+ * @author Fraser P. Newton
+ * @version 1.0.0
+ */
+public class ClientOutputThread implements Runnable {
+
+	/** The connection. */
+	private Socket connection = null;
+
+	/** The message. */
 	private Message message;
+
+	/** The is done. */
 	private boolean isDone;
-	
-	public ClientOutputThread(Socket socket)
-	{
+
+	/**
+	 * Instantiates a new client output thread.
+	 * 
+	 * @param socket
+	 *            the socket
+	 */
+	public ClientOutputThread(Socket socket) {
 		connection = socket;
 		message = null;
 		isDone = false;
 	}
-	
-	public void run()
-	{
-		while (!isDone)
-		{
-			try
-			{		
-				if (message != null)
-				{
-					ObjectOutputStream stream = new ObjectOutputStream(connection.getOutputStream());
-					
+
+	/**
+	 * Thread loop
+	 */
+	public void run() {
+		ObjectOutputStream stream = null;
+
+		try {
+			stream = new ObjectOutputStream(connection.getOutputStream());
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				if (stream != null) {
+					stream.close();
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+
+		while (!isDone) {
+			try {
+				if (message != null) {
 					stream.writeObject(message);
 					stream.flush();
-					
+
 					message = null;
 					System.out.println("Sent!");
 				}
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				System.out.println(e);
 			}
 		}
 	}
-	
-	public void stop()
-	{
+
+	/**
+	 * Stop.
+	 */
+	public void stop() {
 		isDone = true;
 	}
-	
-	public void sendMessage(Message msg)
-	{
+
+	/**
+	 * Send message.
+	 * 
+	 * @param msg
+	 *            the msg
+	 */
+	public void sendMessage(Message msg) {
 		message = msg;
+	}
+
+	/**
+	 * toString() override.
+	 * 
+	 * @return A string
+	 */
+	public String toString() {
+		return this.getClass().getName();
 	}
 }

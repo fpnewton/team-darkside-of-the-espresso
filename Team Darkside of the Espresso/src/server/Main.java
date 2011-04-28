@@ -1,8 +1,5 @@
-/**
+/*
  * Hospital Server Application Entry Point
- * 
- * @author Fraser P. Newton
- * @date March 4, 2011
  */
 
 package server;
@@ -15,23 +12,45 @@ import users.UserInfo;
 import database.Crypto;
 import database.SqlDatabase;
 
+/**
+ * Hospital Server Application Entry Point
+ * 
+ * @author Fraser P. Newton
+ * @version 1.0.0
+ */
+public class Main {
 
-public class Main
-{
-	private static Server server = null;
-	
-	public static void main(String args[])
-	{
-		//server = new Server(Network.NETWORK_PORT);
+	/** The Server. */
+	private static Server Server = null;
+
+	/**
+	 * Application entry point.
+	 * 
+	 * @param args
+	 *            Command line args
+	 */
+	public static void main(String args[]) {
+		Server = new Server(Network.NETWORK_PORT);
 		try {
-			SqlDatabase db = new SqlDatabase();
-			
+			final SqlDatabase db = new SqlDatabase();
+
 			db.canCreateTables();
-			db.canInsertUser(new SystemAdmin("fnewton3", Crypto.getSha1Hash("password"), GenderType.Male, new UserInfo("a", "b", "c", null, null, null)));
+			db.canInsertUser(new SystemAdmin("fnewton3", Crypto
+					.getSha1Hash("password"), GenderType.Male, new UserInfo(
+					"a", "b", "c", null, null, null)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.exit(-1);
 		}
+	}
+
+	/**
+	 * toString() override.
+	 * 
+	 * @return A string
+	 */
+	public String toString() {
+		return this.getClass().getName();
 	}
 }

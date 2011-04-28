@@ -58,11 +58,13 @@ public class SqlDatabase {
 		boolean isSuccessful = true;
 
 		try {
+			// Attempt to load the SQLite driver
 			dbConnection = DriverManager
 					.getConnection("jdbc:sqlite:DB/Users.db");
 
 			sqlStatement = dbConnection.createStatement();
 
+			// Create tables SQL statement
 			final int results = sqlStatement
 					.executeUpdate("DROP TABLE IF EXISTS users;");
 			sqlStatement.executeUpdate("CREATE TABLE users"
@@ -70,13 +72,15 @@ public class SqlDatabase {
 					+ "name VARCHAR(255), username VARCHAR(255), "
 					+ "password_hash VARCHAR(255), data);");
 
+			// Send the results to the system log
 			SystemLog.LogMessage("Execute Update results: " + results,
-					Level.SEVERE);
+					Level.INFO);
 		} catch (SQLException e) {
 			isSuccessful = false;
 
 			handleException(e);
 		} finally {
+			// Close all used objects
 			try {
 				if (sqlStatement != null) {
 					sqlStatement.close();
@@ -107,16 +111,21 @@ public class SqlDatabase {
 		boolean isSuccessful = true;
 
 		try {
+			// Attempt to load the SQLite driver
 			dbConnection = DriverManager
 					.getConnection("jdbc:sqlite:DB/Users.db");
 
+			// Insert SQL statement
 			prepStatement = dbConnection
 					.prepareStatement("INSERT INTO users VALUES(NULL, ?, ?, ?, ?);");
 
+			// Put the row data objects into the SQL statement
 			prepStatement.setString(1, user.getUserInformation().getName());
 			prepStatement.setString(2, user.getUsername());
 			prepStatement.setString(3, user.getPasswordHash());
 			prepStatement.setBytes(4, getObjectBytes(user));
+
+			// Execute the SQL statement
 			prepStatement.execute();
 		} catch (SQLException e) {
 			isSuccessful = false;
@@ -127,6 +136,7 @@ public class SqlDatabase {
 
 			handleException(e);
 		} finally {
+			// Close all used objects
 			try {
 				if (prepStatement != null) {
 					prepStatement.close();
@@ -159,18 +169,22 @@ public class SqlDatabase {
 		boolean isSuccessful = true;
 
 		try {
+			// Attempt to load the SQLite driver
 			dbConnection = DriverManager
 					.getConnection("jdbc:sqlite:DB/Users.db");
 
+			// Update SQL statement
 			prepStatement = dbConnection
 					.prepareStatement("UPDATE OR ROLLBACK users SET name = ?, username = ?, password_hash = ?, data = ? WHERE id = '"
 							+ id + "';");
 
+			// Put the data objects into the SQL statement
 			prepStatement.setString(1, user.getUserInformation().getName());
 			prepStatement.setString(2, user.getUsername());
 			prepStatement.setString(3, user.getPasswordHash());
 			prepStatement.setBytes(4, getObjectBytes(user));
 
+			// Execute the SQL statement
 			prepStatement.executeUpdate();
 		} catch (SQLException e) {
 			handleException(e);
@@ -181,6 +195,7 @@ public class SqlDatabase {
 
 			isSuccessful = false;
 		} finally {
+			// Close all used objects
 			try {
 				if (prepStatement != null) {
 					prepStatement.close();
@@ -210,11 +225,13 @@ public class SqlDatabase {
 		boolean isSuccessful = true;
 
 		try {
+			// Attempt to load the SQLite driver
 			dbConnection = DriverManager
 					.getConnection("jdbc:sqlite:DB/Users.db");
 
 			sqlStatement = dbConnection.createStatement();
 
+			// Delete SQL statement
 			sqlStatement.executeUpdate("DELETE FROM users WHERE id = '" + id
 					+ "';");
 		} catch (SQLException e) {
@@ -222,6 +239,7 @@ public class SqlDatabase {
 
 			handleException(e);
 		} finally {
+			// Close all used objects
 			try {
 				if (sqlStatement != null) {
 					sqlStatement.close();
@@ -247,49 +265,33 @@ public class SqlDatabase {
 	 *            the name
 	 * @return the user id
 	 */
-	// public int getUserID(String name) {
-	// int id = -1;
-	//
-	// try {
-	// ResultSet results;
-	//
-	// sqlStatement = dbConnection.createStatement();
-	// results = sqlStatement.executeQuery("SELECT * FROM users WHERE name='" +
-	// name
-	// + "';");
-	//
-	// results.next();
-	//
-	// id = results.getInt("id");
-	//
-	// sqlStatement.close();
-	// } catch (SQLException e) {
-	// handleException(e);
-	// }
-	//
-	// return id;
-	// }
 	public int getUserID(String name) {
 		try {
+			// Attempt to load the SQLite driver
 			dbConnection = DriverManager
 					.getConnection("jdbc:sqlite:DB/Users.db");
 			ResultSet results = null;
 
+			// Select SQL statement
 			if (dbConnection != null) {
 				results = dbConnection.createStatement().executeQuery(
 						"SELECT * FROM users;");
 			}
 
+			// Get all results
 			if (results != null) {
 				while (results.next()) {
+					// Fetch an object from the DB row
 					Object obj = getDatabaseObject(results, "data");
 					User user = (User) obj;
 
+					// Check if the names match
 					if (user.getUserInformation().getName().equals(name)) {
 						return results.getInt("id");
 					}
 				}
 			} else {
+				// Log some errors
 				if (!SystemLog
 						.LogMessage(
 								"Error: Unexpected null pointer defreferenced in sqlDatabase.",
@@ -313,6 +315,7 @@ public class SqlDatabase {
 			}
 		} finally {
 			if (dbConnection != null) {
+				// Close all used objects
 				try {
 					dbConnection.close();
 				} catch (SQLException e) {
@@ -344,19 +347,25 @@ public class SqlDatabase {
 	 */
 	public User[] getAllUsers() {
 		try {
+			// Attempt to load the SQLite driver
 			dbConnection = DriverManager
 					.getConnection("jdbc:sqlite:DB/Users.db");
 
 			ArrayList<User> output = new ArrayList<User>();
+
+			// Select SQL statement
 			ResultSet results = dbConnection.createStatement().executeQuery(
 					"SELECT * FROM users;");
 
+			// Fetch all users in the DB
 			if (results != null) {
 				while (results.next()) {
+					// Fetch the current DB row
 					Object obj = getDatabaseObject(results, "data");
 					output.add((User) obj);
 				}
 			} else {
+				// Log some errors
 				if (!SystemLog
 						.LogMessage(
 								"Error: Unexpected null pointer defreferenced in sqlDatabase.",
@@ -381,6 +390,7 @@ public class SqlDatabase {
 			}
 		} finally {
 			if (dbConnection != null) {
+				// Close all used objects
 				try {
 					dbConnection.close();
 				} catch (SQLException e) {
@@ -410,15 +420,19 @@ public class SqlDatabase {
 			// dbConnection =
 			// DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
 			List<Object> output = new ArrayList<Object>();
+
+			// Select SQL statement
 			ResultSet results = dbConnection.createStatement().executeQuery(
 					"SELECT * FROM users WHERE id='" + id + "';");
 
 			if (results != null) {
+				// Fetch some DB rows
 				while (results.next()) {
 					Object obj = getDatabaseObject(results, columnName);
 					output.add((User) obj);
 				}
 			} else {
+				// Log some errors
 				SystemLog
 						.LogMessage(
 								"Error: Unexpected null pointer defreferenced in sqlDatabase.",
@@ -452,6 +466,7 @@ public class SqlDatabase {
 			return ret;
 		} finally {
 			if (dbConnection != null) {
+				// Close all used objects
 				try {
 					dbConnection.close();
 				} catch (SQLException e) {
@@ -473,16 +488,19 @@ public class SqlDatabase {
 	 *             Signals that an I/O exception has occurred.
 	 */
 	private byte[] getObjectBytes(Object object) throws IOException {
+		// Data streams
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 		ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 		byte[] ret = null;
 
 		try {
+			// Attempt to write to the data stream
 			objectStream.writeObject(object);
 			ret = byteStream.toByteArray();
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
+			// Close all used objects
 			objectStream.close();
 			byteStream.close();
 		}
@@ -510,10 +528,12 @@ public class SqlDatabase {
 		byte[] buffer = results.getBytes(column);
 
 		if (buffer != null) {
+			// Read from the DB stream
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(buffer);
 			ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 			Object ret = objectStream.readObject();
 
+			// Close the DB stream connections
 			objectStream.close();
 			byteStream.close();
 
@@ -530,6 +550,7 @@ public class SqlDatabase {
 	 *            the e
 	 */
 	private void handleException(Exception e) {
+		// Log some errors
 		if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
 			e.printStackTrace();
 		}
@@ -538,9 +559,9 @@ public class SqlDatabase {
 	/**
 	 * toString() Override.
 	 * 
-	 * @return An empty String
+	 * @return A String
 	 */
 	public String toString() {
-		return "";
+		return this.getClass().getName();
 	}
 }
