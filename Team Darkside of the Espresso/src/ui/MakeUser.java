@@ -16,7 +16,6 @@ import javax.swing.event.ListSelectionListener;
 
 import users.User;
 import client.Main;
-import database.SqlDatabase;
 
 public class MakeUser extends JPanel {
 
@@ -32,7 +31,7 @@ public class MakeUser extends JPanel {
     /** The selected user in the list. */
     private int selectedUser;
     
-    private User[] users;
+    private User[] userList;
 
     /**
      * Create the panel.
@@ -103,14 +102,13 @@ public class MakeUser extends JPanel {
 	add(btnMakeSysadmin);
 
 	// Populate list
-	SqlDatabase db = Main.getDatabaseObject();
-
-	users = db.getAllUsers();
+	userList = Main.getDatabaseObject().getAllUsers();
+	
 	DefaultListModel listModel = new DefaultListModel();
 
 	selectedUser = -1;
 
-	for (User usr : users) {
+	for (User usr : userList) {
 	    listModel.addElement(usr.getUserInformation().getName());
 	}
 
@@ -147,7 +145,7 @@ public class MakeUser extends JPanel {
 	add(btnDelete);
 	
 	JButton btnReturn = new JButton("Return");
-	btnDelete.addMouseListener(new MouseAdapter() {
+	btnReturn.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 	    	AppointmentListPanel aptListPanel = new AppointmentListPanel();
@@ -191,16 +189,15 @@ public class MakeUser extends JPanel {
     }
 
     private void editUser() {
-	UpdateUser updateUserPanel = new UpdateUser(selectedUser);
+	UpdateUser updateUserPanel = new UpdateUser(userList[selectedUser]);
 	
 	Main.getApplicationWindow().setFrame(updateUserPanel, updateUserPanel.getTitle(), updateUserPanel.getWidth(), updateUserPanel.getHeight());
     }
     
     private void deleteUser() {
-	SqlDatabase db = Main.getDatabaseObject();
-	
-	int id = db.getUserID(users[selectedUser].getUserInformation().getName());
+    	int id = Main.getDatabaseObject().getUserID(userList[selectedUser].getUserInformation().getName());
+    	
 	System.out.println("Delete ID: " + id);
-	System.out.println("Delete Returned: " + db.deleteUser(id));
+	System.out.println("Delete Returned: " + Main.getDatabaseObject().deleteUser(id));
     }
 }
