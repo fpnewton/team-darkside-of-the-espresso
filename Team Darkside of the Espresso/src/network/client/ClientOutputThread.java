@@ -1,86 +1,55 @@
 package network.client;
 
-import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.logging.Level;
 
-import log.SystemLog;
 import network.Message;
-
-
+import network.MessageKey;
 
 public class ClientOutputThread implements Runnable
 {
 	private Socket connection;
-	private Message tempMessage;
+	private Message message;
 	private boolean isDone;
 	
-	public ClientOutputThread(Socket clientSocket)
+	public ClientOutputThread(Socket socket)
 	{
-		connection = clientSocket;
-		tempMessage = null;
+		connection = socket;
+		message = null;
+		isDone = false;
 	}
-
+	
 	public void run()
 	{
-		ObjectOutputStream stream = null;
-		
-		try
-		{
-			stream = new ObjectOutputStream(connection.getOutputStream());
-			
-			while (!isDone)
-			{
-				try
-				{				
-					if (tempMessage != null)
-					{
-						stream.writeObject(tempMessage);
-						
-						tempMessage = null;
-					}
-				}
-				catch (IOException e)
-				{
-					if (!SystemLog.LogMessage(e.getStackTrace().toString(), Level.SEVERE))
-					{
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-		catch (IOException e)
-		{
-			if (!SystemLog.LogMessage(e.getStackTrace().toString(), Level.SEVERE))
-			{
-				e.printStackTrace();
-			}
-		}
-		finally
+		while (!isDone)
 		{
 			try
-			{
-				stream.close();
-				connection.close();
-			}
-			catch (IOException e)
-			{
-				if (!SystemLog.LogMessage(e.getStackTrace().toString(), Level.SEVERE))
+			{		
+				if (message != null)
 				{
-					e.printStackTrace();
+					ObjectOutputStream stream = new ObjectOutputStream(connection.getOutputStream());
+					
+					stream.writeObject(message);
+					stream.flush();
+					
+					message = null;
+					System.out.println("Sent!");
 				}
+			}
+			catch (Exception e)
+			{
+				System.out.println(e);
 			}
 		}
 	}
 	
-	public void sendMessage(Message message)
-	{
-		tempMessage = message;
-	}
-	
-	public void terminate()
+	public void stop()
 	{
 		isDone = true;
+	}
+	
+	public void sendMessage(Message msg)
+	{
+		message = msg;
 	}
 }

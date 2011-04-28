@@ -38,8 +38,6 @@ public enum MessageKey {
 	DB_UPDATEUSER,
 	/** The DB_DELETEUSER message. */
 	DB_DELETEUSER,
-	/** The DB_GETUSERLIST message. */
-	DB_GETUSERLIST,
 	/** The TERM message. */
 	TERM
 }

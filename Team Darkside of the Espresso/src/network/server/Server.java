@@ -3,66 +3,51 @@ package network.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.logging.Level;
+import java.util.ArrayList;
 
-import javax.crypto.SecretKey;
-
+import network.Message;
+import network.MessageKey;
 import network.Network;
+import users.User;
+import database.SqlDatabase;
 
-import log.SystemLog;
-
-public class Server implements Runnable
+public class Server
 {
-	public static HashMap<Socket, SecretKey>	clientKeys;
-	public static HashMap<Socket, String>		clientUsers;
+	private ServerSocket serverSocket;
+	private Socket clientSocket;
+	private SqlDatabase database;
+	private boolean isDone;
 
-
-	public Server()
-	{
-		this(Network.NETWORK_PORT);
-	}
-
-
+	
 	public Server(int port)
 	{
-		clientKeys = new HashMap<Socket, SecretKey>();
-		clientUsers = new HashMap<Socket, String>();
-		
+		clientSocket = null;
+
 		try
 		{
-			ServerSocket socket = new ServerSocket(port);
-			
-			while (true)
+			serverSocket = new ServerSocket(Network.NETWORK_PORT);
+			database = new SqlDatabase();
+
+			while (!isDone)
 			{
-				Socket connection = socket.accept();
+				clientSocket = serverSocket.accept();
 				
-				if (SystemLog.LogMessage("New client attempting to connect.", Level.INFO))
-				{
-					System.out.println("New client attempting to connect.");
-				}
+//				Runnable handlerRunner = new Handler(clientSocket, database);
+//				Thread handlerThread = new Thread(handlerRunner);
+//				
+//				handlerThread.start();
+				Runnable serverRunner = new ServerThread(clientSocket, database);
+				Thread serverThread = new Thread(serverRunner);
 				
-				clientKeys.put(connection, null);
-				clientUsers.put(connection, null);
-				
-				Runnable runner = new ServerThread(connection);
-				Thread threader = new Thread(runner);
-				
-				threader.start();
+				serverThread.start();
 			}
-		}
+		} 
 		catch (IOException e)
 		{
-			if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE))
-			{
-				e.printStackTrace();
-			}
+			System.out.println(e);
+		} catch (ClassNotFoundException e)
+		{
+			System.out.println(e);
 		}
-	}
-
-
-	public void run()
-	{
-		// TODO Auto-generated method stub		
 	}
 }
