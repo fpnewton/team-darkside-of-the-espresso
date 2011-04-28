@@ -43,7 +43,7 @@ public class SqlDatabase {
      * @throws ClassNotFoundException
      */
     public SqlDatabase() throws ClassNotFoundException {
-	Class.forName("org.sqlite.JDBC"); // $codepro.audit.disable com.instantiations.assist.eclipse.analysis.unusedReturnValue
+    	Class.forName("org.sqlite.JDBC"); // $codepro.audit.disable com.instantiations.assist.eclipse.analysis.unusedReturnValue
     }
 
     /**
@@ -52,42 +52,42 @@ public class SqlDatabase {
      * @return true, if successful
      */
     public boolean canCreateTables() {
-	boolean isSuccessful = true;
-
-	try {
-	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
-
-	    sqlStatement = dbConnection.createStatement();
-
-	    final int results = sqlStatement.executeUpdate("DROP TABLE IF EXISTS users;");
-	    sqlStatement
-		    .executeUpdate("CREATE TABLE users"
-			    + "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-			    + "name VARCHAR(255), username VARCHAR(255), "
-			    + "password_hash VARCHAR(255), data);");
-	    
-	    SystemLog.LogMessage("Execute Update results: " + results, Level.SEVERE);
-	} catch (SQLException e) {
-	    isSuccessful = false;
-
-	    handleException(e);
-	} finally {
-	    try {
-		if (sqlStatement != null) {
-		    sqlStatement.close();
+		boolean isSuccessful = true;
+	
+		try {
+		    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
+	
+		    sqlStatement = dbConnection.createStatement();
+	
+		    final int results = sqlStatement.executeUpdate("DROP TABLE IF EXISTS users;");
+		    sqlStatement
+			    .executeUpdate("CREATE TABLE users"
+				    + "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+				    + "name VARCHAR(255), username VARCHAR(255), "
+				    + "password_hash VARCHAR(255), data);");
+		    
+		    SystemLog.LogMessage("Execute Update results: " + results, Level.SEVERE);
+		} catch (SQLException e) {
+		    isSuccessful = false;
+	
+		    handleException(e);
+		} finally {
+		    try {
+				if (sqlStatement != null) {
+				    sqlStatement.close();
+				}
+		
+				if (dbConnection != null) {
+				    dbConnection.close();
+				}
+			    } catch (SQLException e) {
+				isSuccessful = false;
+		
+				handleException(e);
+		    }
 		}
-
-		if (dbConnection != null) {
-		    dbConnection.close();
-		}
-	    } catch (SQLException e) {
-		isSuccessful = false;
-
-		handleException(e);
-	    }
-	}
-
-	return isSuccessful;
+	
+		return isSuccessful;
     }
 
     /**
@@ -98,120 +98,120 @@ public class SqlDatabase {
      * @return true, if successful
      */
     public boolean canInsertUser(User user) {
-	PreparedStatement prepStatement = null;
-	boolean isSuccessful = true;
-
-	try {
-	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
-
-	    prepStatement = dbConnection
-		    .prepareStatement("INSERT INTO users VALUES(NULL, ?, ?, ?, ?);");
-
-	    prepStatement.setString(1, user.getUserInformation().getName());
-	    prepStatement.setString(2, user.getUsername());
-	    prepStatement.setString(3, user.getPasswordHash());
-	    prepStatement.setBytes(4, getObjectBytes(user));
-	    prepStatement.execute();
-	} catch (SQLException e) {
-	    isSuccessful = false;
-
-	    handleException(e);
-	} catch (IOException e) {
-	    isSuccessful = false;
-
-	    handleException(e);
-	} finally {
-	    try {
-		if (prepStatement != null) {
-		    prepStatement.close();
+		PreparedStatement prepStatement = null;
+		boolean isSuccessful = true;
+	
+		try {
+		    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
+	
+		    prepStatement = dbConnection
+			    .prepareStatement("INSERT INTO users VALUES(NULL, ?, ?, ?, ?);");
+	
+		    prepStatement.setString(1, user.getUserInformation().getName());
+		    prepStatement.setString(2, user.getUsername());
+		    prepStatement.setString(3, user.getPasswordHash());
+		    prepStatement.setBytes(4, getObjectBytes(user));
+		    prepStatement.execute();
+		} catch (SQLException e) {
+		    isSuccessful = false;
+	
+		    handleException(e);
+		} catch (IOException e) {
+		    isSuccessful = false;
+	
+		    handleException(e);
+		} finally {
+		    try {
+					if (prepStatement != null) {
+						prepStatement.close();
+					}
+	
+					if (dbConnection != null) {
+						dbConnection.close();
+					}
+				} catch (SQLException e) {
+					isSuccessful = false;
+	
+					handleException(e);
+		    }
 		}
-
-		if (dbConnection != null) {
-		    dbConnection.close();
-		}
-	    } catch (SQLException e) {
-		isSuccessful = false;
-
-		handleException(e);
-	    }
-	}
-
-	return isSuccessful;
+	
+		return isSuccessful;
     }
 
     public boolean updateUser(int id, User user) {
-	PreparedStatement prepStatement = null;
-	boolean isSuccessful = true;
-
-	try {
-	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
-
-	    prepStatement = dbConnection
-		    .prepareStatement("UPDATE OR ROLLBACK users SET name = ?, username = ?, password_hash = ?, data = ? WHERE id = '" + id + "';");
-
-	    prepStatement.setString(1, user.getUserInformation().getName());
-	    prepStatement.setString(2, user.getUsername());
-	    prepStatement.setString(3, user.getPasswordHash());
-	    prepStatement.setBytes(4, getObjectBytes(user));
-
-	    prepStatement.executeUpdate();
-	} catch (SQLException e) {
-	    handleException(e);
-
-	    isSuccessful = false;
-	} catch (IOException e) {
-	    handleException(e);
-
-	    isSuccessful = false;
-	} finally {
-	    try {
-		if (prepStatement != null) {
-		    prepStatement.close();
+		PreparedStatement prepStatement = null;
+		boolean isSuccessful = true;
+	
+		try {
+		    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
+	
+		    prepStatement = dbConnection
+			    .prepareStatement("UPDATE OR ROLLBACK users SET name = ?, username = ?, password_hash = ?, data = ? WHERE id = '" + id + "';");
+	
+		    prepStatement.setString(1, user.getUserInformation().getName());
+		    prepStatement.setString(2, user.getUsername());
+		    prepStatement.setString(3, user.getPasswordHash());
+		    prepStatement.setBytes(4, getObjectBytes(user));
+	
+		    prepStatement.executeUpdate();
+		} catch (SQLException e) {
+		    handleException(e);
+	
+		    isSuccessful = false;
+		} catch (IOException e) {
+		    handleException(e);
+	
+		    isSuccessful = false;
+		} finally {
+		    try {
+				if (prepStatement != null) {
+				    prepStatement.close();
+				}
+		
+				if (dbConnection != null) {
+				    dbConnection.close();
+				}
+			    } catch (SQLException e) {
+				handleException(e);
+		
+				isSuccessful = false;
+		    }
 		}
-
-		if (dbConnection != null) {
-		    dbConnection.close();
-		}
-	    } catch (SQLException e) {
-		handleException(e);
-
-		isSuccessful = false;
-	    }
-	}
-
-	return isSuccessful;
+	
+		return isSuccessful;
     }
 
     public boolean deleteUser(int id) {
-	boolean isSuccessful = true;
-
-	try {
-	    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
-
-	    sqlStatement = dbConnection.createStatement();
-
-	    sqlStatement.executeUpdate("DELETE FROM users WHERE id = '" + id + "';");
-	} catch (SQLException e) {
-	    isSuccessful = false;
-
-	    handleException(e);
-	} finally {
-	    try {
-		if (sqlStatement != null) {
-		    sqlStatement.close();
+		boolean isSuccessful = true;
+	
+		try {
+		    dbConnection = DriverManager.getConnection("jdbc:sqlite:DB/Users.db");
+	
+		    sqlStatement = dbConnection.createStatement();
+	
+		    sqlStatement.executeUpdate("DELETE FROM users WHERE id = '" + id + "';");
+		} catch (SQLException e) {
+		    isSuccessful = false;
+	
+		    handleException(e);
+		} finally {
+		    try {
+				if (sqlStatement != null) {
+				    sqlStatement.close();
+				}
+		
+				if (dbConnection != null) {
+				    dbConnection.close();
+				}
+			    } catch (SQLException e) {
+				isSuccessful = false;
+		
+				handleException(e);
+		    }
 		}
-
-		if (dbConnection != null) {
-		    dbConnection.close();
-		}
-	    } catch (SQLException e) {
-		isSuccessful = false;
-
-		handleException(e);
-	    }
-	}
-
-	return isSuccessful;
+	
+		return isSuccessful;
     }
 
     /**
@@ -303,7 +303,7 @@ public class SqlDatabase {
      * @return the user
      */
     public User getUser(int id) {
-	return (User) getObject("data", id)[0];
+    	return (User) getObject("data", id)[0];
     }
 
     public User[] getAllUsers() {
