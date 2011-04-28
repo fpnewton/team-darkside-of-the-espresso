@@ -227,4 +227,9 @@ public class DoctorsOrders implements Serializable {
 		return this.totalBill;
 	}
 
+
+	public void setSymptoms(String text) {
+		// TODO Auto-generated method stub
+	}
+
 }

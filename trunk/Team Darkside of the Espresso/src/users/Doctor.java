@@ -8,6 +8,7 @@
 package users;
 
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -16,7 +17,6 @@ import record.DoctorsOrders;
 import record.LabWork;
 import record.Prescription;
 import record.TreatmentRecord;
-
 import appointment.Appointment;
 import appointment.Invoice;
 
@@ -140,6 +140,10 @@ public class Doctor extends Nurse {
 	public ArrayList<Appointment> getCurrentAppointments() {
 		return CurrentAppointments;
 	}
+	
+//	public ArrayList<Appointment> getAppointmentList() {
+//		return CurrentAppointments;
+//	}
 
 	public ArrayList<Calendar> getAvailabilities() {
 		return availabilities;

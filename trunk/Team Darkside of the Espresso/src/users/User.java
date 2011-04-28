@@ -48,6 +48,7 @@ public abstract class User implements Serializable
 	 */
 	public User(String Uname, String Pword, GenderType Gend, UserInfo Info)
 	{
+		appointments = new ArrayList<Appointment>();
 		this.Username = Uname;
 		this.Gender = Gend;
 		this.UserInformation = Info;
@@ -197,7 +198,7 @@ public abstract class User implements Serializable
 	}
 	
 	public void addAppointment(Appointment appt){
-		
+		appointments.add(appt);
 	}
 	
 	public ArrayList<Appointment> getAppointmentList(){

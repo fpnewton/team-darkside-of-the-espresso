@@ -5,14 +5,13 @@
 package client;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
-import network.Message;
-import network.MessageKey;
-import network.Network;
 import network.client.Client;
-import ui.ApplicationWindow;
-import users.User;
 import record.DoctorsOrders;
+import ui.ApplicationWindow;
+import users.Doctor;
+import users.User;
 import appointment.Appointment;
 import appointment.Bill;
 import database.SqlDatabase;
@@ -29,6 +28,7 @@ public class Main {
     private static User currentUser;
     private static Client client;
     private static Appointment tempAppt;
+    private static ArrayList<Doctor> desiredDoc = new ArrayList<Doctor>();
     private static DoctorsOrders tempDrOrders;
     private static Bill tempBill;
     private static SqlDatabase db;
@@ -114,6 +114,11 @@ public class Main {
     
     public static Bill getCurrentBill(){
     	return tempBill;
+    }
+    
+    public static ArrayList<Doctor> getDoctor()
+    {
+    	return desiredDoc;
     }
 
     /**
