@@ -5,7 +5,6 @@
 package record;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -132,7 +131,7 @@ public class DoctorsOrders implements Serializable {
 	 * @param info
 	 *            the information/the string for the lab work done
 	 * @param price
-	 *            the amount charged fot the lab work performed
+	 *            the amount charged for the lab work performed
 	 */
 	public void AddLabWork(String info, double price) {
 		LabWork temp = new LabWork(info, price);
@@ -208,6 +207,10 @@ public class DoctorsOrders implements Serializable {
 	 */
 	public List<Vaccine> getVaccines() {
 		return this.Vaccines;
+	}
+	
+	public Bill getBill(){
+		return this.totalBill;
 	}
 
 }

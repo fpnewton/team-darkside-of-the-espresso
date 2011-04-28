@@ -82,15 +82,6 @@ public class Bill implements Serializable {
 	}
 
 	/**
-	 * Gets the lab work.
-	 * 
-	 * @return the lab work
-	 */
-	public ArrayList<LabWork> getLabWork() {
-		return this.labWorkList;
-	}
-
-	/**
 	 * Adds the prescription.
 	 * 
 	 * @param info
@@ -196,4 +187,20 @@ public class Bill implements Serializable {
 		return labString + prescripString + treatString + vacString;
 
 	}
+	
+	 public ArrayList<LabWork> getLabWork(){
+		 return this.labWorkList;
+	 }
+	 
+	 public ArrayList<Vaccine> getVaccines(){
+		 return this.vaccinesList;
+	 }
+	 
+	 public ArrayList<Treatment> getTreatments(){
+		 return this.treatmentsList;
+	 }
+	 
+	 public ArrayList<Prescription> getPrescriptions(){
+		 return this.prescriptionsList;
+	 }
 }

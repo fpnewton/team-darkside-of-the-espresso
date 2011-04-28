@@ -111,13 +111,14 @@ public class LabWorkPanel extends JPanel {
 					labWork = labWork.HIV();
 				}
 				else if(otherCheck.isSelected()){
-					labWork = new LabWork(otherInfo.getText(), otherPrice.getText());
+					double oPrice = Integer.parseInt(otherPrice.getText());
+					labWork = new LabWork(otherInfo.getText(), oPrice);
 				}
 				Appointment tempAppt = Main.getCurrentAppointment();
 				DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 				tempDocOrders.AddLabWork(labWork.getInfo(), labWork.getPrice());
 				Main.setTempDocOrders(tempDocOrders);
-				tempAppt.setDoctorsOrders(tempDocOrders);
+				tempAppt.setDocOrders(tempDocOrders);
 				Main.setCurrentAppointment(tempAppt);
 			}
 		});

@@ -116,13 +116,14 @@ public class VaccinePanel extends JPanel {
 					vac = vac.Steroid();
 				}
 				else if(otherCheck.isSelected()){
-					vac = new Vaccine(otherInfo.getText(), otherPrice.getText());
+					double oPrice = Integer.parseInt(otherPrice.getText());
+					vac = new Vaccine(otherInfo.getText(), oPrice);
 				}
 				Appointment tempAppt = Main.getCurrentAppointment();
 				DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 				tempDocOrders.addVaccines(vac);
 				Main.setTempDocOrders(tempDocOrders);
-				tempAppt.setDoctorsOrders(tempDocOrders);
+				tempAppt.setDocOrders(tempDocOrders);
 				Main.setCurrentAppointment(tempAppt);
 			}
 		});
