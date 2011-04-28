@@ -26,6 +26,8 @@ import users.Patient;
 import record.Prescription;
 import client.Main;
 import appointment.Appointment;
+import appointment.Bill;
+import appointment.Invoice;
 
 /**
  * The DoctorsOrdersPanel Class.
@@ -163,6 +165,16 @@ public class DoctorsOrdersPanel extends JPanel {
 			Main.setTempDocOrders(tempDocOrders);
 			tempAppt.setDocOrders(tempDocOrders);
 			Main.setCurrentAppointment(tempAppt);
+			
+			/* Creating a new bill in accordance with the treatments prescribed */
+			Bill newBill = new Bill(tempDocOrders.getLabWork(), tempDocOrders.getPrescription(), tempDocOrders.getTreatments(), tempDocOrders.getVaccines());
+			
+			/* Setting the bill to the appointment object */
+			Main.getCurrentAppointment().setBill(newBill);
+			
+			/* Creating a new invoice to add to the doctor's invoice list */
+			Invoice invoice = new Invoice(Main.getCurrentAppointment(), newBill, Main.getCurrentAppointment().getDate());
+			((Doctor)Main.getCurrentUser()).getIncome().add(invoice);
 			
 			Main.getApplicationWindow().setFrame(apptListPanel, apptListPanel.getTitle(),
 					apptListPanel.getWidth(), apptListPanel.getHeight());

@@ -87,9 +87,6 @@ public class Doctor extends Nurse {
 	 * @return true, if successful
 	 */
 	public boolean checkAvailability(Calendar time) {
-		// I removed the 'doc' parameter, since you're already calling it
-		// on a Doctor object
-
 		// Search for a match between passed param time and times in the
 		// CurrentAppointment list
 		for (Appointment i : CurrentAppointments) {
@@ -147,6 +144,10 @@ public class Doctor extends Nurse {
 
 	public ArrayList<Calendar> getAvailabilities() {
 		return availabilities;
+	}
+	
+	public ArrayList<Invoice> getIncome(){
+		return income;
 	}
 
 	/**

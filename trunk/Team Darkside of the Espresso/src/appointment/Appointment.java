@@ -39,6 +39,9 @@ public class Appointment implements Serializable {
 
 	/** The Doctors Orders for the follow-up appointment. */
 	private DoctorsOrders docOrders;
+	
+	/** The bill for the appointment */
+	private Bill bill;
 
 	/**
 	 * Appointment constructor.
@@ -59,6 +62,7 @@ public class Appointment implements Serializable {
 		this.desiredDoctor = doctor;
 		this.symptoms = symptoms;
 		this.docOrders = null;
+		this.bill = null;
 	}
 
 	/**
@@ -80,6 +84,7 @@ public class Appointment implements Serializable {
 		this.desiredDoctor = desiredDoctor;
 		this.symptoms = null;
 		this.docOrders = docOrders;
+		this.bill = null;
 	}
 
 	/**
@@ -208,4 +213,12 @@ public class Appointment implements Serializable {
 	public void setDoctorsOrders(DoctorsOrders docOrders) {
 		this.docOrders = docOrders;
 	}
+    
+    public Bill getBill(){
+    	return bill;
+    }
+    
+    public void setBill(Bill newBill){
+    	this.bill = newBill;
+    }
 }

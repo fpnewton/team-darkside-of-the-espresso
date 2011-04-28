@@ -39,7 +39,7 @@ public class InvoicePanel extends JPanel {
     public InvoicePanel() {
     	setLayout(null);
     	
-    	Invoice invoice = new Invoice(Main.getCurrentAppointment(), Main.getCurrentBill());
+    	Invoice invoice = new Invoice(Main.getCurrentAppointment(), Main.getCurrentBill(), Main.getCurrentAppointment().getDate());
     	
     	JLabel lblAppointmentInvoice = new JLabel("Appointment Invoice");
     	lblAppointmentInvoice.setFont(new Font("Lucida Grande", Font.BOLD, 16));
@@ -103,7 +103,6 @@ public class InvoicePanel extends JPanel {
     	JLabel lblTreatments = new JLabel("Treatments: " +invoice.getBill().getTreatments().toString());
     	lblTreatments.setBounds(80, 160, 92, 14);
     	add(lblTreatments);
-	// TODO Implement Method
     }
 
     /**

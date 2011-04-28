@@ -7,7 +7,7 @@ package record;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.ArrayList;
 
 import users.Doctor;
 import users.Patient;
@@ -81,7 +81,6 @@ public class DoctorsOrders implements Serializable {
 
 	public DoctorsOrders(Patient patient2, Calendar date, Doctor doctor,
 			LabWork labs, Prescription drugs, String orders) {
-		// TODO Auto-generated constructor stub
 		this.Patient = Patient;
 		this.FollowUpAppointment = new Appointment(Patient, date, doctor, "");
 		this.LabWorkL = new ArrayList<LabWork>();
@@ -134,7 +133,7 @@ public class DoctorsOrders implements Serializable {
 	 * 
 	 * @return a list of instructions
 	 */
-	public List<String> getInstructions() {
+	public ArrayList<String> getInstructions() {
 		return this.Instructions;
 	}
 
@@ -164,7 +163,7 @@ public class DoctorsOrders implements Serializable {
 	 * 
 	 * @return the lab work
 	 */
-	public List<LabWork> getLabWork() {
+	public ArrayList<LabWork> getLabWork() {
 		return this.LabWorkL;
 	}
 
@@ -193,7 +192,7 @@ public class DoctorsOrders implements Serializable {
 	 * 
 	 * @return the prescription
 	 */
-	public List<Prescription> getPrescription() {
+	public ArrayList<Prescription> getPrescription() {
 		return this.PrescriptionsL;
 	}
 
@@ -219,7 +218,7 @@ public class DoctorsOrders implements Serializable {
 	 * 
 	 * @return a list of Vaccines
 	 */
-	public List<Vaccine> getVaccines() {
+	public ArrayList<Vaccine> getVaccines() {
 		return this.Vaccines;
 	}
 	
@@ -227,9 +226,8 @@ public class DoctorsOrders implements Serializable {
 		return this.totalBill;
 	}
 
-
-	public void setSymptoms(String text) {
-		// TODO Auto-generated method stub
+	public ArrayList<Treatment> getTreatments(){
+		return this.treatments;
 	}
 
 }
