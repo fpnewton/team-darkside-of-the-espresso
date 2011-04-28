@@ -107,17 +107,12 @@ public class AppointmentListPanel extends JPanel {
 		add(btnAdd);
 
 		final JButton btnDelete = new JButton("Delete");
-		btnDelete.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(final MouseEvent e) {
-				// TODO Delete appointment
-			}
-		});
+		// TODO Delete the appointment
 		btnDelete.setBounds(191, 166, 117, 29);
 		add(btnDelete);
 
 		final JButton btnClose = new JButton("Close");
-
+		// TODO Close the appt and add to doctor's income list
 		if (Main.getCurrentUser() instanceof Patient) {
 			btnClose.setEnabled(false);
 		} else {
@@ -187,7 +182,8 @@ public class AppointmentListPanel extends JPanel {
 
 				else {
 					final InvoicePanel inPanel = new InvoicePanel();
-					Appointment currentApp = (Appointment) list.getSelectedValue();
+					Appointment currentApp = (Appointment) list
+							.getSelectedValue();
 					Main.setCurrentAppointment(currentApp);
 					Main.setCurrentBill(currentApp.getDocOrders().getBill());
 					Main.getApplicationWindow().setFrame(inPanel,
@@ -204,7 +200,7 @@ public class AppointmentListPanel extends JPanel {
 		btnViewIncome.setVisible(false);
 
 		if (Main.getCurrentUser() instanceof Doctor) {
-			btnViewInvoice.setVisible(true);
+			btnViewIncome.setVisible(true);
 		}
 
 		btnViewIncome.setBounds(315, 261, 117, 29);

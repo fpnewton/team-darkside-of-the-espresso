@@ -79,6 +79,20 @@ public class DoctorsOrders implements Serializable {
 
 	}
 
+	public DoctorsOrders(Patient patient2, Calendar date, Doctor doctor,
+			LabWork labs, Prescription drugs, String orders) {
+		// TODO Auto-generated constructor stub
+		this.Patient = Patient;
+		this.FollowUpAppointment = new Appointment(Patient, date, doctor, "");
+		this.LabWorkL = new ArrayList<LabWork>();
+		this.PrescriptionsL = new ArrayList<Prescription>();
+		this.Vaccines = new ArrayList<Vaccine>();
+		this.treatments = new ArrayList<Treatment>();
+		
+		this.LabWorkL.add(labs);
+		this.PrescriptionsL.add(drugs);
+	}
+
 	/**
 	 * Returns the follow up appointment.
 	 * 

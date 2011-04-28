@@ -84,7 +84,7 @@ public class DoctorsOrdersPanel extends JPanel {
 			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
 			tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
 			Main.setTempDocOrders(tempDocOrders);
-			tempAppt.setDoctorsOrders(tempDocOrders);
+			tempAppt.setDocOrders(tempDocOrders);
 			Main.setCurrentAppointment(tempAppt);
 			
 			Main.getApplicationWindow().setFrame(prescPanel, prescPanel.getTitle(),
@@ -103,7 +103,7 @@ public class DoctorsOrdersPanel extends JPanel {
 			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
 			tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
 			Main.setTempDocOrders(tempDocOrders);
-			tempAppt.setDoctorsOrders(tempDocOrders);
+			tempAppt.setDocOrders(tempDocOrders);
 			Main.setCurrentAppointment(tempAppt);
 			
 			Main.getApplicationWindow().setFrame(vaccPanel , vaccPanel.getTitle(),
@@ -116,13 +116,13 @@ public class DoctorsOrdersPanel extends JPanel {
 	final JButton btnAddLabwork = new JButton("Add LabWork...");
 	btnAddLabwork.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-			/*FIX ME the follow up appointmnet needs it */
+			/*FIX ME the follow up appointment needs it */
 			Appointment tempAppt = Main.getCurrentAppointment();
 			DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
 			tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
 			Main.setTempDocOrders(tempDocOrders);
-			tempAppt.setDoctorsOrders(tempDocOrders);
+			tempAppt.setDocOrders(tempDocOrders);
 			Main.setCurrentAppointment(tempAppt);
 			
 			Main.getApplicationWindow().setFrame(labWorkPanel, labWorkPanel.getTitle(),
@@ -161,7 +161,7 @@ public class DoctorsOrdersPanel extends JPanel {
 			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
 			tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
 			Main.setTempDocOrders(tempDocOrders);
-			tempAppt.setDoctorsOrders(tempDocOrders);
+			tempAppt.setDocOrders(tempDocOrders);
 			Main.setCurrentAppointment(tempAppt);
 			
 			Main.getApplicationWindow().setFrame(apptListPanel, apptListPanel.getTitle(),
