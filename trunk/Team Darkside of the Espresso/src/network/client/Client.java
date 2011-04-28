@@ -1,17 +1,12 @@
 package network.client;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
 
-import network.Network;
-
-import log.SystemLog;
 import network.Message;
 import network.MessageKey;
-import network.Network;
 
 public class Client
 {
@@ -19,12 +14,6 @@ public class Client
 	private boolean isSuccessful;
 	private Runnable inputRunner;
 	private Runnable outputRunner;
-
-
-	public Client()
-	{
-		this(Network.NETWORK_PORT);
-	}
 
 
 	public Client(int port)
@@ -47,43 +36,37 @@ public class Client
 			inputThread.start();
 			outputThread.start();
 			
+			((ClientOutputThread) outputRunner).sendMessage(new Message(MessageKey.DB_GETALLUSERS, ""));
+			
 			isSuccessful = true;
 		}
-		catch (UnknownHostException e)
+		catch (Exception e)
 		{
-			if (!SystemLog.LogMessage(e.getStackTrace().toString(), Level.SEVERE))
-			{
-				e.printStackTrace();
-			}
+			e.printStackTrace();
+			System.out.println("Client A");
+			System.exit(-1);
 			
 			// TODO Alert user about unknown host
 		}
-		catch (IOException e)
-		{
-			if (!SystemLog.LogMessage(e.getStackTrace().toString(), Level.SEVERE))
-			{
-				e.printStackTrace();
-			}
-		}
 	}
-	
-	public boolean isSuccessfulConnection()
-	{
-		return isSuccessful;
-	}
-	
-	public void sendMessage(Message message)
-	{
-		((ClientOutputThread) outputRunner).sendMessage(message);
-	}
-	
-	public int getMessagePoolSize()
-	{
-		return ((ClientInputThread) inputRunner).getMessagePoolSize();
-	}
-	
-	public Message popMessage()
-	{
-		return ((ClientInputThread) inputRunner).popMessage();
-	}
+//	
+//	public boolean isSuccessfulConnection()
+//	{
+//		return isSuccessful;
+//	}
+//	
+//	public void sendMessage(Message message)
+//	{
+//		((ClientOutputThread) outputRunner).sendMessage(message);
+//	}
+//	
+//	public int getMessagePoolSize()
+//	{
+//		return ((ClientInputThread) inputRunner).getMessagePoolSize();
+//	}
+//	
+//	public Message popMessage()
+//	{
+//		return ((ClientInputThread) inputRunner).popMessage();
+//	}
 }
