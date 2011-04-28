@@ -60,7 +60,6 @@ public class SchedulePanel extends JPanel {
 	private void initialize() {
 		setLayout(null);
 
-		// TODO Maybe fix the null database.
 		SqlDatabase s = Main.getDatabaseObject();
 		User[] uList = s.getAllUsers();
 		availableDate = new ArrayList<Calendar>();
@@ -185,6 +184,8 @@ public class SchedulePanel extends JPanel {
 				Main.getCurrentUser().addAppointment(app);
 				System.out.println(Main.getCurrentUser().getAppointmentList());
 				
+				app.getPatient().getCurrentAppointments().add(app);
+				
 				SqlDatabase db = Main.getDatabaseObject();
 				
 				db.canUpdateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
@@ -196,7 +197,7 @@ public class SchedulePanel extends JPanel {
 				
 				System.out.println(aplist);
 				
-				
+				final AppointmentListPanel appWindow = new AppointmentListPanel();
 				
 				Main.getApplicationWindow().setFrame(appWindow,
 						appWindow.getTitle(), appWindow.getWidth(),

@@ -33,6 +33,9 @@ public class Patient extends User {
 
 	/** The my health history. */
 	private HealthHistory myHealthHistory;
+	
+	/** The Current appointments. */
+	private ArrayList<Appointment> CurrentAppointments;
 
 	/**
 	 * Instantiates a new patient.
@@ -70,6 +73,7 @@ public class Patient extends User {
 			PatientInfo PatInfo) {
 		super(Uname, Pword, Gend, Info);
 		this.myPatientInfo = PatInfo;
+		this.CurrentAppointments = new ArrayList<Appointment>();
 	}
 
 	/**
@@ -196,4 +200,7 @@ public class Patient extends User {
 		return AppointmentHistory;
 	}
 
+	public ArrayList<Appointment> getCurrentAppointments() {
+		return CurrentAppointments;
+	}
 }
