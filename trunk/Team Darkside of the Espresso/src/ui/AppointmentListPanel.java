@@ -186,8 +186,10 @@ public class AppointmentListPanel extends JPanel {
 				}
 
 				else {
-					final InvoicePanel inPanel = new InvoicePanel(
-							((Appointment) list.getSelectedValue()));
+					final InvoicePanel inPanel = new InvoicePanel();
+					Appointment currentApp = (Appointment) list.getSelectedValue();
+					Main.setCurrentAppointment(currentApp);
+					Main.setCurrentBill(currentApp.getDocOrders().getBill());
 					Main.getApplicationWindow().setFrame(inPanel,
 							inPanel.getTitle(), inPanel.getWidth(),
 							inPanel.getHeight());

@@ -104,13 +104,14 @@ public class PresciptionPanel extends JPanel {
 					presc = presc.InstantHair();
 				}
 				else if(otherCheck.isSelected()){
-					presc = new Prescription(otherInfo.getText(), otherPrice.getText());
+					double oPrice = Integer.parseInt(otherPrice.getText());
+					presc = new Prescription(otherInfo.getText(), oPrice);
 				}
 				Appointment tempAppt = Main.getCurrentAppointment();
 				DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 				tempDocOrders.AddPrescription(presc.getInfo(), presc.getPrice());
 				Main.setTempDocOrders(tempDocOrders);
-				tempAppt.setDoctorsOrders(tempDocOrders);
+				tempAppt.setDocOrders(tempDocOrders);
 				Main.setCurrentAppointment(tempAppt);
 			}
 		});

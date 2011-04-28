@@ -14,6 +14,7 @@ import ui.ApplicationWindow;
 import users.User;
 import record.DoctorsOrders;
 import appointment.Appointment;
+import appointment.Bill;
 import database.SqlDatabase;
 
 
@@ -29,6 +30,7 @@ public class Main {
     private static Client client;
     private static Appointment tempAppt;
     private static DoctorsOrders tempDrOrders;
+    private static Bill tempBill;
 
     /**
      * Hospital Client application entry point.
@@ -105,6 +107,14 @@ public class Main {
     public static void setCurrentAppointment(Appointment appt)
     {
     	tempAppt = appt;
+    }
+    
+    public static void setCurrentBill(Bill bill){
+    	tempBill = bill;
+    }
+    
+    public static Bill getCurrentBill(){
+    	return tempBill;
     }
 
     /**

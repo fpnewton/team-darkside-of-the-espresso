@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 public class Invoice implements Serializable {
 	private Appointment Appointment;
-	private Bill Bill;
+	private Bill bill;
 
 	/**
 	 * Instantiates a new invoice.
@@ -22,7 +22,7 @@ public class Invoice implements Serializable {
 	 */
 	public Invoice(Appointment Appointment, Bill Bill) {
 		this.Appointment = Appointment;
-		this.Bill = Bill;
+		this.bill = Bill;
 	}
 
 	/**
@@ -32,7 +32,7 @@ public class Invoice implements Serializable {
 	 *            The bill containing the labwork
 	 * @return the total cost of the labwork
 	 */
-	public double calcLabWork(Bill bill) {
+	public double calcLabWork() {
 		double total = 0.0;
 
 		for (int i = 0; i < bill.getLabWork().size(); i++)
@@ -48,7 +48,7 @@ public class Invoice implements Serializable {
 	 *            The bill containing the prescriptions
 	 * @return the total cost of the prescriptions
 	 */
-	public double calcPrescription(Bill bill) {
+	public double calcPrescription() {
 		double total = 0.0;
 
 		for (int i = 0; i < bill.getPrescription().size(); i++)
@@ -62,9 +62,9 @@ public class Invoice implements Serializable {
 	 * 
 	 * @param bill
 	 *            The bill containing the treatments
-	 * @return The totla cost of the treatments
+	 * @return The total cost of the treatments
 	 */
-	public double calcTreatment(Bill bill) {
+	public double calcTreatment() {
 		double total = 0.0;
 
 		for (int i = 0; i < bill.getTreatment().size(); i++)
@@ -80,7 +80,7 @@ public class Invoice implements Serializable {
 	 *            The bill containing the vaccines
 	 * @return the total cost of the vaccines
 	 */
-	public double calcVaccine(Bill bill) {
+	public double calcVaccine() {
 		double total = 0.0;
 
 		for (int i = 0; i < bill.getVaccine().size(); i++)
@@ -96,13 +96,13 @@ public class Invoice implements Serializable {
 	 *            The bill containing all services provided
 	 * @return the total cost of all services
 	 */
-	public double calcTotal(Bill bill) {
+	public double calcTotal() {
 		double total = 0.0;
 
-		total += calcLabWork(bill);
-		total += calcPrescription(bill);
-		total += calcTreatment(bill);
-		total += calcVaccine(bill);
+		total += calcLabWork();
+		total += calcPrescription();
+		total += calcTreatment();
+		total += calcVaccine();
 
 		return total;
 	}
@@ -113,7 +113,7 @@ public class Invoice implements Serializable {
 	 * @return the bill
 	 */
 	public Bill getBill() {
-		return Bill;
+		return bill;
 	}
 
 	/**
@@ -133,6 +133,6 @@ public class Invoice implements Serializable {
 	 *            the new bill
 	 */
 	public void setBill(Bill Bill) {
-		this.Bill = Bill;
+		this.bill = Bill;
 	}
 }
