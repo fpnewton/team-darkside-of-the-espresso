@@ -123,6 +123,7 @@ public class VaccinePanel extends JPanel {
 				tempDocOrders.addVaccines(vac);
 				Main.setTempDocOrders(tempDocOrders);
 				tempAppt.setDoctorsOrders(tempDocOrders);
+				Main.setCurrentAppointment(tempAppt);
 			}
 		});
 		submitBtn.setBounds(176, 249, 89, 23);

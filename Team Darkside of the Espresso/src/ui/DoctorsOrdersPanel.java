@@ -82,7 +82,7 @@ public class DoctorsOrdersPanel extends JPanel {
 			Appointment tempAppt = Main.getCurrentAppointment();
 			DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
-			tempDocOrders.setSymptoms(txtrAppointmentSymptoms.getText());
+			tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
 			Main.setTempDocOrders(tempDocOrders);
 			tempAppt.setDoctorsOrders(tempDocOrders);
 			Main.setCurrentAppointment(tempAppt);
@@ -99,9 +99,9 @@ public class DoctorsOrdersPanel extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			/*FIX ME */
 			Appointment tempAppt = Main.getCurrentAppointment();
-			DoctorsOrders tempDocOrders = new DoctorsOrders();
+			DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
-			tempDocOrders.setSymptoms(txtrAppointmentSymptoms.getText());
+			tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
 			Main.setTempDocOrders(tempDocOrders);
 			tempAppt.setDoctorsOrders(tempDocOrders);
 			Main.setCurrentAppointment(tempAppt);
@@ -118,9 +118,9 @@ public class DoctorsOrdersPanel extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			/*FIX ME the follow up appointmnet needs it */
 			Appointment tempAppt = Main.getCurrentAppointment();
-			DoctorsOrders tempDocOrders = new DoctorsOrders();
+			DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
-			tempDocOrders.setSymptoms(txtrAppointmentSymptoms.getText());
+			tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
 			Main.setTempDocOrders(tempDocOrders);
 			tempAppt.setDoctorsOrders(tempDocOrders);
 			Main.setCurrentAppointment(tempAppt);
@@ -159,7 +159,7 @@ public class DoctorsOrdersPanel extends JPanel {
 			Appointment tempAppt = Main.getCurrentAppointment();
 			DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
-			tempDocOrders.setSymptoms(txtrAppointmentSymptoms.getText());
+			tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
 			Main.setTempDocOrders(tempDocOrders);
 			tempAppt.setDoctorsOrders(tempDocOrders);
 			Main.setCurrentAppointment(tempAppt);

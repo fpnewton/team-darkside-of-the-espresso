@@ -171,4 +171,13 @@ public class Appointment implements Serializable {
 		+ "\nSymptoms: " + symptoms.toString();
     }
     
+    /**
+     * Sets the doctor's orders.
+     * 
+     * @param docorders
+     *            the new docOrders
+     */
+    public void setDoctorsOrders(DoctorsOrders docOrders) {
+	this.docOrders = docOrders;
+    }
 }

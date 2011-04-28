@@ -111,6 +111,7 @@ public class PresciptionPanel extends JPanel {
 				tempDocOrders.AddPrescription(presc.getInfo(), presc.getPrice());
 				Main.setTempDocOrders(tempDocOrders);
 				tempAppt.setDoctorsOrders(tempDocOrders);
+				Main.setCurrentAppointment(tempAppt);
 			}
 		});
 		submitBtn.setBounds(176, 249, 89, 23);
