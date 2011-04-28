@@ -31,6 +31,7 @@ public class Main {
     private static Appointment tempAppt;
     private static DoctorsOrders tempDrOrders;
     private static Bill tempBill;
+    private static SqlDatabase db;
 
     /**
      * Hospital Client application entry point.
@@ -41,25 +42,23 @@ public class Main {
      */
     public static void main(String[] args)
     {
+    	 try {
+			db = new SqlDatabase();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     	// No user is logged in at the login window
 		currentUser = null;
 		
 		// Start the networking client threads
-		client = new Client(Network.NETWORK_PORT);
-		
-		if (!client.isSuccessfulConnection())
-		{
-			// TODO Handle invalid network stack
-			System.out.println("Error: Could not connect.");
-		}
-		
-//		Message msg = new Message(MessageKey.DB_GETUSER, "1");
-//		client.sendMessage(msg);
+//		client = new Client(Network.NETWORK_PORT);
 //		
-//		msg = client.popMessage();
-//		Object obj = msg.getAttachment();
-		
-//		System.out.println(obj.getClass().getName());
+//		if (!client.isSuccessfulConnection())
+//		{
+//			// TODO Handle invalid network stack
+//			//System.out.println("Error: Could not connect.");
+//		}
 		
 		// Launch the GUI
 		EventQueue.invokeLater(new Runnable()
@@ -96,7 +95,7 @@ public class Main {
     }
     
     public static SqlDatabase getDatabaseObject() {
-    	return null;
+    	return db;
     }
     
     public static Appointment getCurrentAppointment()
