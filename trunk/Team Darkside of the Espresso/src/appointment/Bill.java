@@ -6,7 +6,7 @@ package appointment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.ArrayList;
+import java.util.List;
 
 import record.LabWork;
 import record.Prescription;
@@ -21,22 +21,20 @@ import record.Vaccine;
  */
 public class Bill implements Serializable {
 
-	/**
-     * 
-     */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The Lab work list. */
 	private ArrayList<LabWork> labWorkList;
 
 	/** The Prescriptions list. */
-	private ArrayList<Prescription> prescriptionsList;
+	private ArrayList<Prescription> prescriptionList;
 
 	/** The Treatments list. */
-	private ArrayList<Treatment> treatmentsList;
+	private ArrayList<Treatment> treatmentList;
 
 	/** The Vaccines list. */
-	private ArrayList<Vaccine> vaccinesList;
+	private ArrayList<Vaccine> vaccineList;
 
 	/**
 	 * Instantiates a new bill.
@@ -50,14 +48,13 @@ public class Bill implements Serializable {
 	 * @param vaccine
 	 *            the vaccine
 	 */
-	public Bill(ArrayList<LabWork> lWork,
-			ArrayList<Prescription> prescriptions, ArrayList<Treatment> treat,
-			ArrayList<Vaccine> vaccine) {
+	public Bill(List<LabWork> lWork, List<Prescription> prescriptions,
+			List<Treatment> treat, List<Vaccine> vaccine) {
 
-		this.labWorkList = lWork;
-		this.prescriptionsList = prescriptions;
-		this.treatmentsList = treat;
-		this.vaccinesList = vaccine;
+		this.labWorkList = (ArrayList<LabWork>) lWork;
+		this.prescriptionList = (ArrayList<Prescription>) prescriptions;
+		this.treatmentList = (ArrayList<Treatment>) treat;
+		this.vaccineList = (ArrayList<Vaccine>) vaccine;
 	}
 
 	/**
@@ -92,14 +89,14 @@ public class Bill implements Serializable {
 	public void addPrescription(String info, double price) {
 		final Prescription temp = new Prescription(info, price);
 
-		this.prescriptionsList.add(temp);
+		this.prescriptionList.add(temp);
 	}
 
 	/**
 	 * Clear prescription.
 	 */
 	public void clearPrescription() {
-		this.prescriptionsList = new ArrayList<Prescription>();
+		this.prescriptionList = new ArrayList<Prescription>();
 	}
 
 	/**
@@ -107,8 +104,8 @@ public class Bill implements Serializable {
 	 * 
 	 * @return the prescription
 	 */
-	public ArrayList<Prescription> getPrescription() {
-		return this.prescriptionsList;
+	public List<Prescription> getPrescriptionList() {
+		return this.prescriptionList;
 	}
 
 	/**
@@ -122,14 +119,14 @@ public class Bill implements Serializable {
 	public void addTreatment(String info, double price) {
 		final Treatment temp = new Treatment(info, price);
 
-		this.treatmentsList.add(temp);
+		this.treatmentList.add(temp);
 	}
 
 	/**
 	 * Clear treatment.
 	 */
 	public void clearTreatment() {
-		this.treatmentsList = new ArrayList<Treatment>();
+		this.treatmentList = new ArrayList<Treatment>();
 	}
 
 	/**
@@ -137,8 +134,8 @@ public class Bill implements Serializable {
 	 * 
 	 * @return the treatment
 	 */
-	public ArrayList<Treatment> getTreatment() {
-		return this.treatmentsList;
+	public List<Treatment> getTreatmentList() {
+		return this.treatmentList;
 	}
 
 	/**
@@ -152,14 +149,14 @@ public class Bill implements Serializable {
 	public void addVaccine(String info, double price) {
 		final Vaccine temp = new Vaccine(info, price);
 
-		this.vaccinesList.add(temp);
+		this.vaccineList.add(temp);
 	}
 
 	/**
 	 * Clear vaccine.
 	 */
 	public void clearVaccine() {
-		this.vaccinesList = new ArrayList<Vaccine>();
+		this.vaccineList = new ArrayList<Vaccine>();
 	}
 
 	/**
@@ -167,40 +164,60 @@ public class Bill implements Serializable {
 	 * 
 	 * @return the vaccine
 	 */
-	public ArrayList<Vaccine> getVaccine() {
-		return this.vaccinesList;
+	public List<Vaccine> getVaccineList() {
+		return this.vaccineList;
 	}
 
 	/**
-	 * toString() Override
+	 * toString() Override.
 	 * 
 	 * @return A formatted string with the bill data
 	 */
 	public String toString() {
 		final String labString = "Lab Work: " + labWorkList.toString() + "\n";
 		final String prescripString = "Prescriptions: "
-				+ prescriptionsList.toString() + "\n";
-		final String treatString = "Treatments: " + treatmentsList.toString()
+				+ prescriptionList.toString() + "\n";
+		final String treatString = "Treatments: " + treatmentList.toString()
 				+ "\n";
-		final String vacString = "Vaccines: " + vaccinesList.toString() + "\n";
+		final String vacString = "Vaccines: " + vaccineList.toString() + "\n";
 
 		return labString + prescripString + treatString + vacString;
 
 	}
-	
-	 public ArrayList<LabWork> getLabWork(){
-		 return this.labWorkList;
-	 }
-	 
-	 public ArrayList<Vaccine> getVaccines(){
-		 return this.vaccinesList;
-	 }
-	 
-	 public ArrayList<Treatment> getTreatments(){
-		 return this.treatmentsList;
-	 }
-	 
-	 public ArrayList<Prescription> getPrescriptions(){
-		 return this.prescriptionsList;
-	 }
+
+	/**
+	 * Gets the lab work.
+	 * 
+	 * @return the lab work
+	 */
+	public List<LabWork> getLabWork() {
+		return this.labWorkList;
+	}
+
+	/**
+	 * Gets the vaccines.
+	 * 
+	 * @return the vaccines
+	 */
+	public List<Vaccine> getVaccines() {
+		return this.vaccineList;
+	}
+
+	/**
+	 * Gets the treatments.
+	 * 
+	 * @return the treatments
+	 */
+	public List<Treatment> getTreatments() {
+		return this.treatmentList;
+	}
+
+	/**
+	 * Gets the prescriptions.
+	 * 
+	 * @return the prescriptions
+	 */
+	public List<Prescription> getPrescriptions() {
+		return this.prescriptionList;
+	}
 }
