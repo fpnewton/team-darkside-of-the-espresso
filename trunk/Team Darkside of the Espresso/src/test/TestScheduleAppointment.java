@@ -31,7 +31,7 @@ public class TestScheduleAppointment {
 
 		Calendar date = new GregorianCalendar(2011, Calendar.MAY,1,9,1);
 		
-		testPat.ScheduleAppointment(date, "symptoms", doc);
+		testPat.scheduleAppointment(date, "symptoms", doc);
 		
 		Assert.assertNotNull(testPat.getAppointmentHistory());
 		Assert.assertNotNull(doc.getCurrentAppointments());
