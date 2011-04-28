@@ -65,31 +65,30 @@ public class AppointmentListPanel extends JPanel {
 	 */
 	private void initialize() {
 		setLayout(null);
-		
-	appList = Main.getCurrentUser().getAppointmentList();
+
+		appList = Main.getCurrentUser().getAppointmentList();
 		System.out.println(appList);
 
 		DefaultListModel listModel = new DefaultListModel();
 
-		
 		if (appList != null)
-		for (Appointment appt : appList)
-		{
-			System.out.println(appt);
-			listModel.addElement(String.format("%1$tm %1$te, %1$tY", appt.getDate()));
-		}
+			for (Appointment appt : appList) {
+				System.out.println(appt);
+				listModel.addElement(String.format("%1$tm %1$te, %1$tY",
+						appt.getDate()));
+			}
 
 		final JList list = new JList(listModel);
 		list.addListSelectionListener(new ListSelectionListener() {
-		    public void valueChanged(ListSelectionEvent e) {
+			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
-				    selectedUser = list.getSelectedIndex();
+					selectedUser = list.getSelectedIndex();
 				}
-		    }
+			}
 		});
 		list.setBounds(37, 104, 142, 62);
 		add(list);
-	
+
 		final JLabel lblCheckAppointment = new JLabel(
 				"Office Appointment Schedule");
 		lblCheckAppointment.setHorizontalAlignment(SwingConstants.CENTER);
@@ -101,13 +100,18 @@ public class AppointmentListPanel extends JPanel {
 			@Override
 			public void mouseClicked(final MouseEvent e) {
 				final SymptomsPanel schedulePanel = new SymptomsPanel();
-				
+
 				Main.setCurrentAppointment(appList.get(list.getSelectedIndex()));
 				SqlDatabase db = Main.getDatabaseObject();
-				Doctor doc = appList.get(list.getSelectedIndex()).getDesiredDoctor();
-				Main.getCurrentUser().removeAppointment(appList.get(list.getSelectedIndex()));
-				db.canUpdateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
-				db.canUpdateUser(db.getUserID(doc.getUserInformation().getName()), doc);
+				Doctor doc = appList.get(list.getSelectedIndex())
+						.getDesiredDoctor();
+				Main.getCurrentUser().removeAppointment(
+						appList.get(list.getSelectedIndex()));
+				db.canUpdateUser(
+						db.getUserID(Main.getCurrentUser().getUserInformation()
+								.getName()), Main.getCurrentUser());
+				db.canUpdateUser(
+						db.getUserID(doc.getUserInformation().getName()), doc);
 				Main.getApplicationWindow().setFrame(schedulePanel,
 						schedulePanel.getTitle(), schedulePanel.getWidth(),
 						schedulePanel.getHeight());
@@ -131,15 +135,19 @@ public class AppointmentListPanel extends JPanel {
 		add(btnAdd);
 
 		final JButton btnDelete = new JButton("Delete");
-		// TODO Delete the appointment
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(final MouseEvent e) {
 				SqlDatabase db = Main.getDatabaseObject();
-				Doctor doc = appList.get(list.getSelectedIndex()).getDesiredDoctor();
-				Main.getCurrentUser().removeAppointment(appList.get(list.getSelectedIndex()));
-				db.canUpdateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
-				db.canUpdateUser(db.getUserID(doc.getUserInformation().getName()), doc);
+				Doctor doc = appList.get(list.getSelectedIndex())
+						.getDesiredDoctor();
+				Main.getCurrentUser().removeAppointment(
+						appList.get(list.getSelectedIndex()));
+				db.canUpdateUser(
+						db.getUserID(Main.getCurrentUser().getUserInformation()
+								.getName()), Main.getCurrentUser());
+				db.canUpdateUser(
+						db.getUserID(doc.getUserInformation().getName()), doc);
 				list.repaint();
 				initialize();
 			}
@@ -148,7 +156,6 @@ public class AppointmentListPanel extends JPanel {
 		add(btnDelete);
 
 		final JButton btnClose = new JButton("Close");
-		// TODO Close the appt and add to doctor's income list
 		if (Main.getCurrentUser() instanceof Patient) {
 			btnClose.setEnabled(false);
 		} else {
@@ -242,12 +249,17 @@ public class AppointmentListPanel extends JPanel {
 		btnViewIncome.setBounds(315, 261, 117, 29);
 		add(btnViewIncome);
 
-		JButton btnAddDocorders = new JButton("Add Doctors..");
-		
+		JButton btnAddDocorders = new JButton("Add Doctors Orders");
+
 		btnAddDocorders.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO
+				Appointment currentApp = (Appointment) list.getSelectedValue();
+				Main.setCurrentAppointment(currentApp);
+				DoctorsOrdersPanel docPanel = new DoctorsOrdersPanel();
+				Main.getApplicationWindow().setFrame(docPanel,
+						docPanel.getTitle(), docPanel.getWidth(),
+						docPanel.getHeight());
 			}
 		});
 

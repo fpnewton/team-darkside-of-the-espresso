@@ -7,7 +7,6 @@ package appointment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The Income Class.
@@ -36,7 +35,7 @@ public class Income implements Serializable {
      * Display income.
      */
     public void displayIncome() {
-	// TODO Implement Method
+	 System.out.println(calculateTotal());
     }
 
     /**

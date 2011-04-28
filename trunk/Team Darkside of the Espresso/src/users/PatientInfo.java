@@ -5,7 +5,9 @@
 package users;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import record.MedicalHistory; 
 
 import record.TreatmentRecord;
 
@@ -22,16 +24,18 @@ public class PatientInfo implements Serializable {
 
     /** The Allergies. */
     private List<String> Allergies;
-    private List<TreatmentRecord> MedicalHistory;
+    
+    /** The medical history */
+    private MedicalHistory medHistory;
 
     public PatientInfo(int Age, String InsuranceCarrier, String Pharmacy,
-	    List<String> Allergies, List<TreatmentRecord> MedicalHistory) {
-	// TODO We should probably have a name attribute here.
+	    List<String> Allergies, MedicalHistory medHistory) {
 	this.Age = Age;
 	this.InsuranceCarrier = InsuranceCarrier;
 	this.Pharmacy = Pharmacy;
-	this.Allergies = Allergies;
-	this.MedicalHistory = MedicalHistory;
+	this.Allergies = new ArrayList<String>();
+	this.Allergies.addAll(Allergies);
+	this.medHistory = medHistory;
     }
 
     /**
@@ -105,8 +109,8 @@ public class PatientInfo implements Serializable {
      * 
      * @return the medical history
      */
-    public List<TreatmentRecord> getMedicalHistory() {
-	return MedicalHistory;
+    public MedicalHistory getMedicalHistory() {
+	return medHistory;
     }
 
     /**

@@ -11,6 +11,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 
 import log.SystemLog;
@@ -26,7 +27,7 @@ public class Patient extends User {
 	private PatientInfo myPatientInfo;
 
 	/** The Appointment history. */
-	private ArrayList<Appointment> AppointmentHistory = new ArrayList<Appointment>();
+	private List<Appointment> AppointmentHistory = new ArrayList<Appointment>();
 
 	/** The my med history. */
 	private MedicalHistory myMedHistory;
@@ -35,7 +36,7 @@ public class Patient extends User {
 	private HealthHistory myHealthHistory;
 	
 	/** The Current appointments. */
-	private ArrayList<Appointment> CurrentAppointments;
+	private List<Appointment> CurrentAppointments;
 
 	/**
 	 * Instantiates a new patient.
@@ -74,6 +75,7 @@ public class Patient extends User {
 		super(Uname, Pword, Gend, Info);
 		this.myPatientInfo = PatInfo;
 		this.CurrentAppointments = new ArrayList<Appointment>();
+		this.myHealthHistory = new HealthHistory();
 	}
 
 	/**
@@ -196,11 +198,11 @@ public class Patient extends User {
 	 * 
 	 * @return the appointment history
 	 */
-	public ArrayList<Appointment> getAppointmentHistory() {
+	public List<Appointment> getAppointmentHistory() {
 		return AppointmentHistory;
 	}
 
-	public ArrayList<Appointment> getCurrentAppointments() {
+	public List<Appointment> getCurrentAppointments() {
 		return CurrentAppointments;
 	}
 }

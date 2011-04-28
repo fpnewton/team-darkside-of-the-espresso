@@ -27,7 +27,7 @@ import database.SqlDatabase;
 public class Main {
 
 	/** The window. */
-	private ApplicationWindow window;
+	private static ApplicationWindow window;
 
 	/** The current user. */
 	private static User currentUser;
