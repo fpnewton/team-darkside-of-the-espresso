@@ -15,7 +15,7 @@ public class LabWork implements Serializable
 	private String	Info;
 
 	/** The Price. */
-	private String	Price;
+	private double Price;
 
 
 	/**
@@ -23,7 +23,7 @@ public class LabWork implements Serializable
 	 */
 	public LabWork()
 	{
-		this("", "");
+		this("", 0);
 	}
 
 
@@ -35,7 +35,7 @@ public class LabWork implements Serializable
 	 * @param Price
 	 *            the price
 	 */
-	public LabWork(String Info, String Price)
+	public LabWork(String Info, double Price)
 	{
 		this.Info = Info;
 		this.Price = Price;
@@ -58,7 +58,7 @@ public class LabWork implements Serializable
 	 * 
 	 * @return the price
 	 */
-	public String getPrice()
+	public double getPrice()
 	{
 		return Price;
 	}
@@ -82,44 +82,44 @@ public class LabWork implements Serializable
 	 * @param Price
 	 *            the new price
 	 */
-	public void setPrice(String Price)
+	public void setPrice(double Price)
 	{
 		this.Price = Price;
 	}
 	
 	public LabWork UrinalysisBUN(){
-		return new LabWork("Urinalysis (BUN)", "50.00");
+		return new LabWork("Urinalysis (BUN)", 50.00);
 	}
 	
 	public LabWork UrinalysisDrug(){
-		return new LabWork("Urinalysis (Drug Test)", "25.00");
+		return new LabWork("Urinalysis (Drug Test)", 25.00);
 	}
 	
 	public LabWork CBC(){
-		return new LabWork("CBC", "75.00");
+		return new LabWork("CBC", 75.00);
 	}
 	
 	public LabWork Cholesterol(){
-		return new LabWork("Cholesterol", "40.00");
+		return new LabWork("Cholesterol", 40.00);
 	}
 	
 	public LabWork HIV(){
-		return new LabWork("HIV", "100.00");
+		return new LabWork("HIV", 100.00);
 	}
 	
 	public LabWork Glucose(){
-		return new LabWork("HIV", "75.00");
+		return new LabWork("HIV", 75.00);
 	}
 	
 	public LabWork Adrenal(){
-		return new LabWork("Adrenal", "65.00");
+		return new LabWork("Adrenal", 65.00);
 	}
 	
 	public LabWork EKG(){
-		return new LabWork("EKG", "100.00");
+		return new LabWork("EKG", 100.00);
 	}
 	
 	public LabWork MRI(){
-		return new LabWork("MRI", "1000.00");
+		return new LabWork("MRI", 1000.00);
 	}
 }

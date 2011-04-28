@@ -15,7 +15,7 @@ public class Prescription implements Serializable
 	private String	Info;
 
 	/** The Price. */
-	private String	Price;
+	private double	Price;
 
 
 	/**
@@ -23,7 +23,7 @@ public class Prescription implements Serializable
 	 */
 	public Prescription()
 	{
-		this("", "");
+		this("", 0);
 	}
 
 
@@ -35,7 +35,7 @@ public class Prescription implements Serializable
 	 * @param Price
 	 *            the price
 	 */
-	public Prescription(String Info, String Price)
+	public Prescription(String Info, double Price)
 	{
 		this.Info = Info;
 		this.Price = Price;
@@ -58,7 +58,7 @@ public class Prescription implements Serializable
 	 * 
 	 * @return the price
 	 */
-	public String getPrice()
+	public double getPrice()
 	{
 		return Price;
 	}
@@ -82,24 +82,24 @@ public class Prescription implements Serializable
 	 * @param Price
 	 *            the new price
 	 */
-	public void setPrice(String Price)
+	public void setPrice(double Price)
 	{
 		this.Price = Price;
 	}
 	
 	public Prescription Placebo(){
-		return new Prescription("Placebo", "15.00");
+		return new Prescription("Placebo", 15.00);
 	}
 	
 	public Prescription JoesCureAll(){
-		return new Prescription("Joe's Cure All", "20.00");
+		return new Prescription("Joe's Cure All", 20.00);
 	}
 	
 	public Prescription FixItElixar(){
-		return new Prescription("Fix It Elixar", "10.50");
+		return new Prescription("Fix It Elixar", 10.50);
 	}
 	
 	public Prescription InstantHair(){
-		return new Prescription("Instant Hair", "59.00");
+		return new Prescription("Instant Hair", 59.00);
 	}
 }
