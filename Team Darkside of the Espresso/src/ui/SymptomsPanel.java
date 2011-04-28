@@ -17,11 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import users.Doctor;
 import users.Patient;
-
 import appointment.Appointment;
-
 import client.Main;
 
 /**
@@ -294,9 +291,9 @@ public class SymptomsPanel extends JPanel {
 							symptoms += sympList.get(i);
 						}
 					}
-					Main.getCurrentUser().addAppointment(
-							new Appointment((Patient) Main.getCurrentUser(),
-									null, null, symptoms));
+					Appointment tmp = new Appointment((Patient) Main.getCurrentUser(),
+							Calendar.getInstance(), Main.getDoctor().get(0), symptoms);
+					Main.setCurrentAppointment(tmp);
 				}
 
 				Main.getApplicationWindow().setFrame(sched, sched.getTitle(),

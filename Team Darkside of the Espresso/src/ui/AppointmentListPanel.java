@@ -24,14 +24,12 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import network.Message;
-import network.MessageKey;
 import users.Doctor;
 import users.Patient;
 import users.SystemAdmin;
-import users.User;
 import appointment.Appointment;
 import client.Main;
+import database.SqlDatabase;
 
 /**
  * The AppointmentListPanel Class.
@@ -53,6 +51,7 @@ public class AppointmentListPanel extends JPanel {
 	/** The Constant TITLE. */
 	private static final String TITLE = "Appointments";
 	int selectedUser = -1;
+	private ArrayList<Appointment> appList;
 
 	/**
 	 * Create the panel.
@@ -67,15 +66,18 @@ public class AppointmentListPanel extends JPanel {
 	private void initialize() {
 		setLayout(null);
 		
-		ArrayList<Appointment> appList = Main.getCurrentUser().getAppointmentList();
+	appList = Main.getCurrentUser().getAppointmentList();
+		System.out.println(appList);
 
 		DefaultListModel listModel = new DefaultListModel();
 
 		
-
-//		for (User usr : userList) {
-//		    listModel.addElement(usr.getUserInformation().getName());
-//		}
+		if (appList != null)
+		for (Appointment appt : appList)
+		{
+			System.out.println(appt);
+			listModel.addElement(String.format("%1$tm %1$te, %1$tY", appt.getDate()));
+		}
 
 		final JList list = new JList(listModel);
 		list.addListSelectionListener(new ListSelectionListener() {
@@ -99,9 +101,13 @@ public class AppointmentListPanel extends JPanel {
 			@Override
 			public void mouseClicked(final MouseEvent e) {
 				final SymptomsPanel schedulePanel = new SymptomsPanel();
-				Main.setCurrentAppointment((Appointment) list
-						.getSelectedValue());
 				
+				Main.setCurrentAppointment(appList.get(list.getSelectedIndex()));
+				SqlDatabase db = Main.getDatabaseObject();
+				Doctor doc = appList.get(list.getSelectedIndex()).getDesiredDoctor();
+				Main.getCurrentUser().removeAppointment(appList.get(list.getSelectedIndex()));
+				db.updateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
+				db.updateUser(db.getUserID(doc.getUserInformation().getName()), doc);
 				Main.getApplicationWindow().setFrame(schedulePanel,
 						schedulePanel.getTitle(), schedulePanel.getWidth(),
 						schedulePanel.getHeight());
@@ -129,7 +135,12 @@ public class AppointmentListPanel extends JPanel {
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(final MouseEvent e) {
-				Main.getCurrentUser().removeAppointment((Appointment)list.getSelectedValue());
+				SqlDatabase db = Main.getDatabaseObject();
+				Doctor doc = appList.get(list.getSelectedIndex()).getDesiredDoctor();
+				Main.getCurrentUser().removeAppointment(appList.get(list.getSelectedIndex()));
+				db.updateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
+				db.updateUser(db.getUserID(doc.getUserInformation().getName()), doc);
+				list.repaint();
 				initialize();
 			}
 		});
@@ -196,7 +207,7 @@ public class AppointmentListPanel extends JPanel {
 		btnViewInvoice.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (((Appointment) list.getSelectedValue()).getDocOrders() == null) {
+				if ((appList.get(list.getSelectedIndex())).getDocOrders() == null) {
 					JComponent failureDialog = null;
 					JOptionPane
 							.showMessageDialog(
@@ -232,6 +243,13 @@ public class AppointmentListPanel extends JPanel {
 		add(btnViewIncome);
 
 		JButton btnAddDocorders = new JButton("Add Doctors..");
+		
+		btnAddDocorders.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO
+			}
+		});
 
 		btnAddDocorders.setVisible(false);
 

@@ -8,10 +8,11 @@ package ui;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Time;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
@@ -21,11 +22,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import appointment.Appointment;
-
 import users.Doctor;
-import users.Patient;
 import users.User;
+import appointment.Appointment;
 import client.Main;
 import database.SqlDatabase;
 
@@ -47,6 +46,7 @@ public class SchedulePanel extends JPanel {
 	/** The Constant TITLE. */
 	private static final String TITLE = "Schedule Appointment";
 
+	private ArrayList<Calendar> availableDate;
 	/**
 	 * Create the panel.
 	 */
@@ -63,7 +63,7 @@ public class SchedulePanel extends JPanel {
 		// TODO Maybe fix the null database.
 		SqlDatabase s = Main.getDatabaseObject();
 		User[] uList = s.getAllUsers();
-		ArrayList<Calendar> availableDate = new ArrayList<Calendar>();
+		availableDate = new ArrayList<Calendar>();
 		
 
 		/*
@@ -83,7 +83,9 @@ public class SchedulePanel extends JPanel {
 		final JComboBox dateBox = new JComboBox();
 		dateBox.setBounds(151, 147, 135, 20);
 		for (int i = 0; i < availableDate.size(); i++)
-			dateBox.addItem(availableDate.get(Calendar.DATE));
+		{
+			dateBox.addItem(String.format("%1$tm %1$te, %1$tY", availableDate.get(i)));
+		}
 		add(dateBox);
 		
 		
@@ -103,7 +105,7 @@ public class SchedulePanel extends JPanel {
 		timeBox.setBounds(151, 207, 135, 20);
 		if(dateBox.getSelectedItem()!=null){
 			for(int i=0; i<availableDate.size(); i++)
-				timeBox.addItem(availableDate.get(Calendar.MINUTE));
+				timeBox.addItem(String.format("%1$tT", availableDate.get(i)));
 		}
 		add(timeBox);
 
@@ -112,10 +114,8 @@ public class SchedulePanel extends JPanel {
 		if(timeBox.getSelectedItem()!=null){
 			for(int i=0; i<uList.length; i++){
 				if(uList[i] instanceof Doctor){
-					ArrayList<Calendar> avail = ((Doctor) uList[i]).getAvailabilities();
-					for (int j = 0; j < avail.size(); j++)
-						if (availableDate.contains(avail.get(j)))
-							docBox.addItem(uList[i].toString());
+						Main.getDoctor().add((Doctor)uList[i]);
+							docBox.addItem(uList[i].getUserInformation().getName());
 				}
 			}
 		}
@@ -170,17 +170,33 @@ public class SchedulePanel extends JPanel {
 				JOptionPane.showMessageDialog(successDialog,
 						"You have successfully scheduled an appointment!");
 
-				final AppointmentListPanel appWindow = new AppointmentListPanel();
 				Appointment app = Main.getCurrentAppointment();
 				
 				/* Finish setting up the appointment object */
-				app.setDesiredDoctor((Doctor)docBox.getSelectedItem());
-				app.setDate((GregorianCalendar)timeBox.getSelectedItem());
+				app.setDesiredDoctor(Main.getDoctor().get(docBox.getSelectedIndex()));
+				app.setDate(availableDate.get(dateBox.getSelectedIndex()));
 
 				/* Remove the date from the availabilities list */
 				app.getDesiredDoctor().getAvailabilities().remove(app.getDate());
 				
+				
 				app.getDesiredDoctor().addAppointment(app);
+				System.out.println(app.getDesiredDoctor().getCurrentAppointments());
+				Main.getCurrentUser().addAppointment(app);
+				System.out.println(Main.getCurrentUser().getAppointmentList());
+				
+				SqlDatabase db = Main.getDatabaseObject();
+				
+				db.updateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
+				db.updateUser(db.getUserID(app.getDesiredDoctor().getUserInformation().getName()), app.getDesiredDoctor());
+				
+				System.out.println(app.getDesiredDoctor().getUserInformation().getName());
+
+				ArrayList<Appointment> aplist = app.getDesiredDoctor().getAppointmentList();
+				
+				System.out.println(aplist);
+				
+				
 				
 				Main.getApplicationWindow().setFrame(appWindow,
 						appWindow.getTitle(), appWindow.getWidth(),
