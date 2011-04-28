@@ -4,10 +4,6 @@
 
 package ui;
 
-import java.util.ArrayList;
-
-import network.Message;
-import network.MessageKey;
 import users.User;
 import client.Main;
 import database.Crypto;
@@ -41,15 +37,15 @@ public class LoginController {
      * @return true, if successful
      */
     public boolean canLogin(String username, String password) {
-    final Message msg = new Message(MessageKey.DB_GETALLUSERS,"");
-    Main.getClientObject().sendMessage(msg);
-	@SuppressWarnings("unchecked")
-	final ArrayList<User> userList = (ArrayList<User>)Main.getClientObject().popMessage(msg.getKey()).getAttachment();
+    final User userList[] = Main.getDatabaseObject().getAllUsers();
 	final String passwordHash = Crypto.getSha1Hash(password);
+	
+	System.out.println(userList.length);
 
 	for (User usr : userList) {
 	    if (usr.getUsername().equals(username)
 		    && usr.getPasswordHash().equals(passwordHash)) {
+	    	System.out.println(usr.getUsername());
 		Main.setCurrentUser(usr);
 		
 		return true;

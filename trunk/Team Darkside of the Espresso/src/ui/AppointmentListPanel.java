@@ -52,6 +52,7 @@ public class AppointmentListPanel extends JPanel {
 
 	/** The Constant TITLE. */
 	private static final String TITLE = "Appointments";
+	int selectedUser = -1;
 
 	/**
 	 * Create the panel.
@@ -65,17 +66,16 @@ public class AppointmentListPanel extends JPanel {
 	 */
 	private void initialize() {
 		setLayout(null);
-		final Message msg = new Message(MessageKey.DB_GETALLUSERS,"");
-	    Main.getClientObject().sendMessage(msg);
-		final ArrayList<User> userList = (ArrayList<User>)Main.getClientObject().popMessage().getAttachment();
+		
+		ArrayList<Appointment> appList = Main.getCurrentUser().getAppointmentList();
 
 		DefaultListModel listModel = new DefaultListModel();
 
-		final int selectedUser = -1;
+		
 
-		for (User usr : userList) {
-		    listModel.addElement(usr.getUserInformation().getName());
-		}
+//		for (User usr : userList) {
+//		    listModel.addElement(usr.getUserInformation().getName());
+//		}
 
 		final JList list = new JList(listModel);
 		list.addListSelectionListener(new ListSelectionListener() {

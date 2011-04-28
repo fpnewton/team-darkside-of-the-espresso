@@ -61,7 +61,7 @@ public class SchedulePanel extends JPanel {
 		setLayout(null);
 
 		// TODO Maybe fix the null database.
-		SqlDatabase s = null;
+		SqlDatabase s = Main.getDatabaseObject();
 		User[] uList = s.getAllUsers();
 		ArrayList<Calendar> availableDate = new ArrayList<Calendar>();
 		

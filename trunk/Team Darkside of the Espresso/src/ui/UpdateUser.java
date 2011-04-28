@@ -85,13 +85,13 @@ public class UpdateUser extends JPanel {
     /** The female radio button. */
     private JRadioButton rdoFemale;
     
-    private int userID;
+    private User user;
 
     /**
      * Create the panel.
      */
-    public UpdateUser(int id) {
-	userID = id;
+    public UpdateUser(User usr) {
+	user = usr;
 	
 	initialize();
     }
@@ -99,11 +99,7 @@ public class UpdateUser extends JPanel {
     /**
      * Initialize the panel.
      */
-    private void initialize() {
-	SqlDatabase db = Main.getDatabaseObject();
-	
-	User user = db.getUser(userID);
-	
+    private void initialize() {	
 	setLayout(null);
 
 	final JLabel lblName = new JLabel("Name:");
@@ -318,7 +314,7 @@ public class UpdateUser extends JPanel {
 		Main.setCurrentUser(currentUser);
 	    }
 
-	    if (db.updateUser(userID, user)) {
+	    if (db.updateUser(db.getUserID(user.getUserInformation().getName()), user)) {
 		if (!SystemLog.LogMessage("User " + userInfo.getName()
 			+ " created successfully.", Level.INFO)) {
 		    System.out.println("Error: Could not log message \"User "
