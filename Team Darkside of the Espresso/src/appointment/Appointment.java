@@ -1,3 +1,4 @@
+// $codepro.audit.disable variableShouldBeFinal
 /*
  * The Appointment Class.
  */
@@ -12,6 +13,7 @@ import record.DoctorsOrders;
 import users.Doctor;
 import users.Patient;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Appointment Class.
  * 
@@ -19,9 +21,8 @@ import users.Patient;
  * @version 1.0.0
  */
 public class Appointment implements Serializable {
-	/**
-	 * 
-	 */
+
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The patient data. */
@@ -36,7 +37,7 @@ public class Appointment implements Serializable {
 	/** The Symptoms. */
 	private String symptoms;
 
-	/** The Doctors Orders for the follow-up appointment */
+	/** The Doctors Orders for the follow-up appointment. */
 	private DoctorsOrders docOrders;
 
 	/**
@@ -64,11 +65,13 @@ public class Appointment implements Serializable {
 	 * Instantiates a new appointment.
 	 * 
 	 * @param patient
-	 *            The patient
+	 *            the patient
 	 * @param date
 	 *            the date
 	 * @param desiredDoctor
 	 *            the desired doctor
+	 * @param docOrders
+	 *            the doc orders
 	 */
 	public Appointment(Patient patient, Calendar date, Doctor desiredDoctor,
 			DoctorsOrders docOrders) {
@@ -80,10 +83,12 @@ public class Appointment implements Serializable {
 	}
 
 	/**
-	 * Schedules a doctor at a specific date if he/she is available.
+	 * Schedule doctor.
 	 * 
 	 * @param doc
-	 *            The desired doctor
+	 *            the doc
+	 * @param pat
+	 *            the pat
 	 * @param preferredDate
 	 *            the preferred date
 	 */
@@ -155,7 +160,7 @@ public class Appointment implements Serializable {
 	}
 
 	/**
-	 * Gets the patient object
+	 * Gets the patient object.
 	 * 
 	 * @return The patient object
 	 */
@@ -164,7 +169,7 @@ public class Appointment implements Serializable {
 	}
 
 	/**
-	 * Gets the doctors orders
+	 * Gets the doctors orders.
 	 * 
 	 * @return The doctors orders
 	 */
@@ -173,7 +178,7 @@ public class Appointment implements Serializable {
 	}
 
 	/**
-	 * Sets the doctors orders
+	 * Sets the doctors orders.
 	 * 
 	 * @param docOrders
 	 *            The doctors orders
@@ -183,7 +188,7 @@ public class Appointment implements Serializable {
 	}
 
 	/**
-	 * toString Override
+	 * toString Override.
 	 * 
 	 * @return A string with the appointment data
 	 */
@@ -194,13 +199,13 @@ public class Appointment implements Serializable {
 				+ symptoms.toString();
 	}
 
-    /**
-     * Sets the doctor's orders.
-     * 
-     * @param docorders
-     *            the new docOrders
-     */
-    public void setDoctorsOrders(DoctorsOrders docOrders) {
-	this.docOrders = docOrders;
-    }
+	/**
+	 * Sets the doctors orders.
+	 * 
+	 * @param docOrders
+	 *            the new doctors orders
+	 */
+	public void setDoctorsOrders(DoctorsOrders docOrders) {
+		this.docOrders = docOrders;
+	}
 }

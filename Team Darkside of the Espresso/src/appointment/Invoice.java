@@ -8,92 +8,96 @@ package appointment;
 
 import java.io.Serializable;
 
+/**
+ * The Class Invoice.
+ * 
+ * @author Someone
+ * @version 1.0.0
+ */
 public class Invoice implements Serializable {
-	private Appointment Appointment;
+
+	/** The appointment. */
+	private Appointment appointment;
+
+	/** The bill. */
 	private Bill bill;
 
 	/**
 	 * Instantiates a new invoice.
 	 * 
-	 * @param Appointment
+	 * @param appt
 	 *            the appointment
-	 * @param Bill
+	 * @param bill
 	 *            the bill
 	 */
-	public Invoice(Appointment Appointment, Bill Bill) {
-		this.Appointment = Appointment;
-		this.bill = Bill;
+	public Invoice(Appointment appt, Bill bill) {
+		this.appointment = appt;
+		this.bill = bill;
 	}
 
 	/**
-	 * Calculates the total cost of all labwork
+	 * Calculates the total cost of all labwork.
 	 * 
-	 * @param bill
-	 *            The bill containing the labwork
 	 * @return the total cost of the labwork
 	 */
 	public double calcLabWork() {
 		double total = 0.0;
 
-		for (int i = 0; i < bill.getLabWork().size(); i++)
+		for (int i = 0; i < bill.getLabWork().size(); i++) {
 			total += bill.getLabWork().get(i).getPrice();
+		}
 
 		return total;
 	}
 
 	/**
-	 * Calculates the total cost of all prescriptions
+	 * Calculates the total cost of all prescriptions.
 	 * 
-	 * @param bill
-	 *            The bill containing the prescriptions
 	 * @return the total cost of the prescriptions
 	 */
 	public double calcPrescription() {
 		double total = 0.0;
 
-		for (int i = 0; i < bill.getPrescription().size(); i++)
-			total += bill.getPrescription().get(i).getPrice();
+		for (int i = 0; i < bill.getPrescriptionList().size(); i++) {
+			total += bill.getPrescriptionList().get(i).getPrice();
+		}
 
 		return total;
 	}
 
 	/**
-	 * Calculates the total cost of all treatments
+	 * Calculates the total cost of all treatments.
 	 * 
-	 * @param bill
-	 *            The bill containing the treatments
 	 * @return The total cost of the treatments
 	 */
 	public double calcTreatment() {
 		double total = 0.0;
 
-		for (int i = 0; i < bill.getTreatment().size(); i++)
-			total += bill.getTreatment().get(i).getPrice();
+		for (int i = 0; i < bill.getTreatmentList().size(); i++) {
+			total += bill.getTreatmentList().get(i).getPrice();
+		}
 
 		return total;
 	}
 
 	/**
-	 * Calcs the total cost of all vaccines
+	 * Calcs the total cost of all vaccines.
 	 * 
-	 * @param bill
-	 *            The bill containing the vaccines
 	 * @return the total cost of the vaccines
 	 */
 	public double calcVaccine() {
 		double total = 0.0;
 
-		for (int i = 0; i < bill.getVaccine().size(); i++)
-			total += bill.getVaccine().get(i).getPrice();
+		for (int i = 0; i < bill.getVaccineList().size(); i++) {
+			total += bill.getVaccineList().get(i).getPrice();
+		}
 
 		return total;
 	}
 
 	/**
-	 * Calculates the total cost for this visit
+	 * Calculates the total cost for this visit.
 	 * 
-	 * @param bill
-	 *            The bill containing all services provided
 	 * @return the total cost of all services
 	 */
 	public double calcTotal() {
@@ -119,20 +123,29 @@ public class Invoice implements Serializable {
 	/**
 	 * Sets the appointment.
 	 * 
-	 * @param Appointment
+	 * @param appt
 	 *            the new appointment
 	 */
-	public void setAppointment(Appointment Appointment) {
-		this.Appointment = Appointment;
+	public void setAppointment(Appointment appt) {
+		this.appointment = appt;
 	}
 
 	/**
 	 * Sets the bill.
 	 * 
-	 * @param Bill
+	 * @param bill
 	 *            the new bill
 	 */
-	public void setBill(Bill Bill) {
-		this.bill = Bill;
+	public void setBill(Bill bill) {
+		this.bill = bill;
+	}
+
+	/**
+	 * toString override.
+	 * 
+	 * @return A string
+	 */
+	public String toString() {
+		return this.appointment.toString() + "\n" + this.bill.toString();
 	}
 }

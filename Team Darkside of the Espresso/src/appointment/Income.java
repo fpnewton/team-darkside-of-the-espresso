@@ -1,3 +1,4 @@
+// $codepro.audit.disable emptyMethod
 /*
  * The Income Class.
  */
@@ -22,7 +23,7 @@ public class Income implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** The Invoice list. */
-    private List<Invoice> invoiceList;
+    private List<Invoice> invoiceList = null;
 
     /**
      * Constructor. Instantiates a new invoice list
