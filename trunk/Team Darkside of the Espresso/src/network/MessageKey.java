@@ -14,8 +14,6 @@ public enum MessageKey {
 
 	/** The NULL message. */
 	NULL,
-	/** The PING message. */
-	PING,
 	/** The ECHO message. */
 	ECHO,
 	/** The SUCCESS. */
@@ -24,12 +22,8 @@ public enum MessageKey {
 	FAILURE,
 	/** The DISCONNECT message. */
 	DISCONNECT,
-	/** The DB_LOGIN message. */
-	DB_LOGIN,
-	/** The DB_LOGOUT message. */
-	DB_LOGOUT,
-	/** The DB_GETUSER message. */
-	DB_GETUSER,
+	/** The DB_GETUSERID message. */
+	DB_GETUSERID,
 	/** The DB_GETALLUSERS message. */
 	DB_GETALLUSERS,
 	/** The DB_CREATEUSER message. */

@@ -1,5 +1,6 @@
 package network.client;
 
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public class Client
 	private boolean isSuccessful;
 	private Runnable inputRunner;
 	private Runnable outputRunner;
+	private Thread inputThread;
+	private Thread outputThread;
 	private ArrayList<Message> messagePool;
 
 
@@ -31,31 +34,20 @@ public class Client
 			inputRunner = new ClientInputThread(connection);
 			outputRunner = new ClientOutputThread(connection);
 
-			Thread inputThread = new Thread(inputRunner);
-			Thread outputThread = new Thread(outputRunner);
+			inputThread = new Thread(inputRunner);
+			outputThread = new Thread(outputRunner);
 
 			inputThread.start();
 			outputThread.start();
 			
-			((ClientOutputThread) outputRunner).sendMessage(new Message(MessageKey.DB_GETALLUSERS, ""));
+			
 			
 			isSuccessful = true;
-			
-			while (inputThread.isAlive() && outputThread.isAlive())
-			{
-				Message msg = ((ClientInputThread) inputRunner).getMessage();
-				
-				if (msg != null)
-				{
-					messagePool.add(msg);
-				}
-			}
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
-			System.out.println("Client A");
-			System.exit(-1);
+			System.out.println("here");
+			System.out.println(e);
 			
 			// TODO Alert user about unknown host
 		}
@@ -68,24 +60,24 @@ public class Client
 	
 	public void sendMessage(Message message)
 	{
-		((ClientOutputThread) outputRunner).sendMessage(message);
+//		try
+//		{
+//		ObjectOutputStream stream = new ObjectOutputStream(connection.getOutputStream());
+//		
+//		stream.writeObject(message);
+//		stream.flush();
+//		}
+//		catch (Exception e)
+//		{
+//			System.out.println("ME");
+//			System.out.println(e);
+//		}
+//		((ClientOutputThread) outputRunner).sendMessage(message);
+		((ClientOutputThread) outputRunner).sendMessage(new Message(MessageKey.DB_GETALLUSERS));
 	}
 	
-	public Message popMessage(MessageKey key)
+	public Message popMessage()
 	{
-		if (messagePool.size() > 0)
-		{
-			for (Message msg : messagePool)
-			{
-				if (msg.getKey() == key)
-				{
-					messagePool.remove(msg);
-					
-					return msg;
-				}
-			}
-		}
-		
-		return null;
+		return ((ClientInputThread) inputRunner).getMessage();
 	}
 }
