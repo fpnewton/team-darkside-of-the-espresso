@@ -204,5 +204,9 @@ public abstract class User implements Serializable
 		return appointments;
 	}
 	
+	public void removeAppointment(Appointment appt){
+		appointments.remove(appt);
+	}
+	
 
 }

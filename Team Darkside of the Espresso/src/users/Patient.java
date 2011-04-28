@@ -26,7 +26,7 @@ public class Patient extends User {
 	private PatientInfo myPatientInfo;
 
 	/** The Appointment history. */
-	private ArrayList<Appointment> AppointmentHistory;
+	private ArrayList<Appointment> AppointmentHistory = new ArrayList<Appointment>();
 
 	/** The my med history. */
 	private MedicalHistory myMedHistory;
@@ -95,13 +95,13 @@ public class Patient extends User {
 	 * @param PreferredDoctor
 	 *            the preferred doctor
 	 */
-	public void ScheduleAppointment(Calendar date, String symptoms,
+	public void scheduleAppointment(Calendar date, String symptoms,
 			Doctor PreferredDoctor) {
 		try {
 			Appointment Appt = new Appointment(this, date, PreferredDoctor,
 					symptoms);
 			if (PreferredDoctor.checkAvailability(date)) {
-				// Appt.scheduleDoctor(PreferredDoctor, time);
+				Appt.scheduleDoctor(PreferredDoctor, null, date);
 			}
 		} catch (Exception e) {
 			SystemLog.LogMessage(e.getMessage(), Level.SEVERE);

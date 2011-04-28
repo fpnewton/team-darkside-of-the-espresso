@@ -101,7 +101,7 @@ public class AppointmentListPanel extends JPanel {
 				final SymptomsPanel schedulePanel = new SymptomsPanel();
 				Main.setCurrentAppointment((Appointment) list
 						.getSelectedValue());
-				// TODO Pass selected appointment
+				
 				Main.getApplicationWindow().setFrame(schedulePanel,
 						schedulePanel.getTitle(), schedulePanel.getWidth(),
 						schedulePanel.getHeight());
@@ -126,6 +126,13 @@ public class AppointmentListPanel extends JPanel {
 
 		final JButton btnDelete = new JButton("Delete");
 		// TODO Delete the appointment
+		btnDelete.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(final MouseEvent e) {
+				Main.getCurrentUser().removeAppointment((Appointment)list.getSelectedValue());
+				initialize();
+			}
+		});
 		btnDelete.setBounds(191, 166, 117, 29);
 		add(btnDelete);
 
