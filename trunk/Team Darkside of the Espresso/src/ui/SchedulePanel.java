@@ -187,8 +187,8 @@ public class SchedulePanel extends JPanel {
 				
 				SqlDatabase db = Main.getDatabaseObject();
 				
-				db.updateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
-				db.updateUser(db.getUserID(app.getDesiredDoctor().getUserInformation().getName()), app.getDesiredDoctor());
+				db.canUpdateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
+				db.canUpdateUser(db.getUserID(app.getDesiredDoctor().getUserInformation().getName()), app.getDesiredDoctor());
 				
 				System.out.println(app.getDesiredDoctor().getUserInformation().getName());
 

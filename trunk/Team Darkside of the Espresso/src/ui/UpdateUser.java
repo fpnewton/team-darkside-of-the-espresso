@@ -309,12 +309,12 @@ public class UpdateUser extends JPanel {
 	    
 	    currentUserInfo.setBirthDate(birthDate);
 	    
-	    if (db.updateUser(db.getUserID(oldName), currentUser))
+	    if (db.canUpdateUser(db.getUserID(oldName), currentUser))
 	    {
 		Main.setCurrentUser(currentUser);
 	    }
 
-	    if (db.updateUser(db.getUserID(user.getUserInformation().getName()), user)) {
+	    if (db.canUpdateUser(db.getUserID(user.getUserInformation().getName()), user)) {
 		if (!SystemLog.LogMessage("User " + userInfo.getName()
 			+ " created successfully.", Level.INFO)) {
 		    System.out.println("Error: Could not log message \"User "

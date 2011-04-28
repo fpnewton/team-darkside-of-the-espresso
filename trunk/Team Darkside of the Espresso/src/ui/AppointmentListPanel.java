@@ -106,8 +106,8 @@ public class AppointmentListPanel extends JPanel {
 				SqlDatabase db = Main.getDatabaseObject();
 				Doctor doc = appList.get(list.getSelectedIndex()).getDesiredDoctor();
 				Main.getCurrentUser().removeAppointment(appList.get(list.getSelectedIndex()));
-				db.updateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
-				db.updateUser(db.getUserID(doc.getUserInformation().getName()), doc);
+				db.canUpdateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
+				db.canUpdateUser(db.getUserID(doc.getUserInformation().getName()), doc);
 				Main.getApplicationWindow().setFrame(schedulePanel,
 						schedulePanel.getTitle(), schedulePanel.getWidth(),
 						schedulePanel.getHeight());
@@ -138,8 +138,8 @@ public class AppointmentListPanel extends JPanel {
 				SqlDatabase db = Main.getDatabaseObject();
 				Doctor doc = appList.get(list.getSelectedIndex()).getDesiredDoctor();
 				Main.getCurrentUser().removeAppointment(appList.get(list.getSelectedIndex()));
-				db.updateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
-				db.updateUser(db.getUserID(doc.getUserInformation().getName()), doc);
+				db.canUpdateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
+				db.canUpdateUser(db.getUserID(doc.getUserInformation().getName()), doc);
 				list.repaint();
 				initialize();
 			}

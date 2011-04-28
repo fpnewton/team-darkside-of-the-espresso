@@ -198,6 +198,6 @@ public class MakeUser extends JPanel {
     	int id = Main.getDatabaseObject().getUserID(userList[selectedUser].getUserInformation().getName());
     	
 	System.out.println("Delete ID: " + id);
-	System.out.println("Delete Returned: " + Main.getDatabaseObject().deleteUser(id));
+	System.out.println("Delete Returned: " + Main.getDatabaseObject().canDeleteUser(id));
     }
 }
