@@ -145,6 +145,21 @@ public class MakeUser extends JPanel {
 	});
 	btnDelete.setBounds(294, 244, 86, 25);
 	add(btnDelete);
+	
+	JButton btnReturn = new JButton("Return");
+	btnDelete.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+	    	AppointmentListPanel aptListPanel = new AppointmentListPanel();
+
+			Main.getApplicationWindow().setFrame(aptListPanel,
+				aptListPanel.getTitle(), aptListPanel.getWidth(),
+				aptListPanel.getHeight());
+	    	
+	    }
+	});
+	btnReturn.setBounds(33, 242, 117, 29);
+	add(btnReturn);
 
     }
 
