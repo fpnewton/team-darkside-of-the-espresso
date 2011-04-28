@@ -225,6 +225,10 @@ public class DoctorsOrders implements Serializable {
 	public Bill getBill(){
 		return this.totalBill;
 	}
+	
+	public void setBill(Bill newBill){
+		this.totalBill = newBill;
+	}
 
 	public ArrayList<Treatment> getTreatments(){
 		return this.treatments;

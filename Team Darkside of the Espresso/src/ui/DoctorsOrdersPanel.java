@@ -162,12 +162,14 @@ public class DoctorsOrdersPanel extends JPanel {
 			DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 			tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
 			tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
-			Main.setTempDocOrders(tempDocOrders);
-			tempAppt.setDocOrders(tempDocOrders);
-			Main.setCurrentAppointment(tempAppt);
 			
 			/* Creating a new bill in accordance with the treatments prescribed */
 			Bill newBill = new Bill(tempDocOrders.getLabWork(), tempDocOrders.getPrescription(), tempDocOrders.getTreatments(), tempDocOrders.getVaccines());
+			tempDocOrders.setBill(newBill);
+			
+			Main.setTempDocOrders(tempDocOrders);
+			tempAppt.setDocOrders(tempDocOrders);
+			Main.setCurrentAppointment(tempAppt);
 			
 			/* Setting the bill to the appointment object */
 			Main.getCurrentAppointment().setBill(newBill);

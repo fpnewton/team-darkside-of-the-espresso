@@ -23,7 +23,7 @@ public class Income implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** The Invoice list. */
-    private List<Invoice> invoiceList = null;
+    private ArrayList<Invoice> invoiceList;
 
     /**
      * Constructor. Instantiates a new invoice list
@@ -42,8 +42,13 @@ public class Income implements Serializable {
     /**
      * Calculate total.
      */
-    public void calculateTotal() {
-	// TODO Implement Method
+    public double calculateTotal() {
+    	double total = 0.0;
+    	
+    	for(int i=0; i<getInvoices().size(); i++)
+    		total += getInvoices().get(i).calcTotal();
+    	
+    	return total;
     }
 
     /**
@@ -53,5 +58,9 @@ public class Income implements Serializable {
      */
     public String toString() {
 	return invoiceList.toString();
+    }
+    
+    public ArrayList<Invoice> getInvoices(){
+    	return this.invoiceList;
     }
 }
