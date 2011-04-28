@@ -7,6 +7,7 @@
 package appointment;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * The Class Invoice.
@@ -21,6 +22,7 @@ public class Invoice implements Serializable {
 
 	/** The bill. */
 	private Bill bill;
+	private Calendar cal;
 
 	/**
 	 * Instantiates a new invoice.
@@ -30,9 +32,12 @@ public class Invoice implements Serializable {
 	 * @param bill
 	 *            the bill
 	 */
-	public Invoice(Appointment appt, Bill bill) {
+
+	public Invoice(Appointment appt, Bill bill, Calendar cal) {
 		this.appointment = appt;
 		this.bill = bill;
+
+		this.cal = appt.getDate();
 	}
 
 	/**
@@ -147,5 +152,9 @@ public class Invoice implements Serializable {
 	 */
 	public String toString() {
 		return this.appointment.toString() + "\n" + this.bill.toString();
+	}
+	
+	public Calendar getDate(){
+		return this.cal;
 	}
 }
