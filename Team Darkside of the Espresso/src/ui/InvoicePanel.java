@@ -5,7 +5,6 @@
 package ui;
 
 import javax.swing.JPanel;
-import appointment.Appointment;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;

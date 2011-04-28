@@ -77,7 +77,6 @@ public class Invoice implements Serializable {
 	 */
 	public double calcTreatment() {
 		double total = 0.0;
-
 		for (int i = 0; i < bill.getTreatmentList().size(); i++) {
 			total += bill.getTreatmentList().get(i).getPrice();
 		}

@@ -1,5 +1,8 @@
 /**
  * The Class MedicalHistory.
+ * 
+ * @author David Garner
+ * @version 1.0.0
  */
 
 package record;
@@ -10,18 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MedicalHistory implements Serializable
-{
+public class MedicalHistory implements Serializable{
 
 	/** The Treatment records. */
-	private List<TreatmentRecord>	TreatmentRecords;
+	private List<TreatmentRecord>	treatmentRecords;
 
 	/**
 	 * Instantiates a new medical history.
 	 */
 	public MedicalHistory()
 	{
-		TreatmentRecords = new ArrayList<TreatmentRecord>();
+		treatmentRecords = new ArrayList<TreatmentRecord>();
 	}
 
 
@@ -33,7 +35,6 @@ public class MedicalHistory implements Serializable
 	 */
 	public void addRecord(TreatmentRecord treatmentRecord)
 	{
-		TreatmentRecords.add(treatmentRecord);
+		treatmentRecords.add(treatmentRecord);
 	}
-	// TODO Add Methods
 }
