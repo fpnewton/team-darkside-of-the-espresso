@@ -82,9 +82,8 @@ public class SchedulePanel extends JPanel {
 
 		final JComboBox dateBox = new JComboBox();
 		dateBox.setBounds(151, 147, 135, 20);
-		SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy");
 		for (int i = 0; i < availableDate.size(); i++)
-			dateBox.addItem(sdf.format(availableDate.get(i)));
+			dateBox.addItem(availableDate.get(Calendar.DATE));
 		add(dateBox);
 		
 		
@@ -103,9 +102,8 @@ public class SchedulePanel extends JPanel {
 		final JComboBox timeBox = new JComboBox();
 		timeBox.setBounds(151, 207, 135, 20);
 		if(dateBox.getSelectedItem()!=null){
-			SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm aaa");
 			for(int i=0; i<availableDate.size(); i++)
-				timeBox.addItem(sdf1.format(availableDate.get(i)));
+				timeBox.addItem(availableDate.get(Calendar.MINUTE));
 		}
 		add(timeBox);
 
