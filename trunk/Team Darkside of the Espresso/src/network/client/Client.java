@@ -1,7 +1,5 @@
 package network.client;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
@@ -49,16 +47,16 @@ public class Client
 			// TODO Alert user about unknown host
 		}
 	}
-//	
-//	public boolean isSuccessfulConnection()
-//	{
-//		return isSuccessful;
-//	}
-//	
-//	public void sendMessage(Message message)
-//	{
-//		((ClientOutputThread) outputRunner).sendMessage(message);
-//	}
+	
+	public boolean isSuccessfulConnection()
+	{
+		return isSuccessful;
+	}
+	
+	public void sendMessage(Message message)
+	{
+		((ClientOutputThread) outputRunner).sendMessage(message);
+	}
 //	
 //	public int getMessagePoolSize()
 //	{
