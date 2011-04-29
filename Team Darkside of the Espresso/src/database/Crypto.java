@@ -60,7 +60,7 @@ public class Crypto {
 
 			return hashText.toString();
 		} catch (NoSuchAlgorithmException e) {
-			if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 				e.printStackTrace();
 			}
 		}

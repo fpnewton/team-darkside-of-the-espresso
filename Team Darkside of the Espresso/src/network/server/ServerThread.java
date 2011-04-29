@@ -65,7 +65,7 @@ public class ServerThread implements Runnable {
 					processMessage(input);
 				} catch (EOFException e) {
 					isDone = true;
-					SystemLog.LogMessage(e.toString(), Level.INFO);
+					SystemLog.canLogMessage(e.toString(), Level.INFO);
 				} catch (Exception e) {
 					System.out.println(e);
 				}

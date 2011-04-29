@@ -290,7 +290,7 @@ public class UpdateUser extends JPanel {
 		try {
 			birthDate = dateFormatter.parse(txtBirthDate.getText());
 		} catch (ParseException e) {
-			if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 				e.printStackTrace();
 			}
 		} finally {
@@ -323,12 +323,12 @@ public class UpdateUser extends JPanel {
 
 			if (db.canUpdateUser(
 					db.getUserID(user.getUserInformation().getName()), user)) {
-				if (!SystemLog.LogMessage("User " + userInfo.getName()
+				if (!SystemLog.canLogMessage("User " + userInfo.getName()
 						+ " created successfully.", Level.INFO)) {
 					System.out.println("Error: Could not log message \"User "
 							+ userInfo.getName() + " created successfully.\"");
 				} else {
-					if (!SystemLog.LogMessage(
+					if (!SystemLog.canLogMessage(
 							"Error: User " + userInfo.getName()
 									+ " could not be created.", Level.WARNING)) {
 						System.out

@@ -4,7 +4,6 @@
 
 package server;
 
-import network.Network;
 import network.server.Server;
 import users.GenderType;
 import users.SystemAdmin;
@@ -30,13 +29,14 @@ public class Main {
 	 *            Command line args
 	 */
 	public static void main(String args[]) {
-		Server = new Server(Network.NETWORK_PORT);
+		//nbServer s = new nbServer();
+		//Server = new Server(Network.NETWORK_PORT);
 		try {
 			final SqlDatabase db = new SqlDatabase();
 
 			db.canCreateTables();
 			db.canInsertUser(new SystemAdmin("fnewton3", Crypto
-					.getSha1Hash("password"), GenderType.Male, new UserInfo(
+					.getSha1Hash("password"), GenderType.MALE, new UserInfo(
 					"a", "b", "c", null, null, null)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
