@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import network.client.Client;
-import network.client.nbClient;
 import record.DoctorsOrders;
 import ui.ApplicationWindow;
 import users.Doctor;
