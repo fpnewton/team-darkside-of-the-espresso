@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import network.client.Client;
+import network.client.nbClient;
 import record.DoctorsOrders;
 import ui.ApplicationWindow;
 import users.Doctor;
@@ -57,6 +58,7 @@ public class Main {
 	 *            Application arguments
 	 */
 	public static void main(String[] args) {
+		//nbClient c = new nbClient();
 		desiredDoc = new ArrayList<Doctor>();
 		
 		try {
@@ -68,15 +70,15 @@ public class Main {
 		// No user is logged in at the login window
 		currentUser = null;
 
-		// Start the networking client threads
-		// client = new Client(Network.NETWORK_PORT);
-		//
-		// if (!client.isSuccessfulConnection())
-		// {
-		// // TODO Handle invalid network stack
-		// //System.out.println("Error: Could not connect.");
-		// }
-
+//		// Start the networking client threads
+//		// client = new Client(Network.NETWORK_PORT);
+//		//
+//		// if (!client.isSuccessfulConnection())
+//		// {
+//		// // TODO Handle invalid network stack
+//		// //System.out.println("Error: Could not connect.");
+//		// }
+//
 		// Launch the GUI
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
