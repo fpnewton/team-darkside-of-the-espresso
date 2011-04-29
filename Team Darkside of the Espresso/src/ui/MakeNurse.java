@@ -1,3 +1,5 @@
+/** The class MakeNurse */
+
 // $codepro.audit.disable numericLiterals
 
 package ui;
@@ -287,8 +289,8 @@ public class MakeNurse extends JPanel {
 		    txtEmailAddress.getText(), birthDate);
 
 	    user = new Nurse(txtusername.getText(), Crypto.getSha1Hash(strPassword
-		    .toString()), (rdoMale.isSelected() ? GenderType.Male
-		    : GenderType.Female), userInfo);
+		    .toString()), (rdoMale.isSelected() ? GenderType.MALE
+		    : GenderType.FEMALE), userInfo);
 
 	    if (db.canInsertUser(user)) {
 		if (!SystemLog.LogMessage("User " + userInfo.getName()

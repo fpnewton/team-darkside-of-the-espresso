@@ -1,14 +1,13 @@
+/** The Class LabWorkPanel */
+
 package ui;
 
-import java.awt.SystemColor;
 
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -19,6 +18,12 @@ import record.LabWork;
 import appointment.Appointment;
 import client.Main;
 
+/**
+ * 
+ * @author Jonathan Cherry
+ * @version 1.0.0
+ *
+ */
 public class LabWorkPanel extends JPanel {
 	/** The Constant WIDTH. */
     private static final int WIDTH = 450;
@@ -29,26 +34,44 @@ public class LabWorkPanel extends JPanel {
     /** The Constant TITLE. */
     private static final String TITLE = "Doctors Orders";
     
-	private JTextField otherInfo;
-	private JTextField otherPrice;
-	private JRadioButton bunCheck;
-	private JRadioButton drugCheck;
-	private JRadioButton cbcCheck;
-	private JRadioButton cholCheck;
-	private JRadioButton hivCheck;
-	private JRadioButton otherCheck;
+    /** The other info */
+	private final JTextField otherInfo;
+	
+	/** The other price */
+	private final JTextField otherPrice;
+	
+	/** The bun check */
+	private final JRadioButton bunCheck;
+	
+	/** The drug check */
+	private final JRadioButton drugCheck;
+	
+	/** The cbc check */
+	private final JRadioButton cbcCheck;
+	
+	/** The chol check */
+	private final JRadioButton cholCheck;
+	
+	/** The HIV check */
+	private final JRadioButton hivCheck;
+	
+	/** The other check */
+	private final JRadioButton otherCheck;
+	
+	/** The lab work */
 	public LabWork labWork;
+
 	/**
 	 * Create the panel.
 	 */
 	public LabWorkPanel() {
 		setLayout(null);
 		
-		JSeparator separator = new JSeparator();
+		final JSeparator separator = new JSeparator();
 		separator.setBounds(0, 39, 438, 12);
 		add(separator);
 		
-		JLabel lblAddLabWork = new JLabel("Add Lab Work");
+		final JLabel lblAddLabWork = new JLabel("Add Lab Work");
 		lblAddLabWork.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAddLabWork.setBounds(0, 11, 438, 16);
 		add(lblAddLabWork);
@@ -82,7 +105,7 @@ public class LabWorkPanel extends JPanel {
 		add(otherInfo);
 		otherInfo.setColumns(10);
 		
-		JLabel label = new JLabel("$");
+		final JLabel label = new JLabel("$");
 		label.setBounds(169, 221, 8, 14);
 		add(label);
 		
@@ -91,32 +114,38 @@ public class LabWorkPanel extends JPanel {
 		add(otherPrice);
 		otherPrice.setColumns(10);
 		
-		JButton submitBtn = new JButton("Submit\r\n");
+		final JButton submitBtn = new JButton("Submit\r\n");
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				labWork = new LabWork();
 				if(bunCheck.isSelected()){
-					labWork = labWork.UrinalysisBUN();
+					labWork = labWork.labUrinalysisBUN();
 				}
 				else if(drugCheck.isSelected()){
-					labWork = labWork.UrinalysisDrug();
+					labWork = labWork.labUrinalysisDrug();
 				}
 				else if(cbcCheck.isSelected()){
-					labWork = labWork.CBC();
+					labWork = labWork.labCBC();
 				}
 				else if(cholCheck.isSelected()){
-					labWork = labWork.Cholesterol();
+					labWork = labWork.labCholesterol();
 				}
 				else if(hivCheck.isSelected()){
-					labWork = labWork.HIV();
+					labWork = labWork.labHIV();
 				}
 				else if(otherCheck.isSelected()){
-					double oPrice = Integer.parseInt(otherPrice.getText());
+					double oPrice = 0.0;
+					try{
+						oPrice = Integer.parseInt(otherPrice.getText());
+					}catch (NumberFormatException n){
+						n.printStackTrace();
+					}
+					
 					labWork = new LabWork(otherInfo.getText(), oPrice);
 				}
-				Appointment tempAppt = Main.getCurrentAppointment();
-				DoctorsOrders tempDocOrders = Main.getTempDocOrders();
-				tempDocOrders.AddLabWork(labWork.getInfo(), labWork.getPrice());
+				final Appointment tempAppt = Main.getCurrentAppointment();
+				final DoctorsOrders tempDocOrders = Main.getTempDocOrders();
+				tempDocOrders.addLabWork(labWork.getInfo(), labWork.getPrice());
 				Main.setTempDocOrders(tempDocOrders);
 				tempAppt.setDocOrders(tempDocOrders);
 				Main.setCurrentAppointment(tempAppt);
@@ -126,6 +155,7 @@ public class LabWorkPanel extends JPanel {
 		add(submitBtn);
 		/*FIX ME */
 	}
+
 	/**
      * Gets the title.
      * 

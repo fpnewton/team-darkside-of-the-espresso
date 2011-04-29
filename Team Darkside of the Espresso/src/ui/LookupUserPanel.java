@@ -48,7 +48,7 @@ public class LookupUserPanel extends JPanel {
      */
     private void initialize() {
 	setLayout(null);
-	JLabel lblLookupUsersBy = new JLabel("Lookup Users By Name");
+	final JLabel lblLookupUsersBy = new JLabel("Lookup Users By Name");
 	lblLookupUsersBy.setFont(new Font("Dialog", Font.BOLD, 14));
 	lblLookupUsersBy.setHorizontalAlignment(SwingConstants.CENTER);
 	lblLookupUsersBy.setBounds(36, 10, 166, 17);
@@ -59,17 +59,18 @@ public class LookupUserPanel extends JPanel {
 	add(textField);
 	textField.setColumns(10);
 
-	JLabel lblFullName = new JLabel("Full Name:");
+	final JLabel lblFullName = new JLabel("Full Name:");
 	lblFullName.setBounds(346, 11, 67, 16);
 	add(lblFullName);
 
-	JButton btnLookup = new JButton("Lookup");
+	final JButton btnLookup = new JButton("Lookup");
 	btnLookup.setBounds(179, 38, 91, 29);
 	add(btnLookup);
 	
-	JList list = new JList();
+	final JList list = new JList();
 	list.setModel(new AbstractListModel() {
-		String[] values = new String[] {};
+		/** The string array values */
+		private final String[] values = new String[] {};
 		public int getSize() {
 			return values.length;
 		}
@@ -80,7 +81,7 @@ public class LookupUserPanel extends JPanel {
 	list.setBounds(59, 124, 154, -21);
 	add(list);
 	
-	JButton btnReturn = new JButton("Return");
+	final JButton btnReturn = new JButton("Return");
 	btnReturn.setBounds(262, 98, 117, 29);
 	add(btnReturn);
     }

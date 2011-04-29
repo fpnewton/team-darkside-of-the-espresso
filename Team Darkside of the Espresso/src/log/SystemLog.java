@@ -1,7 +1,8 @@
 /*
  * System Logger
  * 
- * Receives all system log messages and stores them in a XML file according to the current date.
+ * Receives all system log messages and stores them in a XML file
+ *  according to the current date.
  */
 
 package log;
@@ -18,7 +19,8 @@ import java.util.logging.Level;
 /**
  * System Logger
  * 
- * Receives all system log messages and stores them in a XML file according to the current date.
+ * Receives all system log messages and stores them in 
+ * a XML file according to the current date.
  * 
  * @author Fraser P. Newton
  * @version 1.0.0
@@ -33,7 +35,7 @@ public class SystemLog {
 	 *            Severity level of the log message
 	 *            @return True, if successful
 	 */
-	public static boolean LogMessage(String message, Level logLevel) {
+	public static boolean canLogMessage(String message, Level logLevel) {
 		boolean doesFileExist = false;
 
 		BufferedWriter writer = null;

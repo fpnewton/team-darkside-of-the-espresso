@@ -9,9 +9,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.JButton;
 
@@ -43,23 +43,32 @@ public class IncomePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public IncomePanel() {
+		initialize();
+	}
+	
+	/**
+	 * Initializes the panel
+	 */
+	public final void initialize(){
 		setLayout(null);
 
-		Income inc = new Income();
-		ArrayList<Invoice> inList = ((Doctor) Main.getCurrentUser())
+		final Income inc = new Income();
+		final List<Invoice> inList = 
+			 ((Doctor) Main.getCurrentUser())
 				.getIncome();
-		Calendar currentDay = new GregorianCalendar();
+		final Calendar currentDay = new GregorianCalendar();
 
 		/* Compile a list of invoices from the current month only */
 		for (int i = 0; i < inList.size(); i++) {
 			if (inList.get(i).getDate().get(GregorianCalendar.MONTH) == currentDay
 					.get(GregorianCalendar.MONTH)
 					&& inList.get(i).getDate().get(GregorianCalendar.YEAR) == currentDay
-							.get(GregorianCalendar.YEAR))
+							.get(GregorianCalendar.YEAR)){
 				inc.getInvoices().add(inList.get(i));
+			}
 		}
 
-		JLabel lblDoctorsOfficeIncome = new JLabel(
+		final JLabel lblDoctorsOfficeIncome = new JLabel(
 				"Doctor's Office Income for the Current Month");
 		
 		lblDoctorsOfficeIncome
@@ -67,7 +76,7 @@ public class IncomePanel extends JPanel {
 		lblDoctorsOfficeIncome.setBounds(60, 26, 357, 16);
 		add(lblDoctorsOfficeIncome);
 
-		JButton btnReturn = new JButton("Return");
+		final JButton btnReturn = new JButton("Return");
 		btnReturn.setBounds(165, 265, 117, 29);
 		btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
@@ -81,20 +90,20 @@ public class IncomePanel extends JPanel {
 		});
 		add(btnReturn);
 
-		JLabel lblTotalCompletedAppointments = new JLabel(
+		final JLabel lblTotalCompletedAppointments = new JLabel(
 				"Total Completed Appointments:");
 		lblTotalCompletedAppointments.setBounds(45, 79, 209, 16);
 		add(lblTotalCompletedAppointments);
 
-		JLabel lblTotalMoneyFrom = new JLabel("Total Money From Invoices: ");
+		final JLabel lblTotalMoneyFrom = new JLabel("Total Money From Invoices: ");
 		lblTotalMoneyFrom.setBounds(45, 143, 185, 16);
 		add(lblTotalMoneyFrom);
 
-		JLabel label = new JLabel("" + inc.getInvoices().size());
+		final JLabel label = new JLabel("" + inc.getInvoices().size());
 		label.setBounds(315, 79, 61, 16);
 		add(label);
 
-		JLabel label_1 = new JLabel("" + inc.calculateTotal());
+		final JLabel label_1 = new JLabel("" + inc.calculateTotal());
 		label_1.setBounds(315, 143, 61, 16);
 		add(label_1);
 	}

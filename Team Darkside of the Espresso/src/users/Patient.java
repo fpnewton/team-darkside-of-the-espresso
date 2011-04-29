@@ -1,16 +1,11 @@
 /**
  * The Class Patient.
- * 
- * @author Patrick Tynan
- * @version 1.0
  */
 
 package users;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -21,60 +16,47 @@ import record.MedicalHistory;
 
 import appointment.Appointment;
 
+/**
+ * 
+ * @author Patrick Tynan
+ * @version 1.0
+ */
 public class Patient extends User {
 
 	/** The my patient info. */
 	private PatientInfo myPatientInfo;
 
 	/** The Appointment history. */
-	private List<Appointment> AppointmentHistory = new ArrayList<Appointment>();
+	private List<Appointment> appointmentHistory = new ArrayList<Appointment>();
 
 	/** The my med history. */
 	private MedicalHistory myMedHistory;
 
 	/** The my health history. */
 	private HealthHistory myHealthHistory;
-	
+
 	/** The Current appointments. */
-	private List<Appointment> CurrentAppointments;
+	private final List<Appointment> currentAppointments;
 
 	/**
 	 * Instantiates a new patient.
 	 * 
-	 * @param Uname
+	 * @param uName
 	 *            the uname
-	 * @param Pword
+	 * @param pWord
 	 *            the pword
-	 * @param Gend
+	 * @param gend
 	 *            the gend
-	 * @param Info
+	 * @param info
 	 *            the info
-	 * @param PatInfo
+	 * @param patInfo
 	 *            the pat info
 	 */
-	// public Patient(){
-	// super();
-	// }
-
-	/**
-	 * Instantiates a new patient.
-	 * 
-	 * @param Uname
-	 *            the uname
-	 * @param Pword
-	 *            the pword
-	 * @param Gend
-	 *            the gend
-	 * @param Info
-	 *            the info
-	 * @param PatInfo
-	 *            the pat info
-	 */
-	public Patient(String Uname, String Pword, GenderType Gend, UserInfo Info,
-			PatientInfo PatInfo) {
-		super(Uname, Pword, Gend, Info);
-		this.myPatientInfo = PatInfo;
-		this.CurrentAppointments = new ArrayList<Appointment>();
+	public Patient(String uName, String pWord, GenderType gend, UserInfo info,
+			PatientInfo patInfo) {
+		super(uName, pWord, gend, info);
+		this.myPatientInfo = patInfo;
+		this.currentAppointments = new ArrayList<Appointment>();
 		this.myHealthHistory = new HealthHistory();
 	}
 
@@ -87,58 +69,54 @@ public class Patient extends User {
 		return myPatientInfo;
 	}
 
-	// TODO Add Get Methods/Set Methods
-
 	/**
 	 * Schedule appointment.
 	 * 
 	 * @param date
 	 *            the date
-	 * @param time
-	 *            the time
 	 * @param symptoms
 	 *            the symptoms
-	 * @param PreferredDoctor
+	 * @param preferredDoctor
 	 *            the preferred doctor
 	 */
 	public void scheduleAppointment(Calendar date, String symptoms,
-			Doctor PreferredDoctor) {
+			Doctor preferredDoctor) {
 		try {
-			Appointment Appt = new Appointment(this, date, PreferredDoctor,
+			final Appointment appt = new Appointment(this, date, preferredDoctor,
 					symptoms);
-			if (PreferredDoctor.checkAvailability(date)) {
-				Appt.scheduleDoctor(PreferredDoctor, null, date);
+			if (preferredDoctor.isAvailable(date)) {
+				appt.scheduleDoctor(preferredDoctor, null, date);
 			}
 		} catch (Exception e) {
-			SystemLog.LogMessage(e.getMessage(), Level.SEVERE);
+			SystemLog.canLogMessage(e.getMessage(), Level.SEVERE);
 		}
 	}
 
 	/**
 	 * Sets the patient info.
 	 * 
-	 * @param PatInfo
+	 * @param patInfo
 	 *            the new patient info
 	 */
-	public void setPatientInfo(PatientInfo PatInfo) {
-		this.myPatientInfo = PatInfo;
+	public void setPatientInfo(PatientInfo patInfo) {
+		this.myPatientInfo = patInfo;
 	}
 
 	/**
 	 * View medical history.
 	 */
-	public void ViewMedicalHistory() {
-		myMedHistory.toString();
+	public void viewMedicalHistory() {
+		System.out.println(myMedHistory.toString());
 	}
 
 	/**
 	 * Sets the medical history.
 	 * 
-	 * @param MHistory
+	 * @param mHistory
 	 *            the new medical history
 	 */
-	public void setMedicalHistory(MedicalHistory MHistory) {
-		this.myMedHistory = MHistory;
+	public void setMedicalHistory(MedicalHistory mHistory) {
+		this.myMedHistory = mHistory;
 	}
 
 	/**
@@ -153,24 +131,24 @@ public class Patient extends User {
 	/**
 	 * Sets the health history.
 	 * 
-	 * @param HHistory
+	 * @param hHistory
 	 *            the new health history
 	 */
-	public void setHealthHistory(HealthHistory HHistory) {
-		this.myHealthHistory = HHistory;
+	public void setHealthHistory(HealthHistory hHistory) {
+		this.myHealthHistory = hHistory;
 	}
 
 	/**
 	 * View health history.
 	 */
-	public void ViewHealthHistory() {
+	public void viewHealthHistory() {
 		// TODO Implement Method
 	}
 
 	/**
 	 * View invoice.
 	 */
-	public void ViewInvoice() {
+	public void viewInvoice() {
 		// TODO Implement Method
 	}
 
@@ -189,8 +167,8 @@ public class Patient extends User {
 	 * @param appointmentHistory
 	 *            the new appointment history
 	 */
-	public void setAppointmentHistory(ArrayList<Appointment> appointmentHistory) {
-		AppointmentHistory = appointmentHistory;
+	public void setAppointmentHistory(List<Appointment> appointmentHistory) {
+		this.appointmentHistory = appointmentHistory;
 	}
 
 	/**
@@ -199,10 +177,25 @@ public class Patient extends User {
 	 * @return the appointment history
 	 */
 	public List<Appointment> getAppointmentHistory() {
-		return AppointmentHistory;
+		return appointmentHistory;
 	}
 
+	/**
+	 * Gets the current appointments
+	 * 
+	 * @return the current appointments
+	 */
 	public List<Appointment> getCurrentAppointments() {
-		return CurrentAppointments;
+		return currentAppointments;
+	}
+
+	/**
+	 * Converts the MedicalHistory to a string
+	 * 
+	 * @return the medical history in string form
+	 */
+	@Override
+	public String toString() {
+		return this.toString();
 	}
 }

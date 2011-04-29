@@ -4,106 +4,133 @@
 
 package record;
 
-
 import java.io.Serializable;
 
-
-public class Vaccine implements Serializable
-{
+/**
+ * 
+ * @author Jonathan Cherry
+ * @version 1.0.0
+ * 
+ */
+public class Vaccine implements Serializable {
 
 	/** The Info. */
-	private String	Info;
+	private String info;
 
 	/** The Price. */
-	private double	Price;
-
+	private double price;
 
 	/**
 	 * Instantiates a new vaccine.
 	 */
-	public Vaccine()
-	{
+	public Vaccine() {
 		this("", 0);
 	}
-
 
 	/**
 	 * Instantiates a new vaccine.
 	 * 
-	 * @param Info
+	 * @param info
 	 *            the info
-	 * @param Price
+	 * @param price
 	 *            the price
 	 */
-	public Vaccine(String Info, double Price)
-	{
-		this.Info = Info;
-		this.Price = Price;
+	public Vaccine(String info, double price) {
+		this.info = info;
+		this.price = price;
 	}
-
 
 	/**
 	 * Gets the info.
 	 * 
 	 * @return the info
 	 */
-	public String getInfo()
-	{
-		return Info;
+	public String getInfo() {
+		return info;
 	}
-
 
 	/**
 	 * Gets the price.
 	 * 
 	 * @return the price
 	 */
-	public double getPrice()
-	{
-		return Price;
+	public double getPrice() {
+		return price;
 	}
-
 
 	/**
 	 * Sets the info.
 	 * 
-	 * @param Info
+	 * @param info
 	 *            the new info
 	 */
-	public void setInfo(String Info)
-	{
-		this.Info = Info;
+	public void setInfo(String info) {
+		this.info = info;
 	}
-
 
 	/**
 	 * Sets the price.
 	 * 
-	 * @param Price
+	 * @param price
 	 *            the new price
 	 */
-	public void setPrice(double Price)
-	{
-		this.Price = Price;
+	public void setPrice(double price) {
+		this.price = price;
 	}
-	
-	public Vaccine Flu(){
+
+	// TODO Deal with numeric literals
+	/**
+	 * Flu vaccine
+	 * 
+	 * @return the new vaccine
+	 */
+	public Vaccine vacFlu() {
 		return new Vaccine("Flu", 25.00);
 	}
-	
-	public Vaccine Tetanus(){
+
+	/**
+	 * Tetanus vaccine
+	 * 
+	 * @return the new vaccine
+	 */
+	public Vaccine vacTetanus() {
 		return new Vaccine("Tetanus", 30.00);
 	}
-	
-	public Vaccine MMR(){
+
+	/**
+	 * MMR vaccine
+	 * 
+	 * @return the new vaccine
+	 */
+	public Vaccine vacMMR() {
 		return new Vaccine("MMR", 15.00);
 	}
-	
-	public Vaccine HepatitisA(){
+
+	/**
+	 * Hepatitis A vaccine
+	 * 
+	 * @return the new vaccine
+	 */
+	public Vaccine vacHepatitisA() {
 		return new Vaccine("Hepatitis A", 50.00);
 	}
-	
-	public Vaccine Steroid(){
+
+	/**
+	 * Steroid shot
+	 * 
+	 * @return the new vaccine
+	 */
+	public Vaccine vacSteroid() {
 		return new Vaccine("Steroid", 56.00);
+	}
+
+	/**
+	 * Converts the MedicalHistory to a string
+	 * 
+	 * @return the medical history in string form
+	 */
+	@Override
+	public String toString() {
+		return this.toString();
 	}
 }

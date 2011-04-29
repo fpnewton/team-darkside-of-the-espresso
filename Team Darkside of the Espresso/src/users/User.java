@@ -1,213 +1,202 @@
 /**
  * The Class User.
- * 
- * @author Patrick Tynan
- * @version 1.0
  */
 
 package users;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import appointment.Appointment;
 
-
-public abstract class User implements Serializable
-{
+/**
+ * @author Patrick Tynan
+ * @version 1.0
+ */
+public abstract class User implements Serializable {
 	/** The Username. */
-	private String		Username;
+	private String username;
 
 	/** The Password hash. */
-	private String		PasswordHash;
+	private String passwordHash;
 
 	/** The Gender. */
-	private GenderType	Gender;
+	private GenderType gender;
 
 	/** The User information. */
-	private UserInfo	UserInformation;
+	private UserInfo userInformation;
 
 	/** The is active. */
-	private boolean		isActive;
-	
-	private ArrayList<Appointment> appointments;
+	private boolean isActive;
 
+	/** The appointments. */
+	private final List<Appointment> appointments;
 
 	/**
 	 * Instantiates a new user.
 	 * 
-	 * @param Uname
+	 * @param uName
 	 *            the uname
-	 * @param Pword
+	 * @param pWord
 	 *            the pword
-	 * @param Gend
+	 * @param gend
 	 *            the gend
-	 * @param Info
+	 * @param info
 	 *            the info
 	 */
-	public User(String Uname, String Pword, GenderType Gend, UserInfo Info)
-	{
+	public User(String uName, String pWord, GenderType gend, UserInfo info) {
 		appointments = new ArrayList<Appointment>();
-		this.Username = Uname;
-		this.Gender = Gend;
-		this.UserInformation = Info;
-		this.PasswordHash = Pword;
+		this.username = uName;
+		this.gender = gend;
+		this.userInformation = info;
+		this.passwordHash = pWord;
 		isActive = true;
 	}
-
 
 	/**
 	 * Gets the username.
 	 * 
 	 * @return the username
 	 */
-	public String getUsername()
-	{
-		return Username;
+	public String getUsername() {
+		return username;
 	}
-
 
 	/**
 	 * Gets the password hash.
 	 * 
 	 * @return the password hash
 	 */
-	public String getPasswordHash()
-	{
-		return PasswordHash;
+	public String getPasswordHash() {
+		return passwordHash;
 	}
-
 
 	/**
 	 * Gets the gender.
 	 * 
 	 * @return the gender
 	 */
-	public GenderType getGender()
-	{
-		return Gender;
+	public GenderType getGender() {
+		return gender;
 	}
-
 
 	/**
 	 * Gets the user information.
 	 * 
 	 * @return the user information
 	 */
-	public UserInfo getUserInformation()
-	{
-		return UserInformation;
+	public UserInfo getUserInformation() {
+		return userInformation;
 	}
-
 
 	/**
 	 * Checks if is active.
 	 * 
 	 * @return true, if is active
 	 */
-	public boolean isActive()
-	{
+	public boolean isActive() {
 		return isActive;
 	}
-
 
 	/**
 	 * Sets the username.
 	 * 
-	 * @param Username
+	 * @param username
 	 *            the new username
 	 */
-	public void setUsername(String Username)
-	{
-		this.Username = Username;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-
 
 	/**
 	 * Sets the password hash.
 	 * 
-	 * @param PasswordHash
+	 * @param passwordHash
 	 *            the new password hash
 	 */
-	public void setPasswordHash(String PasswordHash)
-	{
-		this.PasswordHash = PasswordHash;
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
-
 
 	/**
 	 * Sets the gender.
 	 * 
-	 * @param Gender
+	 * @param gender
 	 *            the new gender
 	 */
-	public void setGender(GenderType Gender)
-	{
-		this.Gender = Gender;
+	public void setGender(GenderType gender) {
+		this.gender = gender;
 	}
-
 
 	/**
 	 * Sets the user information.
 	 * 
-	 * @param UserInformation
+	 * @param userInformation
 	 *            the new user information
 	 */
-	public void setUserInformation(UserInfo UserInformation)
-	{
-		this.UserInformation = UserInformation;
+	public void setUserInformation(UserInfo userInformation) {
+		this.userInformation = userInformation;
 	}
-
 
 	/**
 	 * Activate user.
 	 */
-	public void ActivateUser()
-	{
+	public void activateUser() {
 		isActive = true;
 	}
-
 
 	/**
 	 * Deactive user.
 	 */
-	public void DeactiveUser()
-	{
+	public void deactiveUser() {
 		isActive = false;
 	}
-
 
 	/**
 	 * Login.
 	 * 
-	 * @param Uname
+	 * @param uName
 	 *            the uname
-	 * @param Pword
+	 * @param pWord
 	 *            the pword
 	 * @return true, if successful
 	 */
-	public boolean Login(String Uname, String Pword)
-	{
-		if (Uname.equals(this.Username) && Pword.equals(this.PasswordHash))
-		{
-			this.ActivateUser();
+	public boolean canLogin(String uName, String pWord) {
+		if (uName.equals(this.username) && pWord.equals(this.passwordHash)) {
+			this.activateUser();
 			return true;
 		}
 		return false;
 	}
-	
-	public void addAppointment(Appointment appt){
+
+	/**
+	 * Adds an appointment
+	 * 
+	 * @param appt
+	 *            the new appointment
+	 */
+	public void addAppointment(Appointment appt) {
 		appointments.add(appt);
 	}
-	
-	public ArrayList<Appointment> getAppointmentList(){
+
+	/**
+	 * Gets the appointment list
+	 * 
+	 * @return the appointment list
+	 */
+	public List<Appointment> getAppointmentList() {
 		return appointments;
 	}
-	
-	public void removeAppointment(Appointment appt){
+
+	/**
+	 * Removes an appointment
+	 * 
+	 * @param appt
+	 *            the appointment to be removed
+	 */
+	public void removeAppointment(Appointment appt) {
 		appointments.remove(appt);
 	}
-	
 
 }

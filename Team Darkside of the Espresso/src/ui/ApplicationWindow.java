@@ -44,7 +44,10 @@ public class ApplicationWindow {
 	frame.setIconImage(Toolkit
 		.getDefaultToolkit()
 		.getImage(
-			this.getClass().getResource("/resources/Medical Hospital Icon/128x128/hospital.png")));
+				this.getClass()
+						.getResource(
+								"/resources/Medical Hospital " +
+								"Icon/128x128/hospital.png")));
 	frame.setTitle("Hospital Login");
 	frame.setBounds(100, 100, 450, 250);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

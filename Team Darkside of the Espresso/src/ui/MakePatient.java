@@ -222,7 +222,7 @@ public class MakePatient extends JPanel {
 	lblUsername.setBounds(12, 54, 187, 16);
 	add(lblUsername);
 
-	JButton btnCancel = new JButton("Cancel");
+	final JButton btnCancel = new JButton("Cancel");
 	btnCancel.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
@@ -296,8 +296,8 @@ public class MakePatient extends JPanel {
 	    patientInfo = new PatientInfo(0, null, null, null, null);
 
 	    user = new Patient(txtusername.getText(), Crypto.getSha1Hash(strPassword
-		    .toString()), (rdoMale.isSelected() ? GenderType.Male
-		    : GenderType.Female), userInfo, patientInfo);
+		    .toString()), (rdoMale.isSelected() ? GenderType.MALE
+		    : GenderType.FEMALE), userInfo, patientInfo);
 
 	    if (db.canInsertUser(user)) {
 		if (!SystemLog.LogMessage("User " + userInfo.getName()

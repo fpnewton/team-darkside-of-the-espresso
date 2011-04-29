@@ -1,17 +1,13 @@
 /**
  * The Class Doctor.
- * 
- * @author Patrick Tynan
- * @version 1.0
  */
 
 package users;
 
-
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import record.DoctorsOrders;
 import record.LabWork;
@@ -20,18 +16,26 @@ import record.TreatmentRecord;
 import appointment.Appointment;
 import appointment.Invoice;
 
+/**
+ * @author Patrick Tynan
+ * @version 1.0
+ */
 public class Doctor extends Nurse {
 
 	/** The Current appointments. */
-	private ArrayList<Appointment> CurrentAppointments;
+	private final List<Appointment> currentAppointments;
 
-	private ArrayList<Calendar> availabilities;
-	
-	private ArrayList<Invoice> income;
+	/** the availabilities */
+	private final List<Calendar> availabilities;
+
+	/** the income */
+	private final List<Invoice> income;
 
 	/**
 	 * Adds the doctors orders.
 	 * 
+	 * @param date
+	 *            the date
 	 * @param orders
 	 *            the orders
 	 * @param drugs
@@ -42,16 +46,16 @@ public class Doctor extends Nurse {
 	 *            the appt
 	 * @param pat
 	 *            the pat
-	 * @param WorkingNurse
+	 * @param workingNurse
 	 *            the working nurse
 	 */
-	public void AddDoctorsOrders(Calendar date, String orders,
+	public void addDoctorsOrders(Calendar date, String orders,
 			Prescription drugs, LabWork labs, Appointment appt, Patient pat,
-			Nurse WorkingNurse) {
-		DoctorsOrders docOrder = new DoctorsOrders(appt.getPatient(), date,
-				this, labs, drugs, orders);
+			Nurse workingNurse) {
+		final DoctorsOrders docOrder = new DoctorsOrders(appt.getPatient(),
+				date, this, labs, drugs, orders);
 		pat.getMedicalHistory().addRecord(
-				new TreatmentRecord(this, WorkingNurse, docOrder));
+				new TreatmentRecord(this, workingNurse, pat, docOrder));
 		this.finishAppointment(appt);
 	}
 
@@ -61,8 +65,9 @@ public class Doctor extends Nurse {
 	 * @param appt
 	 *            the appt
 	 */
+	@Override
 	public void addAppointment(Appointment appt) {
-		CurrentAppointments.add(appt);
+		currentAppointments.add(appt);
 		availabilities.remove(appt);
 	}
 
@@ -73,23 +78,21 @@ public class Doctor extends Nurse {
 	 *            the appt
 	 */
 	public void finishAppointment(Appointment appt) {
-		CurrentAppointments.remove(appt);
+		currentAppointments.remove(appt);
 	}
 
 	/**
 	 * Checks availability of times and dates of this Doctor object. If the date
 	 * is there, return false else return true
 	 * 
-	 * @param doc
-	 *            the doc
 	 * @param time
 	 *            the time
 	 * @return true, if successful
 	 */
-	public boolean checkAvailability(Calendar time) {
+	public boolean isAvailable(Calendar time) {
 		// Search for a match between passed param time and times in the
 		// CurrentAppointment list
-		for (Appointment i : CurrentAppointments) {
+		for (Appointment i : currentAppointments) {
 			if (i.getDate().equals(time)) {
 				return false;
 			}
@@ -99,61 +102,76 @@ public class Doctor extends Nurse {
 
 	/**
 	 * Instantiates a new doctor.
-	 */
-	// public Doctor()
-	// {
-	//
-	// }
-
-	/**
-	 * Instantiates a new doctor.
 	 * 
-	 * @param Uname
+	 * @param uName
 	 *            the uname
-	 * @param Pword
+	 * @param pWord
 	 *            the pword
-	 * @param Gend
+	 * @param gend
 	 *            the gend
-	 * @param Info
+	 * @param info
 	 *            the info
 	 */
-	public Doctor(String Uname, String Pword, GenderType Gend, UserInfo Info)
-	{
-		super(Uname, Pword, Gend, Info);
-		this.CurrentAppointments = new ArrayList<Appointment>();
+	public Doctor(String uName, String pWord, GenderType gend, UserInfo info) {
+		super(uName, pWord, gend, info);
+		this.currentAppointments = new ArrayList<Appointment>();
 		this.availabilities = new ArrayList<Calendar>();
-		for(int i=0; i<365; i++){
-			Calendar calendar = new GregorianCalendar(2011, Calendar.MAY, 1, 9, 1);
-			calendar.add(Calendar.DAY_OF_MONTH,i);
-			for(int j=0; j<(30*16); j+=30){
-				calendar.add(Calendar.MINUTE,j);
+		for (int i = 0; i < 365; i++) {
+			Calendar calendar = new GregorianCalendar(2011, Calendar.MAY, 1, 9,
+					1);
+			calendar.add(Calendar.DAY_OF_MONTH, i);
+			int x = 16 * 30;
+			for (int j = 0; j < x; j += 30) {
+				calendar.add(Calendar.MINUTE, j);
 				availabilities.add(calendar);
 			}
 		}
-		
-		this.income = new ArrayList<Invoice>(); 
-	}
 
-	public ArrayList<Appointment> getCurrentAppointments() {
-		return CurrentAppointments;
-	}
-	
-//	public ArrayList<Appointment> getAppointmentList() {
-//		return CurrentAppointments;
-//	}
-
-	public ArrayList<Calendar> getAvailabilities() {
-		return availabilities;
-	}
-	
-	public ArrayList<Invoice> getIncome(){
-		return income;
+		this.income = new ArrayList<Invoice>();
 	}
 
 	/**
-	 * View reports.
+	 * Gets the current appointments
+	 * 
+	 * @return the current appointments
 	 */
-	public void ViewReports() {
-		// TODO Implement Method
+	public List<Appointment> getCurrentAppointments() {
+		return currentAppointments;
+	}
+
+	/**
+	 * Gets the availabilities
+	 * 
+	 * @return the availabilities
+	 */
+	public List<Calendar> getAvailabilities() {
+		return availabilities;
+	}
+
+	/**
+	 * Gets the income
+	 * 
+	 * @return the income
+	 */
+	public List<Invoice> getIncome() {
+		return income;
+	}
+
+	// TODO Decide whether this method is necessary
+	 /*
+	 * View reports.
+
+	 public void viewReports() {
+	 }
+		 */
+	
+	/**
+	 * Converts the MedicalHistory to a string
+	 * 
+	 * @return the medical history in string form
+	 */
+	@Override
+	public String toString() {
+		return this.toString();
 	}
 }
