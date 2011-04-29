@@ -24,6 +24,8 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import record.HealthHistory;
+
 import users.Doctor;
 import users.Patient;
 import users.SystemAdmin;
@@ -95,6 +97,7 @@ public class AppointmentListPanel extends JPanel {
 		lblCheckAppointment.setBounds(100, 19, 242, 29);
 		add(lblCheckAppointment);
 
+		/* edit button */
 		final JButton btnEdit = new JButton("Edit");
 		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
@@ -119,7 +122,9 @@ public class AppointmentListPanel extends JPanel {
 		});
 		btnEdit.setBounds(191, 84, 117, 29);
 		add(btnEdit);
-
+		/* end edit */
+		
+		/* add button */
 		final JButton btnAdd = new JButton("Add");
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
@@ -133,7 +138,9 @@ public class AppointmentListPanel extends JPanel {
 		});
 		btnAdd.setBounds(191, 125, 117, 29);
 		add(btnAdd);
+		/* end add */
 
+		/* delete button */
 		final JButton btnDelete = new JButton("Delete");
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
@@ -154,7 +161,9 @@ public class AppointmentListPanel extends JPanel {
 		});
 		btnDelete.setBounds(191, 166, 117, 29);
 		add(btnDelete);
+		/* end delete */
 
+		/* close button */
 		final JButton btnClose = new JButton("Close");
 		if (Main.getCurrentUser() instanceof Patient) {
 			btnClose.setEnabled(false);
@@ -176,7 +185,7 @@ public class AppointmentListPanel extends JPanel {
 
 		btnClose.setBounds(191, 207, 117, 29);
 		add(btnClose);
-
+		/* end close */
 		final JTextPane txtpnAppointmentTips = new JTextPane();
 		txtpnAppointmentTips.setBackground(SystemColor.textHighlight);
 		txtpnAppointmentTips
@@ -189,6 +198,7 @@ public class AppointmentListPanel extends JPanel {
 		separator.setBounds(6, 60, 438, 12);
 		add(separator);
 
+		/* system admin button */
 		final JButton btnSystemAdmin = new JButton("System Admin");
 
 		btnSystemAdmin.setVisible(false);
@@ -209,7 +219,9 @@ public class AppointmentListPanel extends JPanel {
 		});
 		btnSystemAdmin.setBounds(185, 263, 123, 25);
 		add(btnSystemAdmin);
+		/* end system admin */
 
+		/* invoice button */
 		JButton btnViewInvoice = new JButton("View Invoice");
 		btnViewInvoice.addMouseListener(new MouseAdapter() {
 			@Override
@@ -238,7 +250,9 @@ public class AppointmentListPanel extends JPanel {
 		});
 		btnViewInvoice.setBounds(37, 261, 142, 29);
 		add(btnViewInvoice);
+		/* end invoice */
 
+		/* income button */
 		JButton btnViewIncome = new JButton("View Income");
 		btnViewIncome.setVisible(false);
 
@@ -246,9 +260,21 @@ public class AppointmentListPanel extends JPanel {
 			btnViewIncome.setVisible(true);
 		}
 
+		btnViewIncome.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				final IncomePanel incomePanel = new IncomePanel();
+				Main.getApplicationWindow().setFrame(incomePanel,
+						incomePanel.getTitle(), incomePanel.getWidth(),
+						incomePanel.getHeight());
+
+			}
+		});
+
 		btnViewIncome.setBounds(315, 261, 117, 29);
 		add(btnViewIncome);
+		/* end income */
 
+		/* doctors orders button */
 		JButton btnAddDocorders = new JButton("Add Doctors Orders");
 
 		btnAddDocorders.addMouseListener(new MouseAdapter() {
@@ -269,9 +295,31 @@ public class AppointmentListPanel extends JPanel {
 			btnAddDocorders.setVisible(true);
 		}
 
-		btnAddDocorders.setBounds(320, 125, 117, 29);
+		btnAddDocorders.setBounds(318, 166, 117, 29);
 		add(btnAddDocorders);
+		/* end doctors orders */
+
+		/* health history button */
+		JButton btnViewHealthHistory = new JButton("View Health History");
+		btnViewHealthHistory.setBounds(318, 118, 126, 36);
+		btnViewHealthHistory.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				HealthHistory h = ((Patient) Main.getCurrentUser())
+						.getHealthHistory();
+				h.GenerateGraph();
+			}
+		});
+
+		btnViewHealthHistory.setVisible(false);
+
+		if (Main.getCurrentUser() instanceof Doctor) {
+			btnViewHealthHistory.setVisible(true);
+		}
+		add(btnViewHealthHistory);
 	}
+
+	/* end health history */
 
 	/**
 	 * Gets the title.

@@ -4,28 +4,22 @@
 
 package record;
 
-
 import java.io.Serializable;
 
-
-public class Treatment implements Serializable
-{
+public class Treatment implements Serializable {
 
 	/** The Info. */
-	private String	Info;
+	private String Info;
 
 	/** The Price. */
-	private double	Price;
-
+	private double Price;
 
 	/**
 	 * Instantiates a new treatment.
 	 */
-	public Treatment()
-	{
+	public Treatment() {
 		this("", 0);
 	}
-
 
 	/**
 	 * Instantiates a new treatment.
@@ -35,34 +29,28 @@ public class Treatment implements Serializable
 	 * @param Price
 	 *            the price
 	 */
-	public Treatment(String Info, double Price)
-	{
+	public Treatment(String Info, double Price) {
 		this.Info = Info;
 		this.Price = Price;
 	}
-
 
 	/**
 	 * Gets the info.
 	 * 
 	 * @return the info
 	 */
-	public String getInfo()
-	{
+	public String getInfo() {
 		return Info;
 	}
-
 
 	/**
 	 * Gets the price.
 	 * 
 	 * @return the price
 	 */
-	public double getPrice()
-	{
+	public double getPrice() {
 		return Price;
 	}
-
 
 	/**
 	 * Sets the info.
@@ -70,11 +58,9 @@ public class Treatment implements Serializable
 	 * @param Info
 	 *            the new info
 	 */
-	public void setInfo(String Info)
-	{
+	public void setInfo(String Info) {
 		this.Info = Info;
 	}
-
 
 	/**
 	 * Sets the price.
@@ -82,20 +68,19 @@ public class Treatment implements Serializable
 	 * @param Price
 	 *            the new price
 	 */
-	public void setPrice(double Price)
-	{
+	public void setPrice(double Price) {
 		this.Price = Price;
 	}
-	
-	public Treatment OfficeVisitBase(){
+
+	public Treatment OfficeVisitBase() {
 		return new Treatment("Office Visit Base", 50.00);
 	}
-	
-	public Treatment PhoneConsult(){
+
+	public Treatment PhoneConsult() {
 		return new Treatment("Phone Consult", 35.00);
 	}
-	
-	public Treatment AnnualPhysical(){
+
+	public Treatment AnnualPhysical() {
 		return new Treatment("Annual Physical", 75.00);
 	}
 }
