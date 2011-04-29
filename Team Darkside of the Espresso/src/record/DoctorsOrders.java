@@ -81,7 +81,7 @@ public class DoctorsOrders implements Serializable {
 
 	public DoctorsOrders(Patient patient2, Calendar date, Doctor doctor,
 			LabWork labs, Prescription drugs, String orders) {
-		this.Patient = Patient;
+		this.Patient = patient2;
 		this.FollowUpAppointment = new Appointment(Patient, date, doctor, "");
 		this.LabWorkL = new ArrayList<LabWork>();
 		this.PrescriptionsL = new ArrayList<Prescription>();
