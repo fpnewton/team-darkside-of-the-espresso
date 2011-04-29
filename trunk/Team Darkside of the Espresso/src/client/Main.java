@@ -5,10 +5,16 @@
 
 package client;
 
-import java.awt.EventQueue;
-import java.util.ArrayList;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.util.List;
 
+import network.Message;
+import network.Network;
 import network.client.Client;
 import record.DoctorsOrders;
 import ui.ApplicationWindow;
@@ -57,37 +63,57 @@ public class Main {
 	 *            Application arguments
 	 */
 	public static void main(String[] args) {
-		//nbClient c = new nbClient();
-		desiredDoc = new ArrayList<Doctor>();
-		
-		try {
-			db = new SqlDatabase();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		// No user is logged in at the login window
-		currentUser = null;
+//		//nbClient c = new nbClient();
+//		desiredDoc = new ArrayList<Doctor>();
+//		
+//		try {
+//			db = new SqlDatabase();
+//		} catch (ClassNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		// No user is logged in at the login window
+//		currentUser = null;
+//		
+//		// Launch the GUI
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					window = new ApplicationWindow();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+		try
+		{
+			int buffer_size = 4096;
+	
+		    byte buffer[] = new byte[buffer_size];
+		    DatagramSocket ds = new DatagramSocket(Network.NETWORK_PORT);
+		    
+		    while (true) {
+		      DatagramPacket p = new DatagramPacket(buffer, buffer.length);
+		      ds.receive(p);
+		      
+		      
+		      ByteArrayInputStream bis = new ByteArrayInputStream(buffer);
+		      ObjectInput in = new ObjectInputStream(bis);
+		      Message o = (Message) in.readObject();
+		      
+		      System.out.println(o.getKey());
 
-//		// Start the networking client threads
-//		// client = new Client(Network.NETWORK_PORT);
-//		//
-//		// if (!client.isSuccessfulConnection())
-//		// {
-//		// // TODO Handle invalid network stack
-//		// //System.out.println("Error: Could not connect.");
-//		// }
-//
-		// Launch the GUI
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					window = new ApplicationWindow();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		    }
+		}
+		catch (IOException e)
+		{
+			// TODO
+			System.out.println(e);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
