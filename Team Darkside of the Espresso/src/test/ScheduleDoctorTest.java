@@ -41,12 +41,12 @@ public class ScheduleDoctorTest extends TestCase{
 		final Doctor doc = new Doctor("bob", "poop", GenderType.MALE, null);
 		final Patient pat = new Patient("suzie", "poopie", GenderType.FEMALE, null, null);
 		final LabWork lWork = new LabWork("", 30.00);
-		final Prescription Prescip = new Prescription("", 40.00);
+		final Prescription prescip = new Prescription("", 40.00);
 		final String instr = "";
 		Calendar date = null;
 		date = new GregorianCalendar(2011, Calendar.MAY, 1, 9, 1);
 		final DoctorsOrders docOrders = new DoctorsOrders(pat,
-				date, doc, lWork, Prescip, instr);
+				date, doc, lWork, prescip, instr);
 		final Appointment app = new Appointment(pat, date, doc, docOrders);
 		
 		doc.addAppointment(app);
