@@ -29,10 +29,10 @@ public class LookupUserView extends JFrame {
     private static final long serialVersionUID = 1L;
 
     /** The content pane. */
-    private JPanel contentPane;
+    private final JPanel contentPane;
     
     /** The text field. */
-    private JTextField textField;
+    private final JTextField textField;
 
     /**
      * Launch the application.
@@ -43,7 +43,7 @@ public class LookupUserView extends JFrame {
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
 		try {
-		    LookupUserView frame = new LookupUserView();
+			final LookupUserView frame = new LookupUserView();
 		    frame.setVisible(true);
 		} catch (Exception e) {
 		    e.printStackTrace();
@@ -63,7 +63,7 @@ public class LookupUserView extends JFrame {
 	setContentPane(contentPane);
 	contentPane.setLayout(null);
 
-	JLabel lblLookupUsersBy = new JLabel("Lookup Users By Name");
+	final JLabel lblLookupUsersBy = new JLabel("Lookup Users By Name");
 	lblLookupUsersBy.setFont(new Font("Dialog", Font.BOLD, 14));
 	lblLookupUsersBy.setHorizontalAlignment(SwingConstants.CENTER);
 	lblLookupUsersBy.setBounds(12, 0, 424, 19);
@@ -74,11 +74,11 @@ public class LookupUserView extends JFrame {
 	contentPane.add(textField);
 	textField.setColumns(10);
 
-	JLabel lblFullName = new JLabel("Full Name:");
+	final JLabel lblFullName = new JLabel("Full Name:");
 	lblFullName.setBounds(22, 31, 83, 17);
 	contentPane.add(lblFullName);
 
-	JButton btnLookup = new JButton("Lookup");
+	final JButton btnLookup = new JButton("Lookup");
 	btnLookup.setBounds(319, 62, 117, 25);
 	contentPane.add(btnLookup);
     }

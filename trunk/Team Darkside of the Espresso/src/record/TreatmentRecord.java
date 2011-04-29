@@ -1,6 +1,4 @@
-/**
- * The Class TreatmentRecord.
- */
+/** The Class TreatmentRecord. */
 
 package record;
 
@@ -14,6 +12,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 
+ * @author David Garner
+ * @version 1.0.0
+ */
 public class TreatmentRecord implements Serializable {
 
 	/** The treating doctor. */
@@ -23,10 +26,10 @@ public class TreatmentRecord implements Serializable {
 	private Nurse treatingNurse;
 
 	/** The treated patient. */
-	private Patient treatedPatient;
+	private final Patient treatedPatient;
 
 	/** The doc orders. */
-	private DoctorsOrders docOrders;
+	private final DoctorsOrders docOrders;
 
 	/** the parient's vital signs */
 	private VitalSigns vSigns;
@@ -35,18 +38,12 @@ public class TreatmentRecord implements Serializable {
 	private Date date;
 
 	/** a list of the symptoms */
-	private List<String> symptoms;
+	private final List<String> symptoms;
 
 	/** the doctor's list of diagnosis */
-	private List<String> diagnosis;
+	private final List<String> diagnosis;
 
-	/**
-	 * Instantiates a new treatment record.
-	 */
-	public TreatmentRecord() {
-
-	}
-
+	// TODO Maybe figure out how to deal with a large number of parameters
 	/**
 	 * Instantiates a new treatment record and adds it to the patient's medical
 	 * history
@@ -118,11 +115,11 @@ public class TreatmentRecord implements Serializable {
 	/**
 	 * Sets the doctor.
 	 * 
-	 * @param Dr
+	 * @param dr
 	 *            the doctor
 	 */
-	public void setDoctor(Doctor Dr) {
-		this.treatingDoctor = Dr;
+	public void setDoctor(Doctor dr) {
+		this.treatingDoctor = dr;
 	}
 
 	/**
@@ -137,11 +134,11 @@ public class TreatmentRecord implements Serializable {
 	/**
 	 * Sets the nurse.
 	 * 
-	 * @param Nu
+	 * @param nurse
 	 *            the nurse
 	 */
-	public void setNurse(Nurse Nu) {
-		this.treatingNurse = Nu;
+	public void setNurse(Nurse nurse) {
+		this.treatingNurse = nurse;
 	}
 
 	/**
@@ -160,5 +157,15 @@ public class TreatmentRecord implements Serializable {
 	 */
 	public Patient getPatient() {
 		return this.treatedPatient;
+	}
+
+	/**
+	 * Converts the TreatmentRecord to a string
+	 * 
+	 * @return the record in string form
+	 */
+	@Override
+	public String toString() {
+		return this.toString();
 	}
 }

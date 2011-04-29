@@ -73,7 +73,7 @@ public class SqlDatabase {
 					+ "password_hash VARCHAR(255), data);");
 
 			// Send the results to the system log
-			SystemLog.LogMessage("Execute Update results: " + results,
+			SystemLog.canLogMessage("Execute Update results: " + results,
 					Level.INFO);
 		} catch (SQLException e) {
 			isSuccessful = false;
@@ -175,7 +175,8 @@ public class SqlDatabase {
 
 			// Update SQL statement
 			prepStatement = dbConnection
-					.prepareStatement("UPDATE OR ROLLBACK users SET name = ?, username = ?, password_hash = ?, data = ? WHERE id = '"
+					.prepareStatement("UPDATE OR ROLLBACK users SET name = ?," +
+							" username = ?, password_hash = ?, data = ? WHERE id = '"
 							+ id + "';");
 
 			// Put the data objects into the SQL statement
@@ -293,8 +294,9 @@ public class SqlDatabase {
 			} else {
 				// Log some errors
 				if (!SystemLog
-						.LogMessage(
-								"Error: Unexpected null pointer defreferenced in sqlDatabase.",
+						.canLogMessage(
+								"Error: Unexpected null pointer " +
+								"defreferenced in sqlDatabase.",
 								Level.SEVERE)) {
 					System.out.println("Error: Unexpected null pointer "
 							+ "defreferenced in sqlDatabase.");
@@ -302,15 +304,15 @@ public class SqlDatabase {
 			}
 
 		} catch (IOException e) {
-			if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 				e.printStackTrace();
 			}
 		} catch (SQLException e) {
-			if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 				e.printStackTrace();
 			}
 		} catch (ClassNotFoundException e) {
-			if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 				e.printStackTrace();
 			}
 		} finally {
@@ -319,7 +321,7 @@ public class SqlDatabase {
 				try {
 					dbConnection.close();
 				} catch (SQLException e) {
-					if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+					if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 						e.printStackTrace();
 					}
 				}
@@ -367,8 +369,9 @@ public class SqlDatabase {
 			} else {
 				// Log some errors
 				if (!SystemLog
-						.LogMessage(
-								"Error: Unexpected null pointer defreferenced in sqlDatabase.",
+						.canLogMessage(
+								"Error: Unexpected null pointer " +
+								"defreferenced in sqlDatabase.",
 								Level.SEVERE)) {
 					System.out.println("Error: Unexpected null pointer "
 							+ "defreferenced in sqlDatabase.");
@@ -377,15 +380,15 @@ public class SqlDatabase {
 
 			return output.toArray(new User[output.size()]);
 		} catch (IOException e) {
-			if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 				e.printStackTrace();
 			}
 		} catch (SQLException e) {
-			if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 				e.printStackTrace();
 			}
 		} catch (ClassNotFoundException e) {
-			if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 				e.printStackTrace();
 			}
 		} finally {
@@ -394,7 +397,7 @@ public class SqlDatabase {
 				try {
 					dbConnection.close();
 				} catch (SQLException e) {
-					if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+					if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 						e.printStackTrace();
 					}
 				}
@@ -434,14 +437,15 @@ public class SqlDatabase {
 			} else {
 				// Log some errors
 				SystemLog
-						.LogMessage(
-								"Error: Unexpected null pointer defreferenced in sqlDatabase.",
+						.canLogMessage(
+								"Error: Unexpected null pointer " +
+								"defreferenced in sqlDatabase.",
 								Level.SEVERE);
 			}
 
 			return output.toArray();
 		} catch (IOException e) {
-			if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 				e.printStackTrace();
 			}
 
@@ -449,7 +453,7 @@ public class SqlDatabase {
 
 			return ret;
 		} catch (SQLException e) {
-			if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 				e.printStackTrace();
 			}
 
@@ -457,7 +461,7 @@ public class SqlDatabase {
 
 			return ret;
 		} catch (ClassNotFoundException e) {
-			if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+			if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 				e.printStackTrace();
 			}
 
@@ -470,7 +474,7 @@ public class SqlDatabase {
 				try {
 					dbConnection.close();
 				} catch (SQLException e) {
-					if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+					if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 						e.printStackTrace();
 					}
 				}
@@ -551,7 +555,7 @@ public class SqlDatabase {
 	 */
 	private void handleException(Exception e) {
 		// Log some errors
-		if (!SystemLog.LogMessage(e.getMessage(), Level.SEVERE)) {
+		if (!SystemLog.canLogMessage(e.getMessage(), Level.SEVERE)) {
 			e.printStackTrace();
 		}
 	}

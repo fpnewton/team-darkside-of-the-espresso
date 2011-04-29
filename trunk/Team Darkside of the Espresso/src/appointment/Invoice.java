@@ -22,7 +22,9 @@ public class Invoice implements Serializable {
 
 	/** The bill. */
 	private Bill bill;
-	private Calendar cal;
+
+	/** The calendar. */
+	private final Calendar cal;
 
 	/**
 	 * Instantiates a new invoice.
@@ -31,6 +33,8 @@ public class Invoice implements Serializable {
 	 *            the appointment
 	 * @param bill
 	 *            the bill
+	 * @param cal
+	 *            the calendar
 	 */
 
 	public Invoice(Appointment appt, Bill bill, Calendar cal) {
@@ -152,8 +156,13 @@ public class Invoice implements Serializable {
 	public String toString() {
 		return this.appointment.toString() + "\n" + this.bill.toString();
 	}
-	
-	public Calendar getDate(){
+
+	/**
+	 * Gets the date.
+	 * 
+	 * @return the date
+	 */
+	public Calendar getDate() {
 		return this.cal;
 	}
 }

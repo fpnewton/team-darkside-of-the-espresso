@@ -9,11 +9,11 @@ public enum GenderType
 {
 
 	/** Male. */
-	Male,
+	MALE,
 
 	/** Female. */
-	Female,
+	FEMALE,
 
 	/** Unknown. */
-	Unknown
+	UNKNOWN
 }

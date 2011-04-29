@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -41,16 +42,16 @@ public class SymptomsPanel extends JPanel {
 	/** The Constant TITLE. */
 	private static final String TITLE = "Symptoms";
 
+	/** The schedule panel */
 	private final SchedulePanel sched = new SchedulePanel();
 
-	private ArrayList<String> sympList = new ArrayList<String>(); // ArrayList
-																	// of
-																	// symptom
-																	// names
-	private ArrayList<JCheckBox> sympCheckList = new ArrayList<JCheckBox>(); // ArrayList
-																				// of
-																				// symptom
-	// checkboxes
+	/** The list of symptoms */
+	private final List<String> sympList = new ArrayList<String>(); // ArrayList
+
+	/** The check list of symptoms */
+	private final List<JCheckBox> sympCheckList = new ArrayList<JCheckBox>(); // ArrayList
+
+	/** The symptoms */
 	private String symptoms;
 
 	/**
@@ -283,14 +284,16 @@ public class SymptomsPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				symptoms = "";
+				final StringBuffer string = new StringBuffer("");
 				for (int i = 0; i < sympList.size() - 1; i++) {
 					if (sympCheckList.get(i).isSelected()) {
 						if (i != sympList.size() - 1) {
-							symptoms += sympList.get(i) + '\n';
+							string.append(sympList.get(i) + '\n');
 						} else {
-							symptoms += sympList.get(i);
+							string.append(sympList.get(i));
 						}
 					}
+					symptoms = string.toString();
 					Appointment tmp = new Appointment((Patient) Main.getCurrentUser(),
 							Calendar.getInstance(), Main.getDoctor().get(0), symptoms);
 					Main.setCurrentAppointment(tmp);

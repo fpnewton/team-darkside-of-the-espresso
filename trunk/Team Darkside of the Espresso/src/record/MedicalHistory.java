@@ -1,3 +1,11 @@
+/** The class MedicalHistory */
+
+package record;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The Class MedicalHistory.
  * 
@@ -5,27 +13,17 @@
  * @version 1.0.0
  */
 
-package record;
-
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-
-public class MedicalHistory implements Serializable{
+public class MedicalHistory implements Serializable {
 
 	/** The Treatment records. */
-	private List<TreatmentRecord>	treatmentRecords;
+	private final List<TreatmentRecord> treatmentRecords;
 
 	/**
 	 * Instantiates a new medical history.
 	 */
-	public MedicalHistory()
-	{
+	public MedicalHistory() {
 		treatmentRecords = new ArrayList<TreatmentRecord>();
 	}
-
 
 	/**
 	 * Adds the record.
@@ -33,8 +31,17 @@ public class MedicalHistory implements Serializable{
 	 * @param treatmentRecord
 	 *            the treatment record
 	 */
-	public void addRecord(TreatmentRecord treatmentRecord)
-	{
+	public void addRecord(TreatmentRecord treatmentRecord) {
 		treatmentRecords.add(treatmentRecord);
+	}
+
+	/**
+	 * Converts the MedicalHistory to a string
+	 * 
+	 * @return the medical history in string form
+	 */
+	@Override
+	public String toString() {
+		return this.toString();
 	}
 }

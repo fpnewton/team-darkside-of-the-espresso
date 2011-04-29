@@ -6,13 +6,19 @@ package record;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author Jonathan Cherry
+ * @version 1.0.0
+ * 
+ */
 public class Treatment implements Serializable {
 
 	/** The Info. */
-	private String Info;
+	private String info;
 
 	/** The Price. */
-	private double Price;
+	private double price;
 
 	/**
 	 * Instantiates a new treatment.
@@ -24,14 +30,14 @@ public class Treatment implements Serializable {
 	/**
 	 * Instantiates a new treatment.
 	 * 
-	 * @param Info
+	 * @param info
 	 *            the info
-	 * @param Price
+	 * @param price
 	 *            the price
 	 */
-	public Treatment(String Info, double Price) {
-		this.Info = Info;
-		this.Price = Price;
+	public Treatment(String info, double price) {
+		this.info = info;
+		this.price = price;
 	}
 
 	/**
@@ -40,7 +46,7 @@ public class Treatment implements Serializable {
 	 * @return the info
 	 */
 	public String getInfo() {
-		return Info;
+		return info;
 	}
 
 	/**
@@ -49,38 +55,64 @@ public class Treatment implements Serializable {
 	 * @return the price
 	 */
 	public double getPrice() {
-		return Price;
+		return price;
 	}
 
 	/**
 	 * Sets the info.
 	 * 
-	 * @param Info
+	 * @param info
 	 *            the new info
 	 */
-	public void setInfo(String Info) {
-		this.Info = Info;
+	public void setInfo(String info) {
+		this.info = info;
 	}
 
 	/**
 	 * Sets the price.
 	 * 
-	 * @param Price
+	 * @param price
 	 *            the new price
 	 */
-	public void setPrice(double Price) {
-		this.Price = Price;
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
-	public Treatment OfficeVisitBase() {
+	// TODO Deal with numeric literals
+	/**
+	 * Treatment for office visit
+	 * 
+	 * @return the office visit
+	 */
+	public Treatment officeVisitBase() {
 		return new Treatment("Office Visit Base", 50.00);
 	}
 
-	public Treatment PhoneConsult() {
+	/**
+	 * Treatment for phone consultation
+	 * 
+	 * @return the phone consultation
+	 */
+	public Treatment phoneConsult() {
 		return new Treatment("Phone Consult", 35.00);
 	}
 
-	public Treatment AnnualPhysical() {
+	/**
+	 * Treatment for annual physical
+	 * 
+	 * @return the annual physical
+	 */
+	public Treatment annualPhysical() {
 		return new Treatment("Annual Physical", 75.00);
+	}
+
+	/**
+	 * Converts the TreatmentRecord to a string
+	 * 
+	 * @return the record in string form
+	 */
+	@Override
+	public String toString() {
+		return this.toString();
 	}
 }

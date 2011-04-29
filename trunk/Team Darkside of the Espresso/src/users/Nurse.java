@@ -1,94 +1,85 @@
 /**
  * The Class Nurse.
- *
- * @author Patrick Tynan
- * @version 1.0
  */
 
 package users;
 
-
-public class Nurse extends User
-{
-
-	/**
-	 * Instantiates a new nurse.
-	 */
-	// public Nurse(){
-	// //super();
-	// }
+/**
+ * 
+ * @author Patrick Tynan
+ * @version 1.0
+ * 
+ */
+public class Nurse extends User {
 
 	/**
 	 * Instantiates a new nurse.
 	 * 
-	 * @param Uname
+	 * @param uName
 	 *            the uname
-	 * @param Pword
+	 * @param pWord
 	 *            the pword
-	 * @param Gend
+	 * @param gend
 	 *            the gend
-	 * @param Info
+	 * @param info
 	 *            the info
 	 */
-	public Nurse(String Uname, String Pword, GenderType Gend, UserInfo Info)
-	{
-		super(Uname, Pword, Gend, Info);
+	public Nurse(String uName, String pWord, GenderType gend, UserInfo info) {
+		super(uName, pWord, gend, info);
 	}
-
 
 	/**
 	 * Creates the patient.
 	 */
-	public void CreatePatient()
-	{
+	public void createPatient() {
 		// TODO Implement Method
 	}
-
 
 	/**
 	 * Delete patient.
 	 */
-	public void DeletePatient()
-	{
+	public void deletePatient() {
 		// TODO Implement Method
 	}
-
 
 	/**
 	 * View patients.
 	 */
-	public void ViewPatients()
-	{
+	public void viewPatients() {
 		// TODO Implement Method
 	}
-
 
 	/**
 	 * Edits the user.
 	 * 
-	 * @param Patient
+	 * @param patient
 	 *            the patient
 	 */
-	public void EditUser(Patient Patient)
-	{
+	public void editUser(Patient patient) {
 		// TODO Implement Method
 	}
-
 
 	/**
 	 * Creates the treatment record.
 	 */
-	public void CreateTreatmentRecord()
-	{
+	public void createTreatmentRecord() {
 		// TODO Implement Method
 	}
-
 
 	/**
 	 * View appointments.
 	 */
-	public void ViewAppointments()
-	{
+	public void viewAppointments() {
 		// TODO Implement Method
+	}
+
+	/**
+	 * Converts the MedicalHistory to a string
+	 * 
+	 * @return the medical history in string form
+	 */
+	@Override
+	public String toString() {
+		return this.toString();
 	}
 }

@@ -39,7 +39,7 @@ public class Appointment implements Serializable {
 
 	/** The Doctors Orders for the follow-up appointment. */
 	private DoctorsOrders docOrders;
-	
+
 	/** The bill for the appointment */
 	private Bill bill;
 
@@ -98,7 +98,7 @@ public class Appointment implements Serializable {
 	 *            the preferred date
 	 */
 	public void scheduleDoctor(Doctor doc, Patient pat, Calendar preferredDate) {
-		if (!doc.checkAvailability(preferredDate)) {
+		if (!doc.isAvailable(preferredDate)) {
 			return;
 		} else {
 			doc.addAppointment(this);
@@ -213,12 +213,23 @@ public class Appointment implements Serializable {
 	public void setDoctorsOrders(DoctorsOrders docOrders) {
 		this.docOrders = docOrders;
 	}
-    
-    public Bill getBill(){
-    	return bill;
-    }
-    
-    public void setBill(Bill newBill){
-    	this.bill = newBill;
-    }
+
+	/**
+	 * Gets the bill
+	 * 
+	 * @return the bill
+	 */
+	public Bill getBill() {
+		return bill;
+	}
+
+	/**
+	 * Sets the bill
+	 * 
+	 * @param newBill
+	 *            the new bill
+	 */
+	public void setBill(Bill newBill) {
+		this.bill = newBill;
+	}
 }

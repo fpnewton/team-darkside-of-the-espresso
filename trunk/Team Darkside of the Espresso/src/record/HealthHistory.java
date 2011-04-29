@@ -1,9 +1,4 @@
-/**
- * The Class HealthHistory.
- * 
- * @author David Garner
- * @version 1.0.0
- */
+/* The HealthHistory class */
 
 package record;
 
@@ -11,33 +6,31 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import users.Patient;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
-//import org.jfree.ui.Spacer;
-
+/**
+ * The Class HealthHistory.
+ * 
+ * @author David Garner
+ * @version 1.0.0
+ */
 public class HealthHistory extends ApplicationFrame implements Serializable {
 
+	/** the serial id */
 	private static final long serialVersionUID = 1L;
+
 	/** The Weight data. */
-	private List<Double> weightData;
+	private final List<Double> weightData;
 
 	/**
 	 * Constructor for HealthHistory
-	 * 
-	 * @param patient
-	 *            the patient for whom the health history will be generated
 	 */
 	public HealthHistory() {
 		super("Health History Over Time");
@@ -48,7 +41,7 @@ public class HealthHistory extends ApplicationFrame implements Serializable {
 	 * Generates a graph by collecting a list of all the doubles and placing
 	 * them into a line graph.
 	 */
-	public void GenerateGraph() {
+	public void generateGraph() {
 		/* this is what will be holding all the data */
 		final XYSeries weightSeries = new XYSeries(
 				"Weight of the Patient over Time");
@@ -60,8 +53,9 @@ public class HealthHistory extends ApplicationFrame implements Serializable {
 		final XYSeriesCollection weightSeriesCollection = new XYSeriesCollection();
 
 		/* adding all the weights to the weightSeries */
-		for (int i = 0; i < getWeightData().size(); i++)
+		for (int i = 0; i < getWeightData().size(); i++) {
 			weightSeries.add((double) getWeightData().get(i), (double) i);
+		}
 
 		/* adding the series to the collection */
 		weightSeriesCollection.addSeries(weightSeries);

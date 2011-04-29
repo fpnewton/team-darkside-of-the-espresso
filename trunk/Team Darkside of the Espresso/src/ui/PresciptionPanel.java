@@ -1,13 +1,12 @@
+/** The class PrescriptionPanel */
+
 package ui;
 
-import java.awt.SystemColor;
 
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -19,6 +18,12 @@ import record.Prescription;
 import appointment.Appointment;
 import client.Main;
 
+/**
+ * 
+ * @author Jonathan Cherry
+ * @version 1.0
+ *
+ */
 public class PresciptionPanel extends JPanel {
 	/** The Constant WIDTH. */
     private static final int WIDTH = 450;
@@ -29,25 +34,41 @@ public class PresciptionPanel extends JPanel {
     /** The Constant TITLE. */
     private static final String TITLE = "Doctors Orders";
     
-	private JTextField otherInfo;
-	private JTextField otherPrice;
-	private JRadioButton placeboCheck;
-	private JRadioButton cureallCheck;
-	private JRadioButton fixitCheck;
-	private JRadioButton instantCheck;
-	private JRadioButton otherCheck;
+    /** The other info */
+	private final JTextField otherInfo;
+	
+	/** The other price */
+	private final JTextField otherPrice;
+	
+	/** The placebo radio button */
+	private final JRadioButton placeboCheck;
+	
+	/** The cure all radio button */
+	private final JRadioButton cureallCheck;
+	
+	/** The fixit radio button */
+	private final JRadioButton fixitCheck;
+	
+	/** The instant radio button */
+	private final JRadioButton instantCheck;
+	
+	/** The other radio button */
+	private final JRadioButton otherCheck;
+	
+	/** The prescription */
 	public Prescription presc;
+
 	/**
 	 * Create the panel.
 	 */
 	public PresciptionPanel() {
 		setLayout(null);
 		
-		JSeparator separator = new JSeparator();
+		final JSeparator separator = new JSeparator();
 		separator.setBounds(0, 39, 438, 12);
 		add(separator);
 		
-		JLabel lblAddPrescription = new JLabel("Add Prescription");
+		final JLabel lblAddPrescription = new JLabel("Add Prescription");
 		lblAddPrescription.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAddPrescription.setBounds(0, 11, 438, 16);
 		add(lblAddPrescription);
@@ -77,7 +98,7 @@ public class PresciptionPanel extends JPanel {
 		add(otherInfo);
 		otherInfo.setColumns(10);
 		
-		JLabel label = new JLabel("$");
+		final JLabel label = new JLabel("$");
 		label.setBounds(169, 194, 8, 14);
 		add(label);
 		
@@ -86,30 +107,36 @@ public class PresciptionPanel extends JPanel {
 		add(otherPrice);
 		otherPrice.setColumns(10);
 		
-		JButton submitBtn = new JButton("Submit\r\n");
+		final JButton submitBtn = new JButton("Submit\r\n");
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				presc = new Prescription();
 				
 				if(placeboCheck.isSelected()){
-					presc = presc.Placebo();
+					presc = presc.placebo();
 				}
 				else if(cureallCheck.isSelected()){
-					presc = presc.JoesCureAll();
+					presc = presc.joesCureAll();
 				}
 				else if(fixitCheck.isSelected()){
-					presc = presc.FixItElixar();
+					presc = presc.fixItElixir();
 				}
 				else if(instantCheck.isSelected()){
-					presc = presc.InstantHair();
+					presc = presc.instantHair();
 				}
 				else if(otherCheck.isSelected()){
-					double oPrice = Integer.parseInt(otherPrice.getText());
+					double oPrice = 0.0;
+					try{
+						oPrice = Integer.parseInt(otherPrice.getText());
+					}
+					catch (NumberFormatException n){
+							n.printStackTrace();
+					}
 					presc = new Prescription(otherInfo.getText(), oPrice);
 				}
-				Appointment tempAppt = Main.getCurrentAppointment();
-				DoctorsOrders tempDocOrders = Main.getTempDocOrders();
-				tempDocOrders.AddPrescription(presc.getInfo(), presc.getPrice());
+				final Appointment tempAppt = Main.getCurrentAppointment();
+				final DoctorsOrders tempDocOrders = Main.getTempDocOrders();
+				tempDocOrders.addPrescription(presc.getInfo(), presc.getPrice());
 				Main.setTempDocOrders(tempDocOrders);
 				tempAppt.setDocOrders(tempDocOrders);
 				Main.setCurrentAppointment(tempAppt);
@@ -119,6 +146,7 @@ public class PresciptionPanel extends JPanel {
 		add(submitBtn);
 		/*FIX ME */
 	}
+
 	/**
      * Gets the title.
      * 

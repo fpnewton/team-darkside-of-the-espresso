@@ -19,13 +19,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Calendar;
 
 import record.DoctorsOrders;
 import users.Doctor;
-import record.LabWork;
-import users.Patient;
-import record.Prescription;
 import client.Main;
 import appointment.Appointment;
 import appointment.Bill;
@@ -48,12 +44,16 @@ public class DoctorsOrdersPanel extends JPanel {
 	/** The Constant TITLE. */
 	private static final String TITLE = "Doctors Orders";
 
+	/** The prescription panel */
 	private final PresciptionPanel prescPanel = new PresciptionPanel();
 
+	/** The vaccine panel */
 	private final VaccinePanel vaccPanel = new VaccinePanel();
 
+	/** the lab work panel */
 	private final LabWorkPanel labWorkPanel = new LabWorkPanel();
 
+	/** the appointment list panel */
 	private final AppointmentListPanel apptListPanel = new AppointmentListPanel();
 
 	/**
@@ -83,8 +83,8 @@ public class DoctorsOrdersPanel extends JPanel {
 		btnAddPrescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				/* FIX ME */
-				Appointment tempAppt = Main.getCurrentAppointment();
-				DoctorsOrders tempDocOrders = Main.getTempDocOrders();
+				final Appointment tempAppt = Main.getCurrentAppointment();
+				final DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 				tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
 				tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
 				Main.setTempDocOrders(tempDocOrders);
@@ -103,8 +103,8 @@ public class DoctorsOrdersPanel extends JPanel {
 		btnAddVaccine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				/* FIX ME */
-				Appointment tempAppt = Main.getCurrentAppointment();
-				DoctorsOrders tempDocOrders = Main.getTempDocOrders();
+				final Appointment tempAppt = Main.getCurrentAppointment();
+				final DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 				tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
 				tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
 				Main.setTempDocOrders(tempDocOrders);
@@ -123,8 +123,8 @@ public class DoctorsOrdersPanel extends JPanel {
 		btnAddLabwork.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				/* FIX ME the follow up appointment needs it */
-				Appointment tempAppt = Main.getCurrentAppointment();
-				DoctorsOrders tempDocOrders = Main.getTempDocOrders();
+				final Appointment tempAppt = Main.getCurrentAppointment();
+				final DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 				tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
 				tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
 				Main.setTempDocOrders(tempDocOrders);
@@ -162,11 +162,11 @@ public class DoctorsOrdersPanel extends JPanel {
 		lblCurrentAppointmentSymptoms.setBounds(6, 199, 438, 16);
 		add(lblCurrentAppointmentSymptoms);
 
-		JButton btnFinish = new JButton("Finish");
+		final JButton btnFinish = new JButton("Finish");
 		btnFinish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Appointment tempAppt = Main.getCurrentAppointment();
-				DoctorsOrders tempDocOrders = Main.getTempDocOrders();
+				final Appointment tempAppt = Main.getCurrentAppointment();
+				final DoctorsOrders tempDocOrders = Main.getTempDocOrders();
 				tempDocOrders.addInstructions(dtrpnEnterOrdersHere.getText());
 				tempAppt.setSymptoms(txtrAppointmentSymptoms.getText());
 
@@ -174,7 +174,7 @@ public class DoctorsOrdersPanel extends JPanel {
 				 * Creating a new bill in accordance with the treatments
 				 * prescribed
 				 */
-				Bill newBill = new Bill(tempDocOrders.getLabWork(),
+				final Bill newBill = new Bill(tempDocOrders.getLabWork(),
 						tempDocOrders.getPrescription(), tempDocOrders
 								.getTreatments(), tempDocOrders.getVaccines());
 				tempDocOrders.setBill(newBill);
@@ -187,7 +187,7 @@ public class DoctorsOrdersPanel extends JPanel {
 				Main.getCurrentAppointment().setBill(newBill);
 
 				/* Creating a new invoice to add to the doctor's invoice list */
-				Invoice invoice = new Invoice(Main.getCurrentAppointment(),
+				final Invoice invoice = new Invoice(Main.getCurrentAppointment(),
 						newBill, Main.getCurrentAppointment().getDate());
 				((Doctor) Main.getCurrentUser()).getIncome().add(invoice);
 

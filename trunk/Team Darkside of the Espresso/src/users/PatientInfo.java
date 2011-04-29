@@ -7,124 +7,141 @@ package users;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import record.MedicalHistory; 
+import record.MedicalHistory;
 
-import record.TreatmentRecord;
-
+/**
+ * 
+ * @author David Garner
+ * @version 1.0.0
+ */
 public class PatientInfo implements Serializable {
 
-    /** The Age. */
-    private int Age;
+	/** The Age. */
+	private int age;
 
-    /** The Insurance carrier. */
-    private String InsuranceCarrier;
+	/** The Insurance carrier. */
+	private String insuranceCarrier;
 
-    /** The Pharmacy. */
-    private String Pharmacy;
+	/** The Pharmacy. */
+	private String pharmacy;
 
-    /** The Allergies. */
-    private List<String> Allergies;
-    
-    /** The medical history */
-    private MedicalHistory medHistory;
+	/** The Allergies. */
+	private final List<String> allergies;
 
-    public PatientInfo(int Age, String InsuranceCarrier, String Pharmacy,
-	    List<String> Allergies, MedicalHistory medHistory) {
-	this.Age = Age;
-	this.InsuranceCarrier = InsuranceCarrier;
-	this.Pharmacy = Pharmacy;
-	this.Allergies = new ArrayList<String>();
-	this.Allergies.addAll(Allergies);
-	this.medHistory = medHistory;
-    }
+	/** The medical history */
+	private final MedicalHistory medHistory;
 
-    /**
-     * Gets the age.
-     * 
-     * @return the age
-     */
-    public int getAge() {
-	return Age;
-    }
+	/**
+	 * Creates a new PatientInfo object
+	 * 
+	 * @param age
+	 *            the age
+	 * @param insuranceCarrier
+	 *            the insurance carrier
+	 * @param pharmacy
+	 *            the pharmacy
+	 * @param allergies
+	 *            the allergies
+	 * @param medHistory
+	 *            the medical history
+	 */
+	public PatientInfo(int age, String insuranceCarrier, String pharmacy,
+			List<String> allergies, MedicalHistory medHistory) {
+		this.age = age;
+		this.insuranceCarrier = insuranceCarrier;
+		this.pharmacy = pharmacy;
+		this.allergies = new ArrayList<String>();
+		this.allergies.addAll(allergies);
+		this.medHistory = medHistory;
+	}
 
-    /**
-     * Sets the age.
-     * 
-     * @param newAge
-     *            the new age
-     */
-    public void setAge(int newAge) {
-	Age = newAge;
-    }
+	/**
+	 * Gets the age.
+	 * 
+	 * @return the age
+	 */
+	public int getAge() {
+		return age;
+	}
 
-    /**
-     * Gets the insurance carrier.
-     * 
-     * @return the insurance carrier
-     */
-    public String getInsuranceCarrier() {
-	return InsuranceCarrier;
-    }
+	/**
+	 * Sets the age.
+	 * 
+	 * @param newAge
+	 *            the new age
+	 */
+	public void setAge(int newAge) {
+		age = newAge;
+	}
 
-    /**
-     * Sets the insurance carrier.
-     * 
-     * @param newInsuranceCarrier
-     *            the new insurance carrier
-     */
-    public void setInsuranceCarrier(String newInsuranceCarrier) {
-	InsuranceCarrier = newInsuranceCarrier;
-    }
+	/**
+	 * Gets the insurance carrier.
+	 * 
+	 * @return the insurance carrier
+	 */
+	public String getInsuranceCarrier() {
+		return insuranceCarrier;
+	}
 
-    /**
-     * Gets the pharmacy.
-     * 
-     * @return the pharmacy
-     */
-    public String getPharmacy() {
-	return Pharmacy;
-    }
+	/**
+	 * Sets the insurance carrier.
+	 * 
+	 * @param newInsuranceCarrier
+	 *            the new insurance carrier
+	 */
+	public void setInsuranceCarrier(String newInsuranceCarrier) {
+		insuranceCarrier = newInsuranceCarrier;
+	}
 
-    /**
-     * Sets the pharmacy.
-     * 
-     * @param newPharmacy
-     *            the new pharmacy
-     */
-    public void setPharmacy(String newPharmacy) {
-	Pharmacy = newPharmacy;
-    }
+	/**
+	 * Gets the pharmacy.
+	 * 
+	 * @return the pharmacy
+	 */
+	public String getPharmacy() {
+		return pharmacy;
+	}
 
-    /**
-     * Gets the allergies.
-     * 
-     * @return the allergies
-     */
-    public List<String> getAllergies() {
-	return Allergies;
-    }
+	/**
+	 * Sets the pharmacy.
+	 * 
+	 * @param newPharmacy
+	 *            the new pharmacy
+	 */
+	public void setPharmacy(String newPharmacy) {
+		pharmacy = newPharmacy;
+	}
 
-    /**
-     * Gets the medical history.
-     * 
-     * @return the medical history
-     */
-    public MedicalHistory getMedicalHistory() {
-	return medHistory;
-    }
+	/**
+	 * Gets the allergies.
+	 * 
+	 * @return the allergies
+	 */
+	public List<String> getAllergies() {
+		return allergies;
+	}
 
-    /**
-     * Converts all attributes except Allergies and MedicalHistory to one string
-     * variable
-     * 
-     * @return All attributes but the two ArrayLists in String form
-     * @return
-     */
-    public String toString() {
-	String age = "Age: " + getAge() + "\n";
-	String iCarrier = "Insurance Carrier: " + getInsuranceCarrier() + "\n";
-	String pharm = "Pharmacy: " + getPharmacy() + "\n";
+	/**
+	 * Gets the medical history.
+	 * 
+	 * @return the medical history
+	 */
+	public MedicalHistory getMedicalHistory() {
+		return medHistory;
+	}
 
-	return age + iCarrier + pharm;
-    }
+	/**
+	 * Converts all attributes except Allergies and MedicalHistory to one string
+	 * variable
+	 * 
+	 * @return All attributes but the two ArrayLists in String form
+	 */
+	public String toString() {
+		final String age = "Age: " + getAge() + "\n";
+		final String iCarrier = "Insurance Carrier: " + getInsuranceCarrier()
+				+ "\n";
+		final String pharm = "Pharmacy: " + getPharmacy() + "\n";
+
+		return age + iCarrier + pharm;
+	}
 }

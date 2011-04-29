@@ -6,6 +6,7 @@
 
 package ui;
 
+import java.util.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -42,7 +43,9 @@ public class SchedulePanel extends JPanel {
 	/** The Constant TITLE. */
 	private static final String TITLE = "Schedule Appointment";
 
-	private ArrayList<Calendar> availableDate;
+	/** The available dates */
+	private List<Calendar> availableDate;
+
 	/**
 	 * Create the panel.
 	 */
@@ -56,10 +59,9 @@ public class SchedulePanel extends JPanel {
 	private void initialize() {
 		setLayout(null);
 
-		SqlDatabase s = Main.getDatabaseObject();
-		User[] uList = s.getAllUsers();
+		final SqlDatabase s = Main.getDatabaseObject();
+		final User[] uList = s.getAllUsers();
 		availableDate = new ArrayList<Calendar>();
-		
 
 		/*
 		 * Looks at every doctor's list of available dates in the User database
@@ -68,22 +70,24 @@ public class SchedulePanel extends JPanel {
 		 */
 		for (int i = 0; i < uList.length; i++) {
 			if (uList[i] instanceof Doctor) {
-				ArrayList<Calendar> avail = ((Doctor) uList[i]).getAvailabilities();
-				for (int j = 0; j < avail.size(); j++)
-					if (!availableDate.contains(avail.get(j)))
+				List<Calendar> avail = ((Doctor) uList[i])
+						.getAvailabilities();
+				for (int j = 0; j < avail.size(); j++){
+					if (!availableDate.contains(avail.get(j))){
 						availableDate.add(avail.get(j));
+					}
+				}
 			}
 		}
 
 		final JComboBox dateBox = new JComboBox();
 		dateBox.setBounds(151, 147, 135, 20);
-		for (int i = 0; i < availableDate.size(); i++)
-		{
-			dateBox.addItem(String.format("%1$tm %1$te, %1$tY", availableDate.get(i)));
+		for (int i = 0; i < availableDate.size(); i++) {
+			dateBox.addItem(String.format("%1$tm %1$te, %1$tY",
+					availableDate.get(i)));
 		}
 		add(dateBox);
-		
-		
+
 		final JLabel lblDate = new JLabel("Date:");
 		lblDate.setBounds(105, 150, 46, 14);
 		add(lblDate);
@@ -98,19 +102,20 @@ public class SchedulePanel extends JPanel {
 
 		final JComboBox timeBox = new JComboBox();
 		timeBox.setBounds(151, 207, 135, 20);
-		if(dateBox.getSelectedItem()!=null){
-			for(int i=0; i<availableDate.size(); i++)
+		if (dateBox.getSelectedItem() != null) {
+			for (int i = 0; i < availableDate.size(); i++){
 				timeBox.addItem(String.format("%1$tT", availableDate.get(i)));
+			}
 		}
 		add(timeBox);
 
 		final JComboBox docBox = new JComboBox();
 		docBox.setBounds(151, 276, 135, 20);
-		if(timeBox.getSelectedItem()!=null){
-			for(int i=0; i<uList.length; i++){
-				if(uList[i] instanceof Doctor){
-						Main.getDoctor().add((Doctor)uList[i]);
-							docBox.addItem(uList[i].getUserInformation().getName());
+		if (timeBox.getSelectedItem() != null) {
+			for (int i = 0; i < uList.length; i++) {
+				if (uList[i] instanceof Doctor) {
+					Main.getDoctor().add((Doctor) uList[i]);
+					docBox.addItem(uList[i].getUserInformation().getName());
 				}
 			}
 		}
@@ -161,40 +166,49 @@ public class SchedulePanel extends JPanel {
 		btnSubmit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JComponent successDialog = null;
+				final JComponent successDialog = null;
 				JOptionPane.showMessageDialog(successDialog,
 						"You have successfully scheduled an appointment!");
 
-				Appointment app = Main.getCurrentAppointment();
-				
+				final Appointment app = Main.getCurrentAppointment();
+
 				/* Finish setting up the appointment object */
-				app.setDesiredDoctor(Main.getDoctor().get(docBox.getSelectedIndex()));
+				app.setDesiredDoctor(Main.getDoctor().get(
+						docBox.getSelectedIndex()));
 				app.setDate(availableDate.get(dateBox.getSelectedIndex()));
 
 				/* Remove the date from the availabilities list */
-				app.getDesiredDoctor().getAvailabilities().remove(app.getDate());
-				
-				
+				app.getDesiredDoctor().getAvailabilities()
+						.remove(app.getDate());
+
 				app.getDesiredDoctor().addAppointment(app);
-				System.out.println(app.getDesiredDoctor().getCurrentAppointments());
+				System.out.println(app.getDesiredDoctor()
+						.getCurrentAppointments());
 				Main.getCurrentUser().addAppointment(app);
 				System.out.println(Main.getCurrentUser().getAppointmentList());
-				
-				app.getPatient().getCurrentAppointments().add(app);
-				
-				SqlDatabase db = Main.getDatabaseObject();
-				
-				db.canUpdateUser(db.getUserID(Main.getCurrentUser().getUserInformation().getName()), Main.getCurrentUser());
-				db.canUpdateUser(db.getUserID(app.getDesiredDoctor().getUserInformation().getName()), app.getDesiredDoctor());
-				
-				System.out.println(app.getDesiredDoctor().getUserInformation().getName());
 
-				ArrayList<Appointment> aplist = app.getDesiredDoctor().getAppointmentList();
-				
+				app.getPatient().getCurrentAppointments().add(app);
+
+				final SqlDatabase db = Main.getDatabaseObject();
+
+				db.canUpdateUser(
+						db.getUserID(Main.getCurrentUser().getUserInformation()
+								.getName()), Main.getCurrentUser());
+				db.canUpdateUser(
+						db.getUserID(app.getDesiredDoctor()
+								.getUserInformation().getName()),
+						app.getDesiredDoctor());
+
+				System.out.println(app.getDesiredDoctor().getUserInformation()
+						.getName());
+
+				final List<Appointment> aplist = app.getDesiredDoctor()
+						.getAppointmentList();
+
 				System.out.println(aplist);
-				
+
 				final AppointmentListPanel appWindow = new AppointmentListPanel();
-				
+
 				Main.getApplicationWindow().setFrame(appWindow,
 						appWindow.getTitle(), appWindow.getWidth(),
 						appWindow.getHeight());

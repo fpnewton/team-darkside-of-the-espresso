@@ -1,3 +1,5 @@
+/** The class LoginTest */
+
 package test;
 
 import java.util.Date;
@@ -11,11 +13,22 @@ import users.UserInfo;
 import database.SqlDatabase;
 
 
+/**
+ * 
+ * @author Fraser Newton
+ * @version 1.0
+ */
 public class LoginTest extends TestCase {
 	
-	LoginController login = new LoginController();
-	SqlDatabase db;
+	/** The login controller */
+	private final LoginController login = new LoginController();
 	
+	/** The database */
+	private SqlDatabase db;
+	
+	/**
+	 * Tests whether one can log in properly
+	 */
 	public void testLogin() {
 		
 		try {
@@ -24,8 +37,9 @@ public class LoginTest extends TestCase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Patient testPat = new Patient("fnewton3","password",GenderType.Male,
-				new UserInfo("Fraser Newton","Some Address","999999999","","",new Date()), 
+		final Patient testPat = new Patient("fnewton3", "password", GenderType.MALE,
+				new UserInfo("Fraser Newton", "Some Address",
+						"999999999", "", "", new Date()), 
 				new PatientInfo(18, "BCBS", "pharmacy", null, null));
 		
 		db.canInsertUser(testPat);
